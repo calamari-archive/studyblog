@@ -67,6 +67,8 @@ StudyBlog::Application.routes.draw do
   match '/setup'   => "users#setup", :as => "setup_user", :method => [:get, :post]
   match '/profile' => "users#profile", :as => "profile", :method => [:get, :post]
 
+  resources :conversations
+
   resources :private_messages do
     get '/reply'                  => "private_messages#reply",        :as => "reply"
   end

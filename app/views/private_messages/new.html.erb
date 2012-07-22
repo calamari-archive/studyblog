@@ -1,4 +1,6 @@
-<%= page_title('private_messages.new.header') %>
+<%= page_title('conversations.new.header') %>
+
+<%= render 'form', :hide_recipient => false, :action => converasations_path %>
 
 <%= render 'form', :hide_recipient => false, :action => private_messages_path %>
 

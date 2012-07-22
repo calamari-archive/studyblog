@@ -67,7 +67,7 @@
 <%- end -%>
 <%- unless @user.is_me?(current_user) || current_user.is_spectator? -%>
   <section class="actions">
-    <%= link_to t('actions.private_message.write'), new_user_private_message_path(@user), :class => 'action actions-message-add' %>
+    <%= link_to t('actions.private_message.write'), new_conversation_path(:user_id => @user), :class => 'action actions-message-add' %>
   </section>
 <%- end -%>
 

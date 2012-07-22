@@ -1,0 +1,26 @@
+<%= form_for @conversation do |f| %>
+  <ul class="form">
+    <%- unless hide_recipient %>
+      <li>
+        <%= f.label :recipient_id, t('private_messages.labels.recipient') %>
+        <%- if @recipient -%>
+          <%= f.hidden_field :recipient_id, { :value => @recipient.id } %>
+          <div class="text">
+            <%= @recipient.name %>
+          </div>
+        <%- else -%>
+          <%= f.select :recipient_id, @available_contacts %>
+        <%- end -%>
+      </li>
+    <%- end -%>
+    <li>
+      <%= f.label :content, t('conversations.labels.text') %>
+      <%# f.text_area :content, { :value => @message.content } %>
+      <textarea id="conversation_content" name="conversation[content]"><%= @message.content %></textarea>
+      <%= f.error_message_on :content %>
+    </li>
+  </ul>
+  <div class="actions">
+    <%= f.submit t('.submit') %>
+  </div>
+<% end %>

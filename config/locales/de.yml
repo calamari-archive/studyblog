@@ -367,6 +367,17 @@ de:
     types:
       plain:    "Einfaches Thema"
       question: "Fragemodul"
+  conversations:
+    labels:
+      content: "Nachricht:"
+    new:
+      header: "Private Nachricht schreiben"
+    form:
+      submit: "Nachricht absenden"
+    messages:
+      successful: "Nachricht an %{name} wurde versendet."
+      delete_not_your_own: "Du kannst keine fremde Nachricht löschen."
+      save_error:  "Konversation konnte nicht gespeichert werden."
   private_messages:
     message_reply_prefix: "RE: "
     messages:

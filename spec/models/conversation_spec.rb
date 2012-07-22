@@ -36,12 +36,18 @@ describe Conversation do
     it "has a read_by_b defaulting to false" do
       @conversation.read_by_b.should eql false
     end
+
+    it "has messages" do
+      @conversation.messages << Message.new
+      @conversation.messages.should have(1).item
+    end
   end
 
   context ".between" do
     before do
       @usera = FactoryGirl.create(:user)
       @userb = FactoryGirl.create(:user)
+      @userc = FactoryGirl.create(:user)
       FactoryGirl.create :conversation, :usera => @usera, :userb => @userb
     end
 
@@ -58,6 +64,29 @@ describe Conversation do
     it "accepts user intances" do
       conversation = Conversation.between(@usera, @userb)
       conversation.should be_instance_of(Conversation)
+    end
+
+    context "if it does not exist" do
+      before do
+        @conversation = Conversation.between(@usera, @userc)
+      end
+
+      it "creates Conversation " do
+        @conversation.should be_new_record
+      end
+
+      it "created conversation has first given user as usera" do
+        @conversation.usera.should eql @usera
+      end
+
+      it "created conversation has second given user as userb" do
+        @conversation.userb.should eql @userc
+      end
+
+      it "creates Conversation although changed order" do
+        conversation = Conversation.between(@userc, @userb)
+        conversation.should be_new_record
+      end
     end
   end
 

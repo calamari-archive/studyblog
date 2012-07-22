@@ -1,8 +1,14 @@
-/** Private Messages
+/** Conversations
  =================================================== */
 h3.conversation {
   margin-top: 40px;
   text-align: center;
+}
+
+.new_conversation {
+  textarea {
+    height: 140px;
+  }
 }
 
 .pm {

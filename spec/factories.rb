@@ -81,4 +81,14 @@ FactoryGirl.define do
     recipient { FactoryGirl.create(:user) }
     author { FactoryGirl.create(:user) }
   end
+
+  factory :message do
+    author { FactoryGirl.create(:user) }
+    content "I am a test message"
+  end
+
+  factory :conversation do
+    usera { FactoryGirl.create(:user) }
+    userb { FactoryGirl.create(:user) }
+  end
 end

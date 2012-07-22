@@ -5,7 +5,7 @@ class Conversation < ActiveRecord::Base
 
   attr_accessible :read_by_a, :read_by_b, :usera_id, :userb_id
 
-  validates_presence_of :usera_id, :userb_id
+  validates_presence_of :usera_id, :userb_id, :subject
 
   scope :of, lambda {|user| where('usera_id = :user_id OR userb_id = :user_id', :user_id => user.to_param)}
 

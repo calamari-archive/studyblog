@@ -14,6 +14,16 @@ describe Conversation do
     it "needs a userb" do
       @conversation.should have(1).error_on(:userb_id)
     end
+
+    it "needs a subject" do
+      @conversation.should have(1).error_on(:subject)
+    end
+
+    it "subject may not be empty" do
+      @conversation.subject = '  '
+      @conversation.valid?
+      @conversation.should have(1).error_on(:subject)
+    end
   end
 
   context "attributes" do

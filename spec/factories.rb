@@ -88,6 +88,7 @@ FactoryGirl.define do
   end
 
   factory :conversation do
+    subject "test conversation"
     usera { FactoryGirl.create(:user) }
     userb { FactoryGirl.create(:user) }
   end

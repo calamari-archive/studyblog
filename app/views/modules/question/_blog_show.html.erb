@@ -2,7 +2,7 @@
   <%- if module_answer.question_module.question_type == 'free_text' -%>
     <%= emoticons entry_html module_answer.answers %>
   <%- elsif module_answer.question_module.question_type == 'likert' -%>
-    <table class="likert-table full-table">
+    <table class="likert-table display full-table">
       <thead>
         <tr>
           <td></td>
@@ -19,7 +19,8 @@
             <td class="options"><%= answer %></td>
             <%- module_answer.question_module.number_steps.times do |i| -%>
               <td class="checkbox">
-                <input type="radio" name="<%= answer_index %>" <%= module_answer.answer_array[answer_index].to_i == i ? 'checked' : '' %> readonly>
+                <span class="box <%= module_answer.answer_array[answer_index].to_i == i ? 'checked' : '' %>"></span>
+                <!--input type="radio" name="<%= answer_index %>" <%= module_answer.answer_array[answer_index].to_i == i ? 'checked' : '' %> readonly-->
               </td>
             <%- end -%>
           </tr>

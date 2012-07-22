@@ -21,6 +21,22 @@ input.question-extremes {
   }
   .checkbox {
     text-align: center;
+    padding: 2px 3px 0;
     width: 5%;
+  }
+
+  &.display {
+    .box {
+      background: $color-white;
+      border: 1px solid $color-action;
+      @include box-shadow(1px 1px 6px $color-shadow);
+      display: inline-block;
+      margin-top: 2px;
+      width: 12px;
+      height: 12px;
+    }
+    .checked.box {
+      background: $color-accent;
+    }
   }
 }

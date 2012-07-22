@@ -107,4 +107,25 @@ describe Conversation do
       conversations.should have(2).items
     end
   end
+
+  context ".read_by" do
+    before do
+      @usera = FactoryGirl.create(:user)
+      @userb = FactoryGirl.create(:user)
+      @userc = FactoryGirl.create(:user)
+      @conversation = FactoryGirl.create :conversation, :usera => @usera, :userb => @userb, :read_by_a => true
+    end
+
+    it "returns true if read by this user" do
+      @conversation.read_by(@usera).should be true
+    end
+
+    it "returns false if unread by this user" do
+      @conversation.read_by(@userb).should be false
+    end
+
+    it "returns false if user is not part of conversation" do
+      @conversation.read_by(@userc).should be false
+    end
+   end
 end

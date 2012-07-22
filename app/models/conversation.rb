@@ -14,4 +14,14 @@ class Conversation < ActiveRecord::Base
     conversation = Conversation.new :usera_id => a.to_param, :userb_id => b.to_param if conversation.nil?
     conversation
   end
+
+  def read_by(user)
+    if usera_id == user.id
+      read_by_a
+    elsif userb_id == user.id
+      read_by_b
+    else
+      false
+    end
+  end
 end

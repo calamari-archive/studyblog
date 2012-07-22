@@ -1,0 +1,68 @@
+<%- content_for :stylesheets do -%>
+  <%= stylesheet_link_tag 'pages/timeline' %>
+<%- end -%>
+<%= page_title('groups.timeline.header', :group => @group.title) %>
+
+<%- if @group.study.has_started? -%>
+	<%- if @group.has_groupblog? -%>
+    <%= link_to t('.link_to_groupblog'), group_blog_path(@group) %>
+	<%- end -%>
+  <div class="timeline">
+  	<%- @group.participants.each do |user| -%>
+  	<% user_entries = @group.groupblog.entries.select {|e| e.author == user } if @group.has_groupblog? %>
+  	<% user_comments = @group.groupblog.comments.select {|e| e.author == user } if @group.has_groupblog? %>
+  	<div class="user">
+  		<div class="userinfo">
+  			<%= display_user user, :size => :small %>
+  			<%= link_to t('.link_to_blog'), blog_path(user.blog) if user.has_blog? %>
+  		</div>
+  		<ul class="articles">
+  			<%- (@group.has_groupblog? ? user_entries : user.blog_entries).each do |entry| -%>
+  				<li class="entry" data-time="<%= javascript_time entry.created_at %>" data-id="<%= entry.id %>">
+  					<h3><%= entry.title %></h3>
+  					<span class="date"><%=l entry.created_at %></span>
+  				</li>
+  			<%- end -%>
+  		</ul>
+  		<ul class="comments">
+  			<%- (@group.has_groupblog? ? user_comments : user.blog_comments).each do |comment| %>
+  				<li class="entry" data-time="<%= javascript_time comment.created_at %>" data-entryid="<%= comment.id %>">
+  					<div class="data">
+  						<div class="text">
+                <%= entry_html comment.text %>
+  						</div>
+              <span class="date"><%=l comment.created_at %></span>
+  					</div>
+  				</li>
+      	<%- end -%>
+  		</ul>
+  	</div>
+  	<%- end -%>
+  	<ul class="topics">
+    	<%- @group.topics.each do |topic| %>
+    	  <li class="entry" data-title="<%= topic.title %>" data-time="<%= javascript_time topic.created_at %>" data-id="<%= topic.id %>">
+    	    <%= topic.title %>
+    	    <span class="time"><%=l topic.created_at %></span>
+    	  </li>
+    	<%- end -%>
+  	</ul>
+  </div>
+
+  <%= javascript_include_tag "timeline" %>
+  <script>
+    $(document).ready(function() {
+    	new Timeline($('.timeline'), {
+    		dayInPixel: 250,
+    		offset: 100,
+    		startTime: <%= javascript_time @group.study.start_date %>,
+    		endTime: <%= javascript_time @group.study.end_date %>,
+    		days: <%= @group.study.duration %>,
+    		texts: {
+    		  dayRulers: '<%=t '.days' %>'
+    		}
+    	});
+    });
+  </script>
+<%- else -%>
+  <p><%=t '.study_not_started' %></p>
+<%- end -%>

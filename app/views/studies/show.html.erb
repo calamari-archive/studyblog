@@ -1,0 +1,150 @@
+<%= page_title 'studies.show.header' %>
+<h2><%=t 'studies.attributes.title' %>: <%= kern @study.title %></h2>
+
+<section class="entity-description">
+  <dl id="show-study" class="display">
+    <dt class="label"><%=t 'studies.attributes.start_day' + (!@study.is_activated? ? '_planned' : '') %>:</dt>
+    <dd class="text<%= !@study.is_activated? && @study.start_date < Time.now ? ' error' : '' %>"><%=l @study.start_day.to_date if @study.start_day %></dd>
+
+    <dt class="label"><%=t 'studies.attributes.end_day' + (!@study.is_activated? ? '_planned' : '') %>:</dt>
+    <dd class="text<%= !@study.is_activated? && (@study.end_date < @study.start_date || @study.end_date < Time.now) ? ' error' : '' %>"><%=l @study.end_day.to_date if @study.end_day %></dd>
+
+    <%- if @study.duration -%>
+      <dt class="label"><%=t 'studies.attributes.duration' %>:</dt>
+      <dd class="text"><%=t 'studies.show.duration', :count => @study.duration %></dd>
+    <%- end -%>
+    <%- if @study.is_activated? -%>
+      <dt class="label"><%=t 'studies.attributes.status' %>:</dt>
+      <dd class="text"><%=t 'studies.attributes.activated_long' %></dd>
+    <%- end -%>
+
+    <dt class="label"><%=t 'studies.attributes.description' %>:</dt>
+    <dd class="text"><%= simple_format @study.description %></dd>
+
+    <%- unless @study.is_activated? -%>
+      <dd><%= link_to t('actions.edit_details'), edit_study_path(@study), 'data-toggle' => 'edit-study', 'data-toggle-hide' => 'show-study', :class => 'action actions-study-edit' %></dd>
+    <%- end -%>
+  </dl>
+  <%- unless @study.is_activated? -%>
+    <div id="edit-study" class="edit" style="display: none">
+      <%= render 'form' %>
+    </div>
+  <%- end -%>
+</section>
+
+<%- unless @study.is_activated? -%>
+  <section class="col5050">
+    <h3><%=t 'studies.headers.actions' %></h3>
+    <ul class="action-list">
+      <%- if (@study.is_activatable?) -%>
+        <li><%= link_to t('studies.buttons.activate'), activate_study_path(@study.id), :confirm => t('dialogs.activate.study'), :method => 'post', :class => 'action no-icon' %></li>
+      <%- end -%>
+      <li><%= link_to t('studies.buttons.new_group'), new_group_path(@study), :class => 'action actions-group-add' %></li>
+      <%- if (@study.mailing_defined?) -%>
+        <li><%= link_to t('studies.buttons.edit_mailing'), edit_study_mailing_path(@study, @study.mailing), :class => 'action actions-mailing-edit' %></li>
+      <%- else -%>
+        <li><%= link_to t('studies.buttons.create_mailing'), new_study_mailing_path(@study) %></li>
+      <%- end -%>
+    </ul>
+  </section>
+  <%- if (!@study.is_activatable? && !@study.is_activated?) -%>
+    <section class="col5050 action-hints">
+      <p class="hint"><%=t '.explain_activation' %></p>
+    </section>
+  <%- end -%>
+<%- end -%>
+
+<%- unless @study.spectators.empty? -%>
+<section class="col5050">
+  <h3><%=t '.spectators' %></h3>
+  <ul>
+    <%- @study.spectators.each do |spectator| %>
+      <li><%= spectator.fullname || spectator.name %> &lt;<%= spectator.email %>&gt; <%= link_to t('actions.delete'), delete_spectator_path(spectator), :confirm => t('dialogs.delete.spectator'), :method =>:delete, :class => 'action-icon actions-delete-icon' %></li>
+    <%- end -%>
+  </ul>
+  <%- unless @study.has_ended? -%>
+    <%= link_to t('studies.buttons.add_spectator'), new_spectator_path(@study), :class => 'action actions-spectator-add' %>
+  <%- end -%>
+</section>
+<%- end -%>
+
+<h3 class="clr"><%=t 'studies.attributes.groups' %>:</h3>
+<%- if @study.groups.length == 0 -%>
+  <p><%=t 'studies.no_groups' %></p>
+<%- end -%>
+
+<%- @study.groups.each do |group| -%>
+  <section class="callout clfx group">
+    <h3><%= kern group.title %></h3>
+    <% if group.description %><p><%= simple_format group.description %></p><% end %>
+    <div class="col5050">
+      <h4><%=t 'groups.show.attributes' %></h4>
+      <ul class="attribute-list">
+        <% if group.has_groupblog %>
+          <li><%=t 'groups.descriptives.has_groupblog' %></li>
+        <% end %>
+        <% if group.has_singleblogs %>
+          <li><%=t 'groups.descriptives.has_singleblogs' %></li>
+        <% end %>
+        <% if group.are_commentable %>
+          <li><%=t 'groups.descriptives.are_commentable' %></li>
+        <% end %>
+        <% if group.can_user_see_eachother %>
+          <li><%=t 'groups.descriptives.can_user_see_eachother' %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col5050">
+      <h4><%=t 'groups.show.participants' %></h4>
+      <% if group.participants.length == 0 %>
+        <p><%=t 'studies.group_has_no_users' %></p>
+      <% else %>
+        <ul>
+          <% group.participants.each do |user| %>
+            <li>
+              <%= user.fullname || user.name %> &lt;<%= user.email %>&gt;
+              <%- if user.is_setup? -%>
+                <%= link_to t('.participants.profile'), user_path(user), :class => 'action-icon actions-profile-icon' %>
+              <%- else -%>
+                [<%=t '.participants.never_logged_in' %>]
+              <%- end -%>
+              <% if user.has_blog? %><%= link_to t('.participants.blog'), blog_path(user.blog), :class => 'action-icon actions-blog-icon' %><% end %>
+              <% unless @study.is_activated? %>[<%= link_to t('actions.delete'), delete_participant_path(user), :confirm => t('dialogs.delete.participant'), :method => :delete %>]<% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%- if @study.is_activated? -%>
+          <%= link_to t('.group_blog'), group_blog_path(group), :class => 'action actions-blog' if group.has_groupblog %>
+        <%- end -%>
+      <% end %>
+    </div>
+    <div class="col5050 clr">
+      <ul class="clr action-list">
+        <%- unless @study.is_activated? -%>
+          <li><%= link_to t('studies.buttons.add_participant'), new_participant_path(group), :class => 'action actions-participant-add' %></li>
+          <li><%= link_to t('actions.group.delete'), group_path(group.study, group), :confirm => t('dialogs.delete.group'), :method => :delete, :class => 'action actions-group-del' %></li>
+        <%- end -%>
+        <%- unless @study.has_ended? -%>
+          <li><%= link_to t('actions.group.edit_startpage'), group_edit_startpage_path(group), :class => 'action actions-group-startpage' %></li>
+        <%- end -%>
+        <%- if @study.has_started? -%>
+          <li><%= link_to t('actions.group.timeline'), group_timeline_path(group), :class => 'action actions-group-timeline' %></li>
+          <li><%= link_to t('actions.group.summary'), group_summary_path(group), :class => 'action actions-group-summary' %></li>
+        <%- end -%>
+      </ul>
+    </div>
+
+    <div class="col5050">
+      <h4><%=t '.topics.header' %></h4>
+      <% if group.topics %>
+        <ul>
+          <% group.topics.each do |topic| %>
+            <li><%= topic.title %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= link_to t(group.topics.empty? ? '.topics.add' : '.topics.change'), new_group_topic_path(group), :class => 'action actions-topic-add' %>
+    </div>
+    <p class="clr"></p>
+  </section>
+<%- end -%>

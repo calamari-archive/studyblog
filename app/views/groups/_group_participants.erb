@@ -1,0 +1,15 @@
+<%- if group && group.can_user_see_eachother && !group.study.nil? && group.study.is_running? -%>
+  <section>
+    <h2><%=t current_user.is_participant? ? '.participant_header' : '.moderator_header' %></h2>
+    <ul>
+      <%- group.participants.each do |p| -%>
+        <%- if p != current_user -%>
+          <li>
+            <%= display_name p %>
+            <%= link_to t('.blog'), blog_path(p.blog) if p.has_blog? and p.is_setup? and p.blog.permitted_to_read? current_user %>
+          </li>
+        <%- end -%>
+      <%- end -%>
+    </ul>
+  </section>
+<%- end -%>

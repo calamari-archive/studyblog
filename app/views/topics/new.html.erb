@@ -1,0 +1,22 @@
+<%= form_for [@group, Topic.new] do |f| %>
+  <h1><%=t '.header' %></h1>
+  <p>
+    <%= f.label :title, t('topics.labels.title') %>
+    <%= f.text_field :title %>
+  </p>
+
+  <span class="label"><%=t 'topics.labels.moduletype' %></span>
+  <div class="text">
+    <%=t 'topics.types.plain' %><br>
+    <%=t '.or' %>
+    <ul>
+      <%- available_blog_modules.each do |module_type| -%>
+        <li><%= link_to t('topics.types.' + module_type), group_new_module_path(:group_id => @group, :module_type => module_type) %></li>
+      <%- end -%>
+    </ul>
+  </div>
+
+  <div>
+    <%= f.submit t('actions.topic.submit') %>
+  </div>
+<% end %>

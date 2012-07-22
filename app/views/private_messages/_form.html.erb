@@ -1,0 +1,33 @@
+<%= form_for(@private_message, :url => action) do |f| %>
+  <%- if hide_recipient %>
+    <%= f.hidden_field :recipient_id, { :value => @recipient.id } %>
+  <%- end -%>
+  <ul class="form">
+    <%- unless hide_recipient %>
+      <li>
+        <%= f.label :recipient_id, t('private_messages.labels.recipient') %>
+        <%- if @recipient -%>
+          <%= f.hidden_field :recipient_id, { :value => @recipient.id } %>
+          <div class="text">
+            <%= @recipient.name %>
+          </div>
+        <%- else -%>
+          <%= f.select :recipient_id, @available_contacts %>
+        <%- end -%>
+      </li>
+    <%- end -%>
+    <li>
+      <%= f.label :subject, t('private_messages.labels.subject') %>
+      <%= f.text_field :subject, :autofocus => true %>
+      <%= f.error_message_on :subject %>
+    </li>
+    <li>
+      <%= f.label :text, t('private_messages.labels.text') %>
+      <%= f.text_area :text %>
+      <%= f.error_message_on :text %>
+    </li>
+  </ul>
+  <div class="actions">
+    <%= f.submit t('.submit') %>
+  </div>
+<% end %>

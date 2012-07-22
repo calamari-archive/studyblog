@@ -1,0 +1,100 @@
+/** Form Elements
+ =================================================== */
+.form {
+  li {
+    padding-bottom: 6px;
+  }
+
+  .actions {
+    margin-top: 14px;
+  }
+}
+
+.field_with_errors {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.label {
+  clear: left;
+  display: inline-block;
+  padding: 6px 0;
+  vertical-align: top;
+  width: 200px;
+}
+
+.text {
+  display: inline-block;
+}
+
+.text,
+input[type=text],
+input[type=password],
+textarea {
+  margin-right: 100px; /* to make it clear the next element*/
+  padding: 6px 10px;
+  width: 300px;
+}
+
+span.text,
+div.text {
+  padding: 6px 0;
+}
+
+dl .text {
+  margin-right: 200px; /* to make it clear the next element*/
+}
+
+#profile-page dl .text {
+  margin: 0;
+}
+
+textarea.fullsize,
+.fullsize {
+  width: 700px;
+}
+
+textarea.fullsize {
+  min-height: 150px;
+}
+
+input.placeholder {
+  color: $color-hint;
+}
+
+.info,
+.hint {
+  color: $color-hint;
+}
+
+/** Form Error messages
+ =================================================== */
+.formError {
+  color: $color-error;
+  margin: 6px 0 0 203px;
+  width: 322px;
+}
+
+.fullsize-error {
+  @extend .formError;
+  margin-left: 0;
+}
+
+.field_with_errors input {
+  border: 1px solid $color-error;
+}
+
+
+/** Form Ajax messages
+ =================================================== */
+.input-success {
+  border: 1px solid #70C070;
+  padding: 3px 10px;
+  background: #DFD;
+  border-radius: 5px;
+}
+.input-error {
+  @extend .input-success;
+  border-color: $color-error;
+  background: lighten($color-error, 64%);
+}

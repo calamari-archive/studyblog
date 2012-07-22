@@ -1,0 +1,27 @@
+<%= form_for(@group) do |f| %>
+  <ul class="form">
+    <li>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+      <%= f.error_message_on :title %>
+    </li>
+    <li>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+      <%= f.error_message_on :description %>
+    </li>
+    <li>
+      <ul class="checkbox-list">
+        <li><%= f.check_box :has_groupblog %> <%= f.plain_label :has_groupblog %></li>
+        <li><%= f.check_box :has_singleblogs %> <%= f.plain_label :has_singleblogs %></li>
+        <li><%= f.check_box :are_commentable %> <%= f.plain_label :are_commentable %></li>
+        <li><%= f.check_box :can_user_see_eachother %> <%= f.plain_label :can_user_see_eachother %></li>
+      </ul>
+      <%= f.error_message_on :group_attributes, :css_class => 'formError fullsize-error' %>
+    </li>
+    <li class="actions">
+      <%= f.submit t('.submit') %>
+      <%= link_to t('actions.cancel'), study_path(@study) %>
+    </li>
+  </ul>
+<% end %>

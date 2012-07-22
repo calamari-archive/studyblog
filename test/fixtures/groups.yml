@@ -1,0 +1,30 @@
+
+groupOfActivatableStudy:
+  title: bla
+  study: activatableStudy
+
+
+group_in_closed_study:
+  title: title of group_in_closed_study
+  study: endedStudy
+
+group_in_running_study:
+  title: title of group_in_running_study
+  study: running_study
+
+group_in_active_study:
+  title: title of group_in_active_study
+  study: active_study
+
+group_in_preparing_study:
+  title: title of group_in_preparing_study
+  study: preparing_study
+
+# used in topic_test
+group_with_topics:
+  title: A group with topics
+  study: topic_test_study
+
+group_for_topic_test:
+  title: A group to test topics
+  study: group_for_topic_test_study

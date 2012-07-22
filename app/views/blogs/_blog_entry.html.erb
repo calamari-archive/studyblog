@@ -1,0 +1,9 @@
+<div class="post">
+  <h3><%= sanitize entry.title %></h3>
+  <%= emoticons entry_html entry.text %>
+</div>
+<div class="meta">
+  <%= display_user entry.author, :size => :medium %>
+  <%=l entry.created_at.to_date %>
+</div>
+<%= render 'comments', :blog => @blog, :entry => entry %>

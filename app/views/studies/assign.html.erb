@@ -1,0 +1,9 @@
+<h1><%=t '.header' %></h1>
+
+<p><strong><%=t 'study.labels.title' %></strong> <%= @study.title %></p>
+
+<%= form_for assign_study_path(@study) do |f| %>
+  <%= select :study, :moderator, @moderators %>
+
+  <%= f.submit t('studies.buttons.assign') %>
+<% end %>

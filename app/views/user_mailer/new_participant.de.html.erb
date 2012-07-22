@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>Hallo <%= @user.name %>!</h1>
+
+  <p>Hiermit erhälst du Zugang zur Blogvision-Studie "<%= @study.title %>".</p>
+
+  <div>
+    Deine Zugangsdaten lauten:<br>
+    Login: <%= @user.username %><br>
+    Password: <%= @user.password %>
+  </div>
+
+  <p>Du kannst dich damit unter <%= login_url %> einloggen.</p>
+
+  <p>
+    Mit freundlichen Grüßen,<br>
+    Dein Blogvision-Team
+  </p>
+</body>
+</html>

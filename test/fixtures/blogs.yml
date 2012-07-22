@@ -1,0 +1,26 @@
+
+blog_in_closed_study:
+  group: group_in_closed_study
+
+blog_in_running_study:
+  group: group_in_running_study
+  user: participant_and_blog_owner
+
+blog_in_active_study:
+  group: group_in_active_study
+
+blog_in_preparing_study:
+  group: group_in_preparing_study
+
+# topic_test.rb
+blog_with_topics1:
+  user: user_with_blog_and_topics1
+  group: group_with_topics
+
+blog_with_topics2:
+  user: user_with_blog_and_topics2
+  group: group_with_topics
+
+blog_for_topic_test:
+  user: user_for_topic_test
+  group: group_for_topic_test

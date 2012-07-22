@@ -1,0 +1,29 @@
+.ui-datepicker {
+  background: $color-white;
+  border: $border-light;
+  @include box-shadow();
+  display: none;
+  padding: 2px;
+
+  td {
+    text-align: right;
+  }
+}
+
+.ui-datepicker-header {
+  text-align: center;
+}
+
+.ui-datepicker-current-day {
+  background: $color-light;
+}
+
+.ui-datepicker-prev {
+  position: absolute;
+  left: 2px;
+}
+
+.ui-datepicker-next {
+  position: absolute;
+  right: 2px;
+}

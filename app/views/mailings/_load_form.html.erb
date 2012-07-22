@@ -1,0 +1,7 @@
+<%= form_tag study_load_mailing_path do %>
+  <p>
+    <%= label :mailing, t('mailings.labels.mailing') %>
+    <%= select_tag :mailing, options_for_select(@available_mailings, @mailing ? @mailing.id : nil) %>
+    <button type="submit"><%=t 'mailings.buttons.load' %></button>
+  </p>
+<%- end -%>

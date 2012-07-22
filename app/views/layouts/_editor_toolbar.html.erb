@@ -1,0 +1,52 @@
+<div id="toolbar" style="display: none;" class="editor-toolbar">
+  <div class="icons">
+    <a tabindex="-1" class="editor-h1" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">h1</a>
+    <a tabindex="-1" class="editor-h2 spacer" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h4">h2</a>
+    <a tabindex="-1" class="editor-bold" data-wysihtml5-command="bold" title="CTRL+B">bold</a>
+    <a tabindex="-1" class="editor-italic spacer" data-wysihtml5-command="italic" title="CTRL+I">italic</a>
+    <a tabindex="-1" class="editor-anchor" data-wysihtml5-command="createLink">insert link</a>
+    <%- if show_images -%>
+      <a tabindex="-1" class="editor-image spacer" data-wysihtml5-command="insertImage">insert image</a>
+    <%- end -%>
+    <a tabindex="-1" class="editor-ul" data-wysihtml5-command="insertUnorderedList">UL</a>
+    <a tabindex="-1" class="editor-ol" data-wysihtml5-command="insertOrderedList">OL</a>
+  </div>
+
+  <div class="wysihtml-dialog" data-wysihtml5-dialog="createLink" style="display: none;">
+    <label class="label"><%=t 'wysihtml_editor.texts.link' %></label>
+    <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+    <div class="actions">
+      <button data-wysihtml5-dialog-action="save"><%=t 'wysihtml_editor.texts.ok' %></button> <a data-wysihtml5-dialog-action="cancel"><%=t 'wysihtml_editor.texts.cancel' %></a>
+    </div>
+  </div>
+
+  <%- if show_images -%>
+    <div class="wysihtml-dialog" data-wysihtml5-dialog="insertImage" style="display: none;">
+      <div class="uploader">
+        <label class="label"><%=t 'wysihtml_editor.image.texts.net' %></label>
+        <input data-wysihtml5-dialog-field="src" value="http://" class="text">
+        <label class="label"><%=t 'wysihtml_editor.image.texts.upload' %></label>
+        <div class="text">
+          <div class="fileupload">
+            <input type="file" class="file" name="image[image]" id="image-upload" accept="image/jpeg,image/gif,image/png">
+            <button id="image-upload-button" data-moretext="<%=t 'wysihtml_editor.image.texts.image_upload_button_more' %>"><%=t 'wysihtml_editor.image.texts.image_upload_button' %></button>
+          </div>
+          <span class="spinner" style="display: none"><%=t 'wysihtml_editor.image.texts.loading_text' %></span>
+          <span class="input-error" style="display: none"><%=t 'wysihtml_editor.image.texts.add_image_failed' %></span>
+          <span class="input-success" style="display: none"><%=t 'wysihtml_editor.image.texts.image_added' %></span>
+        </div>
+      </div>
+      <label>
+        <label class="label"><%=t 'wysihtml_editor.image.texts.alignment' %></label>
+        <select data-wysihtml5-dialog-field="className" class="text">
+          <option value=""><%=t 'wysihtml_editor.image.alignment.default' %></option>
+          <option value="wysiwyg-float-left"><%=t 'wysihtml_editor.image.alignment.left' %></option>
+          <option value="wysiwyg-float-right"><%=t 'wysihtml_editor.image.alignment.right' %></option>
+        </select>
+      </label>
+      <div class="actions">
+        <button data-wysihtml5-dialog-action="save"><%=t 'wysihtml_editor.texts.ok' %></button> <a data-wysihtml5-dialog-action="cancel"><%=t 'wysihtml_editor.texts.cancel' %></a>
+      </div>
+    </div>
+  <%- end -%>
+</div>

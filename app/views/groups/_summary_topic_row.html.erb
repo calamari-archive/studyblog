@@ -1,0 +1,22 @@
+<%- entries = topic_entries.select {|entry| entry.author == user }  -%>
+<td>
+  <%- if topic && topic.is_module? && entries.empty? -%>
+    <span class="not-done"><%=t 'groups.summary.modules.not_done_yet' %></span>
+  <%- else -%>
+    <ul>
+      <%- if topic && topic.is_module? -%>
+        <li>
+          <strong><%= link_to t('.modules.done'), @group.has_groupblog? ? group_blog_path(@group, :anchor => 'entry-' + entries[0].id.to_s) : blog_path(user.blog, :anchor => 'entry-' + entries[0].id.to_s) %></strong> <!-- evtl. kurzstatistiken des modules anzeigen? -->
+          <%=t '.comments', :count => entries[0].comments.count %>
+        </li>
+      <%- else -%>
+        <%- entries.each do |entry| %>
+          <li>
+            <strong><%= link_to entry.title, @group.has_groupblog? ? group_blog_path(@group, :anchor => 'entry-' + entry.id.to_s) : blog_path(user.blog, :anchor => 'entry-' + entry.id.to_s) %></strong>
+            <%=t '.comments', :count => entry.comments.count %>
+          </li>
+        <%- end -%>
+      <%- end -%>
+    </ul>
+  <%- end -%>
+</td>

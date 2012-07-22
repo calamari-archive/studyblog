@@ -1,0 +1,47 @@
+adminOne:
+  title: An admin study
+  description: Some description
+  start_date: <%= Time.now + 1.days %>
+  end_date: <%= Time.now + 15.days %>
+
+adminTwo:
+  title: Another admin study
+  description: Some description
+
+moderatorOne:
+  title: A study worth million mods
+  description: Some description?
+  moderator: mod1
+
+moderatorTwo:
+  title: A study worth another million mods
+  moderator: mod2
+
+activatableStudy:
+  title: Activate me
+  moderator: mod2
+  start_date: <%= Time.now + 1.days %>
+  end_date: <%= Time.now + 15.days %>
+
+endedStudy:
+  title: done
+  activated: true
+  start_date: <%= Time.now - 15.days %>
+  end_date: <%= Time.now - 1.days %>
+
+running_study:
+  title: a running study
+  activated: true
+  start_date: <%= Time.now - 1.days %>
+  end_date: <%= Time.now + 12.days %>
+  moderator: mod3
+
+active_study:
+  title: an active study
+  activated: true
+
+preparing_study:
+  title: some study in preparation
+
+topic_test_study:
+  title: topic_test_study

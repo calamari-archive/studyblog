@@ -1,0 +1,29 @@
+@import "base";
+
+/** lists
+ =================================================== */
+.attribute-list {
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.attribute-list li {
+  list-style-type: circle;
+}
+
+.entity-description {
+  border: $border-light;
+  padding: 0 10px;
+
+  @include box-shadow(0 2px 2px lighten($color-shadow, 30%));
+
+  dt {
+    font-weight: bold;
+  }
+}
+
+.actions {
+  li {
+    padding: 3px 0;
+  }
+}

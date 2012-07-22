@@ -1,0 +1,136 @@
+@import "base";
+
+/** Basic font settings
+ =================================================== */
+body {
+  line-height: 1.4;
+  font: {
+    family: $sans-serif-fonts;
+    size: 14px;
+  }
+}
+
+h1, h2, h3 {
+  font-family: $serif-fonts;
+}
+
+h1 {
+  font-size: 28px;
+  padding: 4px 0 16px;
+}
+
+h2 {
+  font-size: 22px;
+  padding: 4px 0 12px;
+}
+
+h3 {
+  font-size: 18px;
+  padding: 4px 0 10px;
+}
+
+h4 {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 2px 0 4px;
+}
+
+p {
+  padding-bottom: 10px;
+}
+
+pre {
+  font-family: $monospace-fonts;
+}
+
+abbr {
+  letter-spacing: .1em;
+}
+
+/* Used for letterpairs Ta Wo in headlines */
+.kern {
+  letter-spacing: -.1em;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $color-dark;
+  text-decoration: underline;
+}
+
+strong, .bold {
+  font-weight: bold;
+}
+
+.error {
+  color: #b00;
+}
+
+.error-message {
+  color: #b00;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+.col5050 {
+  float: left;
+  margin: 0 1% 14px 0;
+  width: 49%;
+}
+
+.clr {
+  clear: both;
+}
+
+.clfx:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.center {
+  text-align: center;
+}
+
+.actions {
+  clear: left;
+}
+
+/** Emoticons
+ =================================================== */
+.emo {
+  vertical-align: text-bottom;
+}
+
+
+/** Messages
+ =================================================== */
+.success-message {
+  color: #090;
+  text-align: center;
+}
+
+/** Errors
+  =================================================== */
+#error {
+  color: #b00;
+}
+
+
+
+/** Layer stuff (TODO: make that really nice)
+ =================================================== */
+.layer {
+	background: #fff;
+	position: absolute;
+	border: 1px solid #bbb;
+	-moz-border-radius: 5px;
+	z-index: 100;
+}
+

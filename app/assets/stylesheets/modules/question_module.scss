@@ -1,0 +1,26 @@
+/** Question-Module - Likert Scale
+ =================================================== */
+input.question-extremes {
+  margin-right: 10px;
+  width: 110px;
+}
+
+.likert-table {
+  width: 100%;
+
+  .left-extreme {
+    whitespace: nowrap;
+  }
+  .right-extreme {
+    text-align: right;
+    whitespace: nowrap;
+  }
+
+  .options {
+    width: 30%;
+  }
+  .checkbox {
+    text-align: center;
+    width: 5%;
+  }
+}

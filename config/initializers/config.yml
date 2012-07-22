@@ -1,0 +1,13 @@
+users:
+  image:
+    dir:    "images/profile"
+    types:  "image/jpeg image/png image/gif"
+blogs:
+  image:
+    dir:    "images/profile"
+    types:  "image/jpeg image/png image/gif"
+blog_modules:
+  types: ["question"]
+mails:
+  from:
+    no_reply: "no-reply@blog-visoin.de"

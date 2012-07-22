@@ -1,0 +1,100 @@
+admin:
+  username: admin
+  crypted_password: qwertz
+  password_salt: pepper
+  email: what@wg.com
+  role: admin
+
+admin2:
+  username: admin2
+  crypted_password: qwertz
+  password_salt: pepper
+  email: admin2@wg.com
+  role: admin
+
+mod1:
+  username: moderator1
+  crypted_password: qwertz
+  password_salt: pepper
+  email: mod1@study.com
+  role: moderator
+
+mod2:
+  username: moderator2
+  crypted_password: qwertz
+  password_salt: pepper
+  email: mod2@study.com
+  role: moderator
+
+mod3:
+  username: moderator3
+  crypted_password: qwertz
+  password_salt: pepper
+  email: mod3@study.com
+  role: moderator
+
+participantOfActivatableGroup:
+  username: participantOfActivatableGroup1
+  crypted_password: qwertz
+  password_salt: pepper
+  email: participantOfActivatableGroup@study.com
+  role: participant
+  group: groupOfActivatableStudy
+
+
+participant_and_blog_owner:
+  username: participant_and_blog_owner
+  crypted_password: qwertz
+  password_salt: pepper
+  email: participant_and_blog_owner@study.com
+  role: participant
+  group: group_in_running_study
+
+participant_without_blog:
+  username: participant_without_blog
+  crypted_password: qwertz
+  password_salt: pepper
+  email: participant_without_blog@study.com
+  role: participant
+  group: group_in_running_study
+
+# used for topic_test.rb
+user_with_blog_and_topics1:
+  username: participant_without_blog
+  crypted_password: qwertz
+  password_salt: pepper
+  email: user_with_blog_and_topics1@study.com
+  role: participant
+  group: group_with_topics
+
+user_with_blog_and_topics2:
+  username: user_with_blog_and_topics2
+  crypted_password: qwertz
+  password_salt: pepper
+  email: user_with_blog_and_topics2@study.com
+  role: participant
+  group: group_with_topics
+
+user_for_topic_test:
+  username: user_for_topic_test
+  crypted_password: qwertz
+  password_salt: pepper
+  email: user_for_topic_test@study.com
+  role: participant
+  group: group_for_topic_test
+
+spectator_for_running_study:
+  username: spectator_for_running_study
+  crypted_password: qwertz
+  password_salt: pepper
+  email: spectator_for_running_study@study.com
+  role: spectator
+  group: group_in_running_study
+
+spectator2_for_running_study:
+  username: spectator2_for_running_study
+  crypted_password: qwertz
+  password_salt: pepper
+  email: spectator2_for_running_study@study.com
+  role: spectator
+  group: group_in_running_study

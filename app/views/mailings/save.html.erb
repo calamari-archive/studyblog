@@ -1,0 +1,12 @@
+<%= page_title 'mailings.save.header' %>
+
+<%= form_for @mailing, :url => save_mailing_path(@mailing) do |f| %>
+  <p>
+    <%= f.label :name, t('mailings.labels.name') %>
+    <%= f.text_field :name %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit t('mailings.buttons.save') %>
+  </div>
+<%- end -%>

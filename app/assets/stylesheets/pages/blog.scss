@@ -1,0 +1,101 @@
+@import "base";
+
+/** Blogview
+ =================================================== */
+.blog-entries {
+  li {
+    @include clearfix;
+    padding-top: 20px;
+  }
+
+  .topic {
+    margin-bottom: 15px;
+
+    .date {
+      color: #999;
+      display: none;
+      font-size: 14px;
+      position: absolute;
+      right: 6px;
+      top: 6px;
+    }
+  }
+
+  .topic:hover .date {
+    display: block;
+  }
+
+  .post {
+    border: $border-light;
+    @include box-shadow(2px 0px 6px lighten($color-shadow, 20%));
+    float: right;
+    min-height: 60px;
+    padding: 0 8px 6px;
+    position: relative;
+    width: 644px;
+
+    &:before {
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAoAQMAAADE/0iYAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAAsSAAALEgHS3X78AAAAH3RFWHRTb2Z0d2FyZQBNYWNyb21lZGlhIEZpcmV3b3JrcyA4tWjSeAAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yMC8xMcartUkAAABaSURBVAiZLc7BDcAgDAPAjNwNWKkbsEI3SDcgvzwQGBvlcUJCSWwDfgM+eukx7DAsmpQ0yKlTC9sIWzQpaZBTp1av13/WnOa1p/17x+tuVo7ylKv820N91CsO7OBv1UHxz9oAAAAASUVORK5CYII=) no-repeat;
+      top: 15px;
+      content: ".";
+      display: block;
+      height: 39px;
+      left: -20px;
+      position: absolute;
+      text-indent: -9999px;
+      width: 20px;
+    }
+
+    ul li {
+      list-style: disc;
+      margin-left: 20px;
+      padding-top: 0;
+    }
+
+    ol li {
+      list-style: decimal;
+      margin-left: 20px;
+      padding-top: 0;
+    }
+  }
+
+  .meta {
+    float: left;
+    text-align: center;
+    width: 100px;
+  }
+
+  .user-display img {
+    display: block;
+    margin: 0 auto 2px;
+  }
+
+  .comments {
+    background: #f3f3f3;
+    border: $border-light;
+    border-top: 0;
+    clear: right;
+    margin: 10px 0 10px 114px;
+    padding: 4px 8px;
+    width: 630px;
+
+    li {
+      clear: left;
+      margin-bottom: 6px;
+      padding: 0px 4px 4px 42px;
+      /** border */
+      border-bottom: $border-light;
+      @include box-shadow(0 1px 0 $color-white);
+
+      .profile {
+        float: left;
+        margin: 4px 0 0 -36px;
+      }
+    }
+
+    textarea,
+    input {
+      width: 610px;
+    }
+  }
+}

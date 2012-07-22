@@ -1,0 +1,58 @@
+$content-width: 770px;
+$sidebar-width: 160px;
+
+$serif-fonts:      "minion-pro-1","minion-pro-2", "Times New Roman", Georgia, serif;
+$sans-serif-fonts: "PT Sans Latin CE Regular", Calibri, 'Lucida Sans Unicode', Arial, sans-serif;
+$monospace-fonts:  monospace;
+
+/* colors schema */
+$color-dark:   #212B40;
+$color-link:   #547B97;
+$color-white:  #FFFFFF;
+$color-bg:     #FFFCF9;
+$color-accent: #C2E078;
+$color-light:  #BADCDD;
+$color-hint:   #888888;
+$color-action: #6D6E76;
+$color-action-hover: #2A2C36;
+$color-border-dark:  #212B40;
+$color-border-light: #D9D9D9;
+$color-shadow: #999;
+$color-error:  #900;
+
+$border-light: 1px solid $color-border-light;
+$border-dark: 1px solid $color-border-dark;
+
+@mixin border-radius($size) {
+  -moz-border-radius: $size;
+  -webkit-border-radius: $size;
+  border-radius: $size;
+}
+
+@mixin box-shadow($params: 3px 3px 10px $color-dark) {
+  -moz-box-shadow: $params;
+  -webkit-box-shadow: $params;
+  box-shadow: $params;
+}
+
+@mixin gradient($dir, $colora, $colorb, $stop) {
+  background-image: linear-gradient($dir, $colora $stop, $colorb $stop);
+  background-image: -o-linear-gradient($dir, $colora $stop, $colorb $stop);
+  background-image: -moz-linear-gradient($dir, $colora $stop, $colorb $stop);
+  background-image: -webkit-linear-gradient($dir, $colora $stop, $colorb $stop);
+  background-image: -ms-linear-gradient($dir, $colora $stop, $colorb $stop);
+}
+
+@mixin dualcolor($colora, $colorb, $stop) {
+  @include gradient(top, $colora, $colorb, $stop)
+}
+
+@mixin clearfix {
+  &:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+}

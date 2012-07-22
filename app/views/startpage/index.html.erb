@@ -1,0 +1,34 @@
+<%= page_title('startpage.index.header') %>
+
+<section>
+  TODO:
+  <ul>
+    <li>Kurzlinks oder Aktionen zu oftgenutzten seiten?</li>
+    <li>stats?</li>
+  </ul>
+</section>
+
+<section class="col5050">
+  <h2><%=t '.studies.header' %></h2>
+
+  <% unless current_user.running_studies.empty? %>
+  <ul>
+    <% current_user.running_studies.each do |study| %>
+      <li><a href="<%= study_path study %>"><%= study.title %></a></li>
+    <% end %>
+  </ul>
+  <% else %>
+    <p><%=t '.studies.none' %></p>
+  <% end %>
+</section>
+
+<%- unless current_user.finished_studies.empty? -%>
+<section class="col5050">
+  <h2><%=t '.finished_studies.header' %></h2>
+  <ul>
+    <% current_user.finished_studies.each do |study| %>
+      <li><a href="<%= study_path study %>"><%= study.title %></a></li>
+    <% end %>
+  </ul>
+</section>
+<%- end -%>

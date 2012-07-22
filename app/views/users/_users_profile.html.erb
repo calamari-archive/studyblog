@@ -1,0 +1,90 @@
+<section id="profile-page">
+  <%- if @user.is_setup? -%>
+    <div class="picture-container">
+      <%= display_user_image(@user) %>
+      <%- if @user.is_me? current_user -%>
+        <div class="change-box">
+          <%= link_to t('users.profile.yours.change_picture'), '#', 'data-toggle' => 'picture-upload', :class => 'action actions-edit' %>
+          <%= form_for @user, :url => profile_path, :html => { :multipart => true, :id => 'picture-upload',  :style => 'display:none' } do |f| %>
+            <div class="uploader">
+              <div class="fileupload">
+                <input type="file" class="file" name="user[image]" id="image-upload" accept="image/jpeg,image/gif,image/png">
+                <button id="image-upload-button"><%=t 'users.profile.yours.upload_picture_button' %></button>
+              </div>
+              <span class="spinner" style="display: none"><%=t 'users.profile.yours.loading_text' %></span>
+              <span class="input-error" style="display: none"><%=t 'users.messages.change_image_failed' %></span>
+              <span class="input-success" style="display: none"><%=t 'users.messages.image_changed' %></span>
+            </div>
+            <%= link_to t('actions.cancel'), '#', :class => 'cancel', :id => 'cancel-image-upload' %>
+          <%- end -%>
+        </div>
+      <%- end -%>
+      <span class="clamp"></span>
+    </div>
+    <dl class="entity-description">
+      <dt class="label"><%=t 'users.labels.nickname' %></dt>
+      <dd class="text"><%= @user.nickname %></dd>
+      <%- if @user.age -%>
+        <dt class="label"><%=t 'users.labels.age' %></dt>
+        <dd class="text"><%= @user.age %></dd>
+      <%- end -%>
+      <%- if current_user.is_moderator? -%>
+        <dt class="label"><%=t 'activerecord.attributes.user.fullname' %>:</dt>
+        <dd class="text"><%= @user.fullname || @user.username %></dd>
+        <dt class="label"><%=t 'activerecord.attributes.user.email' %>:</dt>
+        <dd class="text"><%= @user.email %></dd>
+        <dt class="label"><%=t 'activerecord.attributes.user.role' %>:</dt>
+        <dd class="text"><%= @user.role %></dd>
+      <%- end -%>
+    </dl>
+  <%- else -%>
+    <p><%=t 'users.profile.not_setup' %></p>
+  <%- end -%>
+</section>
+
+<%- if @user.is_me? current_user -%>
+  <section>
+    <%= link_to t('users.profile.yours.change_password'), '#', 'data-toggle' => 'password-form', :class => 'action actions-edit' %>
+    <%= form_for @user, :url => profile_path, :html => { :id => 'password-form',  :style => 'display:none', :class => (@user.errors.any? ? 'toggleopen' : '') } do |f| %>
+      <ul class="form">
+        <li>
+          <%= f.label 'password' %>
+          <%= f.password_field 'password', :value => '' %>
+          <%= f.error_message_on :password %>
+        </li>
+        <li>
+          <%= f.label 'password_confirmation' %>
+          <%= f.password_field 'password_confirmation', :value => '' %>
+          <%= f.error_message_on :password_confirmation %>
+        </li>
+        <li class="actions">
+          <%= f.submit t('users.profile.yours.submit_password') %>
+          <%= link_to t('actions.cancel'), '#', :class => 'cancel' %>
+        </li>
+      </ul>
+    <%- end -%>
+  </section>
+<%- end -%>
+<%- unless @user.is_me?(current_user) || current_user.is_spectator? -%>
+  <section class="actions">
+    <%= link_to t('actions.private_message.write'), new_user_private_message_path(@user), :class => 'action actions-message-add' %>
+  </section>
+<%- end -%>
+
+<%- if @messages.count > 0 -%>
+  <h3 class="clr conversation"><%=t 'users.profile.other.message_header', :name => @user.name %></h3>
+  <%- @messages.each do |message| -%>
+    <%= render 'private_messages/show', :message => message %>
+  <%- end -%>
+<%- end -%>
+
+
+<%= javascript_include_tag "fileupload" %>
+<script>
+  new controls.Fileuploader($('#image-upload'), {
+    done: function(result) {
+      $('.picture-container img').attr('src', result.image);
+      $('#cancel-image-upload').click();
+    }
+  });
+</script>

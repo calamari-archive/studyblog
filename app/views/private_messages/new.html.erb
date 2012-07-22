@@ -1,0 +1,10 @@
+<%= page_title('private_messages.new.header') %>
+
+<%= render 'form', :hide_recipient => false, :action => private_messages_path %>
+
+<%- if @messages.count > 0 -%>
+  <h3 class="conversation"><%=t 'private_messages.new.recent_message_header', :name => @recipient.name %></h3>
+  <%- @messages.each do |message| -%>
+    <%= render 'private_messages/show', :message => message %>
+  <%- end -%>
+<%- end -%>

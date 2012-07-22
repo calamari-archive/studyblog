@@ -1,0 +1,15 @@
+<%= form_for(@user_session) do |f| %>
+  <p>
+    <%= f.label :username, t("login.labels.username") %>
+    <%= f.text_field :username %>
+  </p>
+
+  <p>
+    <%= f.label :password, t("login.labels.password") %>
+    <%= f.password_field :password %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit t('login.button') %>
+  </div>
+<% end %>

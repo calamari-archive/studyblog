@@ -1,0 +1,35 @@
+<%= page_title('users.setup.header') %>
+
+<%= form_for(@user, :url => setup_user_path) do |f| %>
+  <ul class="form">
+    <li>
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname %>
+      <%= f.error_message_on :nickname %>
+    </li>
+    <li>
+      <%= f.label :age %>
+      <div class="text">
+        <%= f.text_field :age %>
+        <%- if @user.group.can_user_see_eachother? -%>
+          <p class="info"><%=t '.age_info' %></p>
+        <%- end -%>
+      </div>
+      <%= f.error_message_on :age %>
+    </li>
+    <li>
+      <h4><%=t '.new_password' %></h4>
+      <%= f.label 'password' %>
+      <%= f.password_field 'password', :value => '' %>
+      <%= f.error_message_on :crypted_password %>
+    </li>
+    <li>
+      <%= f.label 'password_confirmation' %>
+      <%= f.password_field 'password_confirmation', :value => '' %>
+      <%= f.error_message_on :password_confirmation %>
+    </li>
+    <li class="actions">
+      <%= f.submit t('.submit') %>
+    </li>
+  </ul>
+<% end %>

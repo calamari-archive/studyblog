@@ -1,0 +1,12 @@
+Hallo <%= @user.name %>!
+
+<%= @study.moderator.name %> hat Ihnen einen Zugang zur Blogvision-Studie "<%= @study.title %>" erstellt.
+
+Die Zugangsdaten lauten:
+Login: <%= @user.username %>
+Password: <%= @user.password %>
+
+Sie können sich sogleich unter <%= login_url %> einloggen.
+
+Schönen Tag,
+Ihr Blogvision-Team

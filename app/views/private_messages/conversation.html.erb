@@ -1,0 +1,10 @@
+<%= page_title('private_messages.show.header', :name => @user.name) %>
+<section>
+  <%- @messages.each do |message| -%>
+    <%= render 'show', :message => message %>
+  <%- end -%>
+</section>
+
+<div class="clr">
+  <%= link_to t('actions.back'), private_messages_path %>
+</div>

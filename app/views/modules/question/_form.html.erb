@@ -1,0 +1,46 @@
+<ul class="form-fields">
+  <li>
+    <%= form.label :title, t('modules.question.labels.question') %>
+    <%= form.text_field :title %>
+  </li>
+
+  <li>
+    <%= label :module, :question_type, t('modules.question.labels.question_type'), :class => 'label' %>
+    <ul class="text">
+      <%- QuestionModule::TYPES.each do |type| %>
+        <li><%= radio_button :module, :question_type, type, :checked => type == (@module.try(:question_type) || 'free_text'), 'data-option' => type %> <%= label :module, :question_type.to_s + '_' + type, t('modules.question.types.' + type) %></li>
+      <%- end -%>
+    </ul>
+  </li>
+</ul>
+
+<fieldset id="likert-config" data-option-container="likert" style="display:none">
+  <legend><%=t 'modules.question.types.likert' %></legend>
+
+  <%= label :module, :number_steps, t('modules.question.labels.number_steps'), :class => 'label' %>
+  <div class="text">
+    <%= select :module, :number_steps,  (2..10), :selected => 5 %>
+  </div>
+
+  <%= label :module, :left_extreme, t('modules.question.labels.extremes'), :class => 'label' %>
+  <div class="text">
+    <%= text_field :module, :left_extreme, :class => 'question-extremes', :value => 'stimme voll zu' %>
+    <%= text_field :module, :right_extreme, :class => 'question-extremes', :value => 'stimme ganz und garnicht zu' %>
+  </div>
+
+  <%= label :module, :possible_answers, t('modules.question.labels.possible_answers'), :class => 'label' %>
+  <%= text_area :module, :possible_answers,  :class => 'text' %>
+</fieldset>
+<script>
+  $(function() {
+    var showOption = function(option) {
+      $('[data-option-container]').hide()
+        .filter('[data-option-container=' + option + ']').show();
+    };
+    $('[data-option]').change(function(event) {
+      var target = $(event.target);
+      showOption(target.data('option'));
+    });
+    showOption($('[data-option]:checked').data('option'));
+  });
+</script>

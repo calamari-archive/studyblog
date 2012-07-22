@@ -1,0 +1,25 @@
+/** Tables
+ =================================================== */
+
+thead {
+  border-bottom: 3px double #999;
+}
+
+th {
+  font-weight: bold;
+  padding: 2px 3px 4px;
+}
+
+td {
+  padding: 2px 3px;
+}
+
+.full-table {
+  width: 100%;
+
+  tbody {
+    tr:nth-child(2n) {
+      background-color: $color-light;
+    }
+  }
+}

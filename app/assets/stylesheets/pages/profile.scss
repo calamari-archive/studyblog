@@ -1,0 +1,55 @@
+@import "base";
+
+/** Profileview
+ =================================================== */
+.picture-container {
+  background: $color-white;
+  display: inline-block;
+  float: right;
+  padding-left: 10px;
+  min-height: 200px;
+  width: 160px;
+
+  .clamp {
+    background: transparent image_url('design/clamp.png') 0 0 no-repeat;
+    height: 34px;
+    position: absolute;
+    top: 70px;
+    right: -10px;
+    width: 43px;
+  }
+
+  img {
+    background: $color-white;
+    border: $border-light;
+    padding: 8px;
+    position: absolute;
+    right: 10px;
+
+    -webkit-transform: rotate(-4deg) translate(15px, 0);
+  }
+
+  .change-box {
+    padding-top: 185px;
+    text-align: center;
+  }
+}
+
+#profile-page {
+  .entity-description {
+    margin-right: 170px;
+  }
+
+  .uploader {
+    span {
+      display: inline-block;
+      margin-top: 4px 0;
+    }
+  }
+}
+
+#password-form {
+  .text {
+    width: 200px;
+  }
+}

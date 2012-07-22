@@ -1,0 +1,71 @@
+<%- if @blog.is_groupblog? -%>
+  <h1><%=t '.group.header' %></h1>
+<%- else -%>
+  <h1><%= kern  t(@blog.is_own?(current_user) ? '.own.header' : '.other.header', :name => @blog.user.name) %></h1>
+<%- end -%>
+
+<%- if @blog.study.has_started? -%>
+  <section>
+    <ul class="blog-entries">
+      <%- @blog.entries_without_topic.each do |entry| %>
+        <li class="clr"><%= render 'blog_entry', :entry => entry %></li>
+      <%- end -%>
+      <%- @blog.topics.each do |topic| -%>
+        <%- entries = @blog.entries_of_topic(topic) -%>
+        <li class="clr">
+          <h2 class="callout topic" id="topic-<%= topic.id %>">
+            <%= t('modules.types.' + topic.module_type.underscore) + ':' if topic.is_module? %> <%= topic.title %>
+            <span class="date"><%=l topic.created_at.to_date %></span>
+          </h2>
+        </li>
+        <%- if topic.is_module? && entries.empty? -%>
+          <li>
+            <%- if @blog.is_own?(current_user) -%>
+              <%= link_to t('.modules.do'), blog_module_path(@blog, topic) %>
+            <%- else -%>
+              <p class="info"><%=t '.modules.not_done_yet' %></p>
+            <%- end -%>
+          </li>
+        <%- elsif topic.is_module? -%>
+          <li class="blog-entry" id="entry-<%= entries[0].id %>">
+            <%- if topic.module.permitted_to_read?(current_user) -%>
+              <%= render 'modules/' + topic.module_type_short + '/blog_show', :module_answer => entries[0].module_answer %>
+              <%= render 'comments', :blog => @blog, :entry => entries[0] %>
+            <%- elsif current_user.blog -%>
+              <%= link_to t('.modules.do_your_own_first'), blog_module_path(current_user.blog, topic) %>
+            <%- else -%>
+              <p class="info"><%=t '.modules.not_done_yet' %></p>
+            <%- end -%>
+          </li>
+        <%- else -%>
+          <%- if entries.empty? %>
+            <li>
+              <%- if @blog.is_own?(current_user) -%>
+                <p class="info"><%=t '.you_have_nothing_written' %></p>
+              <%- else -%>
+                <p class="info"><%=t '.nothing_written' %></p>
+              <%- end -%>
+              <%- if @blog.permitted_to_write?(current_user) -%>
+                <%- if topic != @blog.actual_topic -%>
+                  <%= link_to t('blogs.buttons.new_entry_in_old_topic'), new_blog_blog_entry_path(@blog, :topic_id => topic.id), :class => 'action actions-entry-add' %>
+                <%- else -%>
+                  <%= link_to t('blogs.buttons.new_entry'), new_blog_blog_entry_path(@blog), :class => 'action actions-entry-add' %>
+                <%- end -%>
+              <%- end -%>
+            </li>
+          <%- else -%>
+            <%- entries.each do |entry| %>
+              <li class="blog-entry" id="entry-<%= entry.id %>"><%= render 'blog_entry', :entry => entry %></li>
+            <%- end -%>
+          <%- end -%>
+        <%- end -%>
+      <%- end -%>
+    </ul>
+  </section>
+
+  <%- if @blog.permitted_to_write? current_user -%>
+    <%= link_to t('blogs.buttons.new_entry'), new_blog_blog_entry_path(@blog), :class => 'action actions-entry-add' %>
+  <%- end -%>
+<%- else -%>
+  <p><%=t '.study_not_started_yet', :date => l(@blog.study.start_day) %></p>
+<%- end -%>

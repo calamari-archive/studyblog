@@ -1,0 +1,53 @@
+<%= page_title('studies.index.' + (current_user.is_admin? ? 'header' : 'header_own')) %>
+
+
+<section>
+  <table class="full-table">
+    <thead>
+      <tr>
+        <th><%=t 'studies.attributes.title' %> / <%=t 'studies.attributes.description' %></th>
+        <%- if current_user.is_admin? -%>
+          <th><%=t 'studies.attributes.moderator' %></th>
+        <%- end -%>
+        <th><%=t 'studies.attributes.participants' %></th>
+        <th><%=t 'studies.attributes.start_day' %></th>
+        <th><%=t 'studies.attributes.end_day' %></th>
+        <th><%=t 'studies.attributes.status' %></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @studies.each do |study| %>
+        <tr<%= ' class=deleted' if study.is_deleted? %>>
+          <td><strong><%= study.title %></strong><br><%= study.description %></td>
+          <%- if current_user.is_admin? -%>
+            <td>
+              <%= study.moderator.name if study.moderator %>
+              <%- if !study.moderator || study.moderator.is_admin? -%>
+                (<%= link_to t('actions.study.assign'), assign_study_path(study) %>)
+              <%- end -%>
+            </td>
+          <%- end -%>
+          <td><%= study.participants.empty? ? '&mdash;'.html_safe : study.groups.map {|g| g.participants.count.to_s }.join(' / ') %></td>
+          <td><%= I18n.l study.start_day.to_date if study.start_day %></td>
+          <td><%= I18n.l study.end_day.to_date if study.end_day %></td>
+          <td>
+            <%- if study.is_deleted? -%>
+              <%=t 'studies.attributes.deleted'%>
+            <%- else -%>
+              <%= study.is_running? ? t('studies.attributes.running') : study.has_ended? ? t('studies.attributes.ended') : study.is_activated? ? t('studies.attributes.activated') : t('studies.attributes.preparing') %>
+            <%- end -%>
+          </td>
+          <td><%= link_to t('actions.show'), study, :class => 'action-icon actions-show-icon' %></td>
+          <td><%= link_to t('actions.edit'), edit_study_path(study), :class => 'action-icon actions-edit-icon' unless study.is_deleted? %></td>
+          <td><%= link_to(t('actions.delete'), study, :confirm => t('dialogs.delete.study'), :method => :delete, :class => 'action-icon actions-delete-icon') if permitted_to?(:delete, study) && !study.is_deleted? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+
+<%= link_to t('studies.buttons.new_study'), new_study_path, :class => 'action actions-study-add' %>

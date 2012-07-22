@@ -1,0 +1,11 @@
+<h1><%= @topic.title %></h1>
+<%- if @answer -%>
+  <%= render 'modules/' + @module_type + '/blog_show', :module_answer => @answer %>
+  <%= render 'blogs/comments', :blog => @blog, :entry => @entries[0] %>
+<%- elsif @topic.module.permitted_to_write?(current_user) -%>
+  <%= form_for BlogEntry.new, :url => blog_answer_module_path(:blog_id => @blog, :topic_id => @topic) do |f| %>
+    <%= render 'modules/' + @module_type + '/blog_form', :form => f %>
+  <%- end -%>
+<%- else -%>
+  <p class="info"><%=t 'blogs.show.modules.not_done_yet' %></p>
+<%- end -%>

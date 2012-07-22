@@ -1,0 +1,30 @@
+/** Base defintions **/
+@import "base";
+@import "reset";
+@import "common";
+@import "design";
+
+/** Elements **/
+@import "elements/actions";
+@import "elements/tables";
+@import "elements/forms";
+@import "elements/lists";
+@import "elements/dialogs";
+@import "elements/flash_messages";
+@import "elements/buttons";
+@import "elements/arrows";
+@import "elements/tooltip";
+@import "elements/datepicker";
+@import "elements/dropdown";
+@import "elements/wysiwyg-editor";
+@import "elements/emoticons";
+
+/** Pages **/
+@import "pages/studies"; /** TODO: later load only for mods and admins */
+@import "pages/blog";
+@import "pages/profile";
+@import "pages/messages";
+@import "pages/group_summary";
+
+/** BlogModule Assets **/
+@import "modules/question_module";

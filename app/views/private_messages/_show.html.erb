@@ -1,0 +1,11 @@
+<div class="message <%= message.author == current_user ? 'right' : 'left' %>">
+  <%= display_user message.author, :size => :medium, :text => l(message.created_at) %>
+  <div class="text arrow-<%= message.author == current_user ? 'right' : 'left' %>">
+    <h3><%= message.subject %></h3>
+    <%= simple_format emoticons message.text.html_safe %>
+    <ul class="action-list-inline">
+      <li><%= link_to t('actions.private_message.reply'), private_message_reply_path(message), :class => 'action actions-reply' %></li>
+      <li><%= link_to t('actions.delete'), message, :confirm => t('dialogs.delete.private_message'), :method => :delete, :class => 'action actions-delete' %></li>
+    </ul>
+  </div>
+</div>

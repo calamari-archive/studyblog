@@ -1,0 +1,6 @@
+<%= page_title('help.index.header') %>
+
+<h2><%=t '.message.header' %></h2>
+<p><%=t '.message.description' %></p>
+
+<%= render 'private_messages/form', :hide_recipient => true, :action => help_path %>

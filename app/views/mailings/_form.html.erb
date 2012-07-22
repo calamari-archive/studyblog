@@ -1,0 +1,44 @@
+<%- if @study.mailing && @mailing.is_saved? %>
+  <p><%=t 'mailings.saved_info', :name => @mailing.name %></p>
+<%- else -%>
+  <%- if @available_mailings.count > 1 %>
+    <%= render 'load_form' %>
+  <%- end -%>
+<%- end -%>
+
+<%= form_for [@study, @mailing] do |f| %>
+  <% if @mailing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mailing.errors.count, "error") %> prohibited this mailing from being saved:</h2>
+
+      <ul>
+        <% @mailing.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :text, t('mailings.labels.text') %>
+    <%= render 'layouts/editor_toolbar', :show_images => false %>
+    <%= f.text_area :text %>
+  </div>
+  <p><%=t '.info'%></p>
+  <ul>
+    <%- UserMailer.mailing_descriptions.each do |pair| -%>
+      <li><%= pair[:key] %>: <%= pair[:desc] %></li>
+    <%- end -%>
+  </ul>
+  <div class="actions">
+    <%= f.submit t('mailings.buttons.save') %>
+    <%= f.submit t('mailings.buttons.test_mail'), :name => :testmail, :value => :true %>
+    <%= link_to t('actions.cancel'), study_url(@study) %>
+  </div>
+  <%= link_to t('.save_link'), save_mailing_path(@mailing) if @study.mailing %>
+<% end %>
+
+<%= javascript_include_tag "wysihtml5" %>
+<script>
+  new controls.forms.SimpleForm("mailing_text");
+</script>

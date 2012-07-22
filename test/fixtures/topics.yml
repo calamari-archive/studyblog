@@ -1,0 +1,12 @@
+# topic_test.rb & blog_test.rb
+topic1:
+  title: My first topic
+  group: group_with_topics
+
+topic2:
+  title: My second topic
+  group: group_with_topics
+
+topic3:
+  title: My second topic
+  group: group_with_topics

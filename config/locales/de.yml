@@ -1,0 +1,672 @@
+
+de:
+  browser_title: "Studyblog"
+
+  # ActiveRecord errors and models
+  # ===================================
+  activerecord:
+    attributes:
+      user: &user_attributes
+        email:                  "E-Mail-Adresse"
+        password:               "Passwort"
+        password_confirmation:  "Passwort (wiederholt)"
+        username:               "Loginname"
+        fullname:               "Name"
+        nickname:               "Nutzername"
+        image:                  "Profilbild"
+        role:                   "Rolle"
+        age:                    "Alter"
+      group:
+        title:       "Titel"
+        description: "Beschreibung"
+      blog_entry:
+        title: "Titel"
+        text:  "Text"
+      study: &studies_attributes
+        title:              "Titel"
+        description:        "Beschreibung"
+        moderator:          "Moderator"
+        start_day:          "Start"
+        end_day:            "Ende"
+        start_date:         "Start"
+        end_date:           "Ende"
+        start_day_planned:  "Geplanter Start"
+        end_day_planned:    "Geplantes Ende"
+        participants:       "Teilnehmer"
+        groups:             "Gruppen"
+        status:             "Status"
+        duration:           "Dauer"
+        activated:          "aktiviert"
+        running:            "läuft"
+        ended:              "beendet"
+        deleted:            "gelöscht"
+        preparing:          "In Vorbereitung"
+        activated_long:     "Studie ist aktiviert"
+    errors:
+      messages:
+        after: "muss nach dem %{time} liegen"
+        before: "muss vor dem %{time} liegen"
+        inclusion: "ist kein gültiger Wert"
+        exclusion: "ist nicht verfügbar"
+        invalid: "ist nicht gültig"
+        confirmation: "stimmt nicht mit der Bestätigung überein"
+        accepted: "muss akzeptiert werden"
+        empty: "muss ausgefüllt werden"
+        blank: "muss ausgefüllt werden"
+        too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
+        too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
+        wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
+        not_a_number: "ist keine Zahl"
+        greater_than: "muss größer als %{count} sein"
+        greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
+        equal_to: "muss genau %{count} sein"
+        less_than: "muss kleiner als %{count} sein"
+        less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
+        odd: "muss ungerade sein"
+        even: "muss gerade sein"
+        not_an_integer: "muss ganzzahlig sein"
+        taken: "ist bereits vergeben"
+        record_invalid: "Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
+        look_like_email: "ist keine gültige E-Mail-Addresse"
+      models:
+        user:
+          attributes:
+            password:
+              too_short: "Das Password muss mindestens 5 Zeichen haben"
+            password_confirmation:
+              too_short: "Das Password muss mindestens 5 Zeichen haben"
+            group_id:
+              blank: "Nutzer benötigt eine Gruppe"
+            email:
+              taken: "E-Mail-Addresse ist bereits in Verwendung"
+            username:
+              taken: "Der Username ist bereits in Verwendung"
+            nickname:
+              taken: "Der Nutzername ist bereits in Verwendung"
+              blank: "Der Nutzername darf nicht leer sein"
+        study:
+          attributes:
+            end_date:
+              blank: "Feld darf nicht leer sein"
+            start_date:
+              blank: "Feld darf nicht leer sein"
+        group:
+          attributes:
+            title:
+              blank: "Gruppe muss einen Titel haben"
+            study_id:
+              blank: "Gruppe muss einer Studie zugeordnet sein"
+
+
+  # Global Actions and Dialogs
+  # ===================================
+  actions:
+    show: "anzeigen"
+    back: "zurück"
+    forward: "weiter"
+    edit: "bearbeiten"
+    create: "erstellen"
+    delete: "löschen"
+    archive: "archivieren"
+    cancel: "abbrechen"
+    deactivate: "deaktivieren"
+    reactivate: "reaktivieren"
+    edit_details: "Details bearbeiten"
+    group:
+      delete:         "Gruppe löschen"
+      edit_startpage: "Gruppen-Startseite bearbeiten"
+      timeline:       "Timeline"
+      summary:        "Zusammenfassung"
+    study:
+      assign: "An Moderator übergeben"
+      edit:   "Studie bearbeiten"
+    topic:
+      submit: "Thema hinzufügen"
+    private_message:
+      write: "Private Nachricht schreiben"
+      reply: "antworten"
+    user:
+      create: "Neuen Nutzer anlegen"
+  dialogs:
+    delete:
+      study:           "Studie wirklich löschen?"
+      group:           "Gruppe wirklich löschen?"
+      private_message: "Nachricht wirklich löschen?"
+      spectator:       "Zuschauer wirklich löschen?"
+      participant:     "Teilnehmer wirklich löschen?"
+    activate:
+      study: "Wollen sie diese Studie wirklich aktivieren?"
+    deactivate:
+      user: "Nutzer deaktivieren?\nEr hat dann keinen Zugriff mehr auf die Seite."
+    reactivate:
+      user: "Nutzer reaktivieren?"
+  application:
+    messages:
+      permission_denied: "Keine Berechtigung dies zu tun"
+    mainmenu:
+      startpage:        "Startseite"
+      users:            "Alle Nutzer bearbeiten"
+      studies:          "Alle Studien"
+      profile:          "Dein Profil"
+      single_blog:      "Dein Blog"
+      group_blog:       "Der Blog"
+      private_messages: "Deine Nachrichten"
+    header:
+      study:       "Studie:"
+      no_study:    "Keine Studie ausgewählt"
+      loggedin_as: "Angemeldet als:"
+      login:       "Anmelden"
+      logout:      "Abmelden"
+  file_upload:
+    messages:
+      type_error:     "{file} hat die falsche Dateiendung. Es sind nur {extensions} erlaubt."
+      size_error:     "{file} ist zu groß, maximum Größe ist {sizeLimit}."
+      min_size_error: "{file} ist zu klein, minimum Größe ist {minSizeLimit}."
+      empty_error:    "{file} ist leer, bitte versuche es erneut."
+      on_leave:       "Die Dateien werden gerade hochgeladen. Wenn Du die Seite jetzt verlässt wird der Download abgebrochen."
+
+
+  # Pages
+  # ===================================
+  studies:
+    attributes:
+      <<: *studies_attributes
+    buttons:
+      submit:           "Studie anlegen"
+      new_study:        "Neue Studie anlegen"
+      new_group:        "Gruppe hinzufügen"
+      add_participant:  "Teilnehmer hinzufügen"
+      activate:         "Studie aktivieren"
+      assign:           "Studie übergeben"
+      create_mailing:   "E-Mail-Anschreiben erstellen"
+      edit_mailing:     "E-Mail-Anschreiben bearbeiten"
+      add_spectator:    "Zuschauer hinzufügen"
+    labels:
+      title: "Titel:"
+    no_groups:          "Keine Gruppe vorhanden"
+    group_has_no_users: "Gruppe hat noch keine Teilnehmer"
+    index:
+      header: "Alle Studien"
+      header_own: "Deine Studien"
+    assign:
+      header: "Studie an einem Moderator übergeben"
+    headers:
+      actions: "Aktionen:"
+    edit:
+      header: "Studie bearbeiten"
+    new:
+      header: "Neue Studie anlegen"
+    messages:
+      created:                      "Studie wurde erfolgreich erstellt."
+      activated:                    "Studie wurde aktiviert."
+      not_activated:                "Studie konnte nicht aktiviert werden."
+      deleted:                      "Studie wurde gelöscht."
+      not_finished_study_deletion:  "Nicht abgeschlossene Studien können nicht gelöscht werden."
+      moderator_changed:            "Moderator erfolgreich geändert."
+      moderator_not_changed:        "Moderator konnte nicht geändert werden."
+    show:
+      header:             "Studienübersicht"
+      explain_activation: "Zum aktivieren der Studie muss das Startdatum in der Zukunft liegen und die Studie mind. einen Teilnehmer haben."
+      group_blog:         "Gruppenblog ansehen"
+      spectators:         "Zuschauer:"
+      duration:
+        one:      "Ein Tag"
+        other:    "%{count} Tage"
+      topics:
+        header:        "Thema:"
+        add:           "Thema erstellen"
+        change:        "Neues Thema erstellen"
+      participants:
+        blog:            "Blog"
+        never_logged_in: "Noch nicht angemeldet"
+        profile:         "Profil"
+  mailings:
+    labels:
+      study:   "Studie:"
+      text:    "Text:"
+      name:    "Name:"
+      mailing: "Vorlage:"
+    buttons:
+      save:       "Mailing speichern"
+      load:       "Mailvorlage laden"
+      test_mail:  "Testmail verschicken"
+    new:
+      header: "Mailing für Studie \"%{study}\" erstellen"
+    edit:
+      header: "Mailing für Studie \"%{study}\" bearbeiten"
+    save:
+      header: "Mailing speichern"
+    load_form:
+      no_mailing_selected: "Keine Vorlage ausgewählt"
+    saved_info:     "Mailing ist unter dem Namen \"%{name}\" gespeichert."
+    form:
+      info:      "In dem Text können verschiedene Platzhalter eingesetzt werden. Um diese zu verwenden schreiben Sie diese einfach in geschweifte Klammern in den Text. Zum Beispiel: Willkommen {NAME} zur Studie {STUDIENTITEL}!"
+      save_link: "Mailing zur späteren Wiederverwendung speichern"
+      load_info: "Sie können auch eine bereits gespeicherte Mailvorlage wieder laden."
+    messages:
+      saved:                   "Mailing wurde gespeichert."
+      loaded:                  "Mailing wurde geladen."
+      testmail_send:           "Testmail wurde an Sie verschickt."
+      study_already_activated: "Studie ist bereits aktiviert, Änderungen sind nicht mehr möglich."
+      mailing_already_saved:   "Dies Mail wurde bereits unter dem Namen \"%{name}\" gespeichert."
+      mailing_saved:           "Mailing wurde unter dem Namen \"%{name}\" gespeichert."
+      mailing_not_saved:       "Mailing konnte nicht gespeichert werden."
+  participants:
+    messages:
+      created:                 "Teilnehmer wurder der Gruppe hinzugefügt."
+      creation_failed:         "Teilnehmer konnte nicht hinzugefügt werden."
+      deleted:                 "Teilnehmer wurde gelöscht."
+      deletion_failed:         "Teilnehmer konnte nicht gelöscht werden."
+      study_already_activated: "Studie ist bereits aktiviert, Änderungen sind nicht mehr möglich."
+      not_your_study:          "Dies ist nicht ihre Studie."
+      password_change_failed:  "Das Passwort konnte nicht gespeichert werden."
+      password_changed:        "Dein Passwort wurder geändert."
+      image_changed:           "Dein Profilbild wurde geändert."
+  spectators:
+    messages:
+      created:                 "Zuschauer wurder der Studie hinzugefügt."
+      creation_failed:         "Zuschauer konnte nicht hinzugefügt werden."
+      deleted:                 "Zuschauer %{name} wurde gelöscht."
+      deletion_failed:         "Zuschauer konnte nicht gelöscht werden."
+  blogs:
+    messages:
+      entry_creation_failed: "Eintrag konnte nicht hinzugefügt werden."
+      study_not_started_yet: "Die Studie ist nocht nicht gestartet."
+      comment_created:       "Danke für den Kommentar."
+      not_your_blog:         "Du darfst in einem fremden Blog keinen Eintrag schreiben."
+      can_not_see_blog:      "Du darfst diesen Blog nicht sehen."
+      add_image_succeeded:   "Bild hochgeladen."
+      image_added:           "Bild eingefügt."
+      add_image_failed:      "Bild konnte nicht hochgeladen werden."
+    show:
+      study_not_started_yet: "Die Studie hat noch nicht begonnen. Am %{date} geht es los."
+      other:
+        header: "Der Blog von %{name}"
+      own:
+        header: "Dein Blog"
+      group:
+        header:  "Der Blog"
+      comments:
+        header:       "Kommentare"
+        write_header: "Kommentar schreiben:"
+        teaser_hint:  "Kommentar schreiben..."
+      author:           "Autor:"
+      nothing_written:  "Der Teilnehmer hat noch nichts zu diesem Thema geschrieben."
+      you_have_nothing_written: "Du hast noch nichts zu diesem Thema geschrieben."
+      modules:
+        do:           "ausfüllen"
+        not_done_yet: "Diese Aufgabe wurde noch nicht bearbeitet"
+        do_your_own_first: "Du kannst dies erst lesen, sobald du dies selber ausgefüllt hast."
+    buttons:
+      new_entry: "Neuen Eintrag schreiben"
+      new_entry_in_old_topic: "Neuen Eintrag zu diesem Thema schreiben"
+      add_comment: "Kommentar schreiben"
+  blog_entries:
+    new:
+      header: "Neuen Eintrag schreiben"
+    form:
+      no_topic:                 "Kein Thema"
+      submit:                   "Eintrag speichern"
+      image_upload_button:      "Bild hochladen"
+      image_upload_button_more: "Ein weiteres Bild hochladen"
+      loading_text:             "wird hochgeladen..."
+    labels:
+      topic:     "Thema:"
+      title:     "Titel:"
+      text:      "Text:"
+      add_image: "Bild hinzufügen:"
+  modules:
+    new:
+      header: "Neues Modul erstellen:"
+    question:
+      labels:
+        question:         "Frage:"
+        question_type:    "Fragetyp:"
+        answer:           "Antwort:"
+        number_steps:     "Zwischenschritte:"
+        possible_answers: "Zu bewertende Adjektive:"
+        extremes:         "Extreme:"
+      errors:
+        steps: "Es muß eine Anzahl an Schritte zwischen den Extremen angegeben werden."
+        likert:
+          steps:            "Likertskala muss zwischen 2 und 10 Schritte haben."
+          possible_answers: "Bitte geben Sie einige Adjektive ein, welche Bewertet werden müssen."
+          extremes:         "Eine Likertskala benötigt die Benennung zweier Extremwerte"
+          answers: "Bitte beantworte alle Adjektive."
+      placeholders:
+        answer: "Schreibe hier deine Antwort hinein."
+      types:
+        free_text: "Freitextantwort"
+        likert:    "Likertskala"
+      buttons:
+        submit: "Antwort speichern"
+    button:
+      submit: "beantworten"
+    messages:
+      no_module:      "Es wurde kein Modul angegeben"
+      answer:
+        created: "Die Frage wurde beantwortet"
+        empty:   "Du musst eine Antwort eingeben um die Frage zu beantworten"
+      created: "Modul wurde hinzugefügt."
+      creation_failed: "Modul konnte nicht hinzugefügt werden."
+      input_error: "Es müssen alle Felder ausgefüllt werden."
+    types:
+      question_module: "Fragemodul"
+  topics:
+    new:
+      header: "Neues Thema erstellen:"
+      or:     "oder als"
+    messages:
+      created: "Thema wurde hinzugefügt."
+      creation_failed: "Thema konnte nicht hinzugefügt werden."
+    attributes:
+      title: "Titel"
+    labels:
+      title: "Titel:"
+      moduletype: "Typ:"
+    types:
+      plain:    "Einfaches Thema"
+      question: "Fragemodul"
+  private_messages:
+    message_reply_prefix: "RE: "
+    messages:
+      successful: "Nachricht an %{name} wurde versendet."
+      delete_not_your_own: "Du kannst keine fremde Nachricht löschen"
+    labels:
+      subject:   "Betreff:"
+      text:      "Nachricht:"
+      recipient: "Empfänger:"
+      author:    "Absender"
+    index:
+      header:      "Deine privaten Nachrichten"
+      by:          "von"
+      no_messages: "Du hast noch keine Nachrichten"
+    show:
+      header: "Nachricht lesen"
+    conversation:
+      header: "Nachrichten zwischen dir und %{name}"
+    new:
+      header:                "Private Nachricht schreiben"
+      original_pm_header:    "Ursprüngliche Nachricht:"
+      recent_message_header: "Deine bisherige Konversation mit %{name}"
+    edit:
+      header: "Nachricht beantworten"
+    form:
+      submit: "Nachricht absenden"
+    errors:
+      writing_rights: "Sie können dieser Person keine Nachricht schreiben"
+
+  login:
+    header: "Bitte loggen Sie sich ein"
+    error_message: "Bitte fülle das Formular vollständig aus"
+    labels:
+      username: "Loginname:"
+      password: "Passwort:"
+    button: "Anmelden"
+  startpage:
+    index:
+      header: "Willkommen auf Studyblog"
+      studies:
+        header: "Laufende Studien"
+        none:   "Sie haben derzeit keine laufenden Studien"
+      finished_studies:
+        header: "Abgeschlossene Studien"
+    ended:
+      header: "Studie ist beendet"
+      text:   "Die Studie ist nun beendet. Vielen Dank für deine Teilnahme."
+    participant_index:
+      header:             "Willkommen zur Studie \"%{study}\""
+      end_day:            "Letzter Tag der Studie:"
+      topics:             "Themen:"
+      open_modules:       "Deine nächsten Aufgaben:"
+      blog:               "Blog"
+    spectator_index:
+      header:        "Willkommen zur Studie \"%{study}\""
+      end_day:       "Letzter Tag der Studie:"
+      groups_header: "Gruppen in dieser Studie:"
+  groups:
+    errors:
+      no_blogs_set: "Teilnehmer brauchen entweder Blogs oder Gruppenblogs."
+    group_participants:
+      participant_header: "Weitere Gruppenteilnehmer:"
+      moderator_header: "Gruppenteilnehmer:"
+      blog:   "Blog"
+    messages:
+      created:                 "Gruppe wurde zur Studie hinzugefügt."
+      deleted:                 "Gruppe wurde gelöscht."
+      startpage_edited:        "Gruppen-Startseite wurde angepasst."
+      study_already_activated: "Studie ist bereits aktiviert, Änderungen sind nicht mehr möglich."
+    edit_startpage:
+      header:        "Gruppen-Startseite bearbeiten"
+      submit_button: "Startseite speichern"
+      description:   "Der folgende Text wird jedem Teilnehmer auf seiner Startseite angezeigt:"
+    timeline:
+      header:             "Timeline der Gruppe \"%{group}\""
+      day_ruler:          "Tag #{day}"
+      study_not_started:  "Studie ist noch nicht gestartet."
+      link_to_blog:       "Zum Blog"
+      link_to_groupblog:  "Zum Gruppenblog"
+    summary:
+      header:             "Zusammenfassung der Gruppe \"%{group}\""
+      study_not_started:  "Studie ist noch nicht gestartet."
+      no_topic:           "Keinem Thema zugeordnet"
+      modules:
+        not_done_yet: "Aufgabe noch nicht ausgefüllt"
+        done:         "Aufgabe erledigt"
+      comments:
+        one:    "Ein Kommentar"
+        other:  "%{count} Kommentare"
+    attribute:
+      has_groupblog: "Gruppe hat Gruppenblog"
+    new:
+      header: "Gruppe hinzufügen"
+    show:
+      attributes:   "Gruppenattribute:"
+      participants: "Teilnehmer:"
+    form:
+      submit: "Gruppe anlegen"
+    descriptives: &group_attribute_descs
+      has_groupblog: "Gruppe hat Gruppenblog"
+      has_singleblogs: "Alle Teilnehmer haben Blogs"
+      are_commentable: "Blogs sind kommentierbar"
+      can_user_see_eachother: "Teilnehmer können sich gegenseitig sehen"
+    startpage:
+      replacements:
+        keys:
+          studyname:  "STUDIENTITEL"
+          date:       "DATUM"
+          time:       "ZEIT"
+          name:       "NAME"
+        descriptions:
+          studyname:  "Der Titel der Studie"
+          date:       "Das immer aktuelle Datum"
+          time:       "Die immer aktuelle Uhrzeit"
+          name:       "Der Name der Teilnehmers"
+  users:
+    attributes:
+      <<: *user_attributes
+    labels:
+      nickname: "Nutzername:"
+      image:    "Profilbild:"
+      email:    "E-Mail-Adresse:"
+      age:      "Alter:"
+    image_alt_text: "Profilbild von %{name}"
+    participant:
+      new:
+        header: "Neuen Teilnehmern hinzufügen"
+        mail:
+          subject: "Einladung zur Studie \"%{study}\""
+    index:
+      header: "Alle Nutzer"
+    edit:
+      header: "Nutzer bearbeiten"
+    new:
+      header: "Moderator oder Administrator hinzufügen"
+    new_spectator:
+      header: "Zuschauer zur Studie \"%{study}\" hinzufügen"
+      submit: "Zuschauer hinzufügen"
+      labels:
+        name: "Name:"
+      mail:
+        subject: "Ihr Blogvision Zuschauer-Account"
+    delete_spactator:
+      mail:
+        subject: "Ihr Blogvision Zuschauer-Zugang wurde gelöscht"
+    form:
+      button: "Nutzer hinzufügen"
+    messages:
+      created:              "Nutzer wurde erstellt."
+      creation_failed:      "Nutzer konnte nicht erstellt werden."
+      deactivated:          "Nutzer wurde deaktiviert."
+      deactivation_failed:  "Nutzer konnte nicht deaktiviert werden."
+      reactivated:          "Nutzer wurde reaktiviert."
+      reactivation_failed:  "Nutzer konnte nicht reaktiviert werden."
+      setup_failed:         "Profil konnte nicht angelegt werden."
+      image_changed:        "Profilbild geändert."
+      change_image_failed:  "Profilbild konnte nicht gespeichert werden."
+    setup:
+      header:       "Richte dein Profil ein"
+      submit:       "Profil einrichten"
+      age_info:     "Wenn Du dein Alter einträgst, dann wird dies für alle Gruppenteilnehmer angezeigt"
+      new_password: "Wähle ein neues Passwort"
+    profile:
+      not_setup: "Die Daten stehen noch nicht zur Verfügung."
+      other:
+        header: "Das Profile von %{name}"
+        message_header: "Nachrichten zwischen dir und %{name}"
+      yours:
+        header:                "Dein Profil"
+        upload_picture_button: "Neues Bild aussuchen"
+        change_picture:        "Bild ändern"
+        change_password:       "Passwort ändern"
+        submit_password:       "Neues Passwort speichern"
+        loading_text:          "wird hochgeladen..."
+    show:
+      studies_header: "Deine laufenden Studien"
+      no_studies:     "Keine laufenden Studien vorhanden"
+  errors:
+    not_found:
+      header: "Seite wurde nicht gefunden."
+  user_mailer:
+    replacements:
+      keys:
+        studyname:  "STUDIENTITEL"
+        startdate:  "STARTDATUM"
+        enddate:    "ENDDATUM"
+        url:        "URL"
+        duration:   "LAUFZEIT"
+        name:       "NAME"
+        mail:       "EMAIL"
+        password:   "PASSWORT"
+      descriptions:
+        studyname:  "Der angegebene Titel der Studie"
+        startdate:  "Das Datum des Starttags der Studie"
+        enddate:    "Das Datum des Endtags der Studie"
+        url:        "Die URL zur Studie"
+        duration:   "Die Laufzeit der Studie"
+        name:       "Der Name der Teilnehmers"
+        mail:       "Die E-Mmail-Adresse des Teilnehmers"
+        password:   "Das Passwort des Teilnehmers"
+  help:
+    index:
+      header:         "Hilfecenter"
+      message:
+        header:       "Eine Hilfe-Nachricht schreiben"
+        description:  "Bei Problemen mit dem Interface, können Sie hier jederzeit eine Frage stellen und wir versuchen diese schnellst möglich zu beantworten. Auch können Sie uns gerne Feedback und Verbesserungsvorschläge mitteilen."
+    messages:
+      request_successful: "Hilfeanfrage wurde erfolgreich verschickt und wird so schnell wie möglich bearbeitet."
+  helpers:
+    label:
+      group:
+        <<: *group_attribute_descs
+        title: "Titel:"
+        description: "Beschreibung:"
+  wysihtml_editor:
+    texts:
+      link:   "Link:"
+      ok:     "OK"
+      cancel: "abbrechen"
+    image:
+      texts:
+        net:                      "Bild aus den Internet verlinken:"
+        upload:                   "oder ein Bild hochladen:"
+        alignment:                "Bündigkeit:"
+        image_upload_button:      "Bild hochladen"
+        image_upload_button_more: "Ein weiteres Bild hochladen"
+        loading_text:             "wird hochgeladen..."
+        image_added:              "Bild eingefügt."
+        add_image_failed:         "Bild konnte nicht hochgeladen werden."
+      alignment:
+        default: "im Textfluss"
+        left:    "linksbündig"
+        right:   "rechtsbündig"
+
+
+
+# date, time and currency
+# ===================================
+  time:
+    formats:
+      default: "%H:%M"
+      jQuery: "hh:mm"
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      jQuery: "dd.mm.yy"
+    day_names:
+      - Sonntag
+      - Montag
+      - Dienstag
+      - Mittwoch
+      - Donnerstag
+      - Freitag
+      - Samstag
+    abbr_day_names:
+      - So
+      - Mo
+      - Di
+      - Mi
+      - Do
+      - Fr
+      - Sa
+    month_names:
+      - ~
+      - Januar
+      - Februar
+      - März
+      - April
+      - Mai
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
+    abbr_month_names:
+      - ~
+      - Jan
+      - Feb
+      - Mär
+      - Apr
+      - Mai
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
+    order:
+      - :day
+      - :month
+      - :year
+    currency:
+      format:
+        unit: '€'
+        format: '%n %u'
+        separator: ","
+        delimiter: "."
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false

@@ -1,0 +1,28 @@
+<%= page_title('startpage.spectator_index.header', :study => @study.title) %>
+
+<%=t '.end_day' %> <%=l @study.end_day.to_date %>
+
+<h2><%=t '.groups_header' %></h2>
+<%- @study.groups.each do |group| -%>
+  <section class="callout clfx">
+    <h3><%= group.title %></h3>
+    <% if group.participants.length == 0 %>
+      <p><%=t 'studies.group_has_no_users' %></p>
+    <% else %>
+      <ul>
+        <% group.participants.each do |user| %>
+          <li>
+            <%= user.name %>
+            <%- if user.is_setup? -%>
+              [<%= link_to t('.participants.profile'), user_path(user) %>]
+            <%- else -%>
+              [<%=t '.participants.never_logged_in' %>]#
+            <%- end -%>
+            <% if user.has_blog? %>[<%= link_to t('.participants.blog'), blog_path(user.blog) %>]<% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+  </section>
+<%- end -%>

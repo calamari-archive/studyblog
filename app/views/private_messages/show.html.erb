@@ -1,0 +1,9 @@
+<%= page_title('private_messages.show.header') %>
+
+<section>
+  <%= render 'show', :message => @private_message %>
+</section>
+
+<div class="actions">
+  <%= link_to t('actions.back'), private_messages_path %>
+</div>

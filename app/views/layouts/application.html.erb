@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %></title>
+  <%= stylesheet_link_tag "application" %>
+  <%= yield :stylesheets %>
+  <script>
+    var globals = {
+      dateFormat: '<%=t 'time.formats.jQuery' %>',
+      dayNames: <%= t('date.day_names').to_json.html_safe %>,
+      dayNamesMin: <%= t('date.abbr_day_names').to_json.html_safe %>,
+      monthNames: <%= t('date.month_names').slice(1, 12).to_json.html_safe %>,
+      assetBaseDir: '<%= asset_path('') %>'
+    };
+  </script>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id="meta-nav">
+    <div id="logo">
+      <img src="<%= asset_path 'dummy_logo.png' %>" alt="">
+    </div>
+    <div class="confine">
+      <%- if current_user && current_user.is_moderator? %>
+        <%=t 'application.header.study' %>
+        <%= select_tag :study, studies_options, :id => 'study-select', :class => 'dropdown' %>
+      <%- end -%>
+    </div>
+    <ul class="menu">
+      <%- if current_user -%>
+        <%- if current_user.has_image? -%>
+          <li><%= image_tag current_user.image.url(:small) %></li>
+        <%- end -%>
+        <li><%=t 'application.header.loggedin_as' %> <%= link_to current_user.firstname || current_user.name, profile_path %></li>
+        <li><%= link_to t('application.header.logout'), logout_path %></li>
+      <%- else -%>
+        <li><%= link_to t('application.header.login'), login_path %></li>
+      <%- end -%>
+    </ul>
+  </div>
+
+  <div id="wrap">
+    <div id="sidebar">
+      <ul class="main-menu">
+        <li><%= link_to t('application.mainmenu.startpage'), root_path %></li>
+        <%- if permitted_to? :index, :users -%>
+          <li><%= link_to t('application.mainmenu.users'), users_path %></li>
+        <%- end -%>
+        <%- if permitted_to? :index, :studies -%>
+          <li><%= link_to t('application.mainmenu.studies'), studies_path %></li>
+        <%- end -%>
+        <%- if current_user && !current_user.is_spectator? -%>
+          <li><%= link_to t('application.mainmenu.profile'), profile_path %></li>
+        <%- end -%>
+        <%- if current_user && current_user.is_setup? -%>
+          <%- if current_user && current_user.has_blog? -%>
+            <li><%= link_to t('application.mainmenu.single_blog'), blog_path(current_user.blog) %></li>
+          <%- end -%>
+          <%- if current_user && current_user.has_groupblog? -%>
+            <li><%= link_to t('application.mainmenu.group_blog'), group_blog_path(current_user.group) %></li>
+          <%- end -%>
+          <%- if permitted_to? :index, :private_messages -%>
+            <li><%= link_to t('application.mainmenu.private_messages'), private_messages_path %> <span class="info">(<%= number_unread_messages || 0 %>)</span></li>
+          <%- end -%>
+        <%- end -%>
+      </ul>
+
+      <%- if current_user && (current_user.is_participant? || current_user.is_moderator?) -%>
+        <%= render 'groups/group_participants', :group => (current_user.is_participant? ? current_user.group : @group) || (@blog ? @blog.group : nil) %>
+      <%- end -%>
+
+      <%- if permitted_to? :read, :help -%>
+        <div class="help"><%= link_to t('application.mainmenu.help'), help_path %></div>
+      <%- end -%>
+
+
+    </div>
+    <div id="content">
+      <% if flash.notice %><p id="notice" class="flash-message success-message"><%= flash.notice %></p><% end %>
+      <% if flash.alert %><p id="error" class="flash-message error-message"><%= flash.alert %></p><% end %>
+
+      <%= yield %>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      var studyPath = "<%= study_path(':id') %>",
+          select = $('#study-select'),
+          startValue = select.val();
+      select.change(function(event) {
+        var value = event.currentTarget.value;
+        if (value && value !== startValue) {
+          location.href = studyPath.replace(':id', value);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

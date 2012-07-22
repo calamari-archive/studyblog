@@ -1,0 +1,46 @@
+<%= page_title('groups.summary.header', :group => @group.title) %>
+
+<%- if @group.study.has_started? -%>
+  <table class="summary">
+    <thead>
+      <tr>
+        <%- @group.participants.each do |user| -%>
+          <td>
+            <%= display_user user %>
+          </td>
+        <%- end -%>
+      </tr>
+    </thead>
+    <tbody>
+      <% entries_without_topic = @group.has_groupblog? ? @group.groupblog.entries_without_topic : @group.participants.map {|p| p.blog.entries_without_topic }.flatten %>
+      <%- unless entries_without_topic.empty? -%>
+        <tr>
+          <td class="topic no-topic" colspan="<%= @group.participants.count %>" id="topic-0">
+            <%=t '.no_topic' %>
+          </td>
+        </tr>
+        <tr>
+          <%- @group.participants.each do |user| -%>
+            <%= render 'summary_topic_row', :user => user, :topic => nil, :topic_entries => entries_without_topic %>
+          <%- end -%>
+        </tr>
+      <%- end -%>
+      <%- @group.topics.each do |topic| -%>
+        <%- group_entries = @group.groupblog.entries_of_topic(topic) if @group.has_groupblog? -%>
+        <tr>
+          <td class="topic" colspan="<%= @group.participants.count %>" id="topic-<%= topic.id %>">
+            <%= t('modules.types.' + topic.module_type.underscore) + ':' if topic.is_module? %> <%= topic.title %>
+            <span class="date"><%=l topic.created_at %></span>
+          </td>
+        </tr>
+        <tr>
+          <%- @group.participants.each do |user| -%>
+            <%= render 'summary_topic_row', :user => user, :topic => topic, :topic_entries => @group.has_groupblog? ? group_entries : user.blog.entries_of_topic(topic) %>
+          <%- end -%>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+<%- else -%>
+  <p><%=t '.study_not_started' %></p>
+<%- end -%>

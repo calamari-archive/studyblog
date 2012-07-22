@@ -1,0 +1,74 @@
+@import "base";
+@import "forms";
+
+@import "icons/editor/*.png";
+@include all-editor-sprites;
+
+.wysihtml-dialog {
+  background: rgba(255, 255, 255, 0.85);
+  border: $border-light;
+  margin-left: -1px;
+  position: absolute;
+  padding: 10px;
+  width: 700px;
+
+  @include box-shadow(0 3px 3px #ccc);
+}
+
+.editor-toolbar {
+  @include gradient(top,  $color-white,  lighten($color-border-light, 12%), 60%);
+
+  border: $border-light;
+  border-bottom: 0;
+  position: relative;
+  width: 720px;
+
+  .icons {
+    padding: 4px 10px;
+
+    a {
+      border: 1px solid transparent;
+      display: inline-block;
+      height: 24px;
+      text-indent: -9999px;
+      width: 24px;
+
+      &:hover {
+        background-color: $color-white;
+        border: $border-light;
+
+        @include box-shadow(1px 1px 2px $color-border-light);
+      }
+
+      &.wysihtml5-command-active {
+        @extend :hover;
+      }
+    }
+  }
+
+
+  .spacer {
+    margin-right: 10px;
+  }
+}
+
+.wysihtml5-sandbox {
+  @extend textarea;
+  border: 1px solid #ccc;
+  height: 350px;
+  width: 700px;
+}
+
+.wysihtml5-editor {
+  background: $color-white;
+}
+
+.wysiwyg-float-left {
+  float: left;
+  margin: 0 8px 8px 0;
+}
+
+.wysiwyg-float-right {
+  float: right;
+  margin: 0 0 8px 8px;
+}

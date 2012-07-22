@@ -1,0 +1,18 @@
+<%= form_for(@user, :url => path) do |f| %>
+  <%= f.hidden_field :group_id, :value => @group.to_param %>
+  <ul class="form">
+    <li>
+      <%= f.label :fullname, t('.labels.name') %>
+      <%= f.text_field :fullname, :autofocus => 'autofocus' %>
+    </li>
+    <li>
+      <%= f.label :email, t('users.labels.email') %>
+      <%= f.text_field :email %>
+      <%= f.error_message_on :email %>
+    </li>
+    <li class="actions">
+      <%= f.submit t('studies.buttons.' + button) %>
+      <%= link_to t('actions.cancel'), study_path(study) %>
+    </li>
+  </ul>
+<% end %>

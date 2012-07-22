@@ -1,0 +1,69 @@
+# topic_test.rb
+e1b1oft1:
+  title: Entry 1 of blog 1 for topic 1
+  text: Just a text
+  author_id: 1
+  blog: blog_with_topics1
+  topic: topic1
+
+e1b2oft1:
+  title: Entry 1 of blog 2 for topic 1
+  text: Just a text
+  author_id: 2
+  blog: blog_with_topics2
+  topic: topic1
+
+e2b2oft1:
+  title: Entry 2 of blog 1 for topic 1
+  text: Just a text
+  author_id: 1
+  blog: blog_with_topics1
+  topic: topic1
+
+e2b2ofnt:
+  title: Entry 2 of blog 2 for no topic
+  text: Just a text
+  author_id: 1
+  blog: blog_with_topics2
+
+e1b1oft2:
+  title: Entry 1 of blog 1 for topic 2
+  text: Just a text
+  author_id: 1
+  blog: blog_with_topics1
+  topic: topic2
+
+# blog_test.rb:
+#   entry0
+# TOPIC1
+#   entry1
+#   entry2
+# TOPIC2
+# TOPIC3
+#   entry3
+entry0:
+  title: Entry 0
+  text: Just a text
+  author_id: 1
+  blog: blog_for_topic_test
+
+entry1:
+  title: Entry 1
+  text: Just a text
+  author_id: 1
+  blog: blog_for_topic_test
+  topic: topic1
+
+entry2:
+  title: Entry 2
+  text: Just a text
+  author_id: 1
+  blog: blog_for_topic_test
+  topic: topic1
+
+entry3:
+  title: Entry 3
+  text: Just a text
+  author_id: 1
+  blog: blog_for_topic_test
+  topic: topic3

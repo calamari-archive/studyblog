@@ -1,0 +1,120 @@
+@import "base";
+
+$arrow-width: 13px;
+
+.arrow-left {
+  margin-left: 20px;
+
+  &:before,
+  &:after {
+    border: $arrow-width solid;
+    border-color: transparent $color-border-light transparent transparent;
+    content: '';
+    height: 0;
+    top: 17px;
+    margin-top: -12px;
+    position: absolute;
+    width: 0;
+  }
+
+  &:before {
+    left: -$arrow-width * 2;
+  }
+
+  &:after {
+    border-color: transparent $color-white transparent transparent;
+    left: -($arrow-width * 2 - 1);
+  }
+}
+
+.arrow-right {
+  margin-right: 20px;
+
+  &:before,
+  &:after {
+    border: $arrow-width solid;
+    border-color: transparent transparent transparent $color-border-light;
+    content: '';
+    height: 0;
+    top: 17px;
+    margin-top: -12px;
+    position: absolute;
+    width: 0;
+  }
+
+  &:before {
+    right: -$arrow-width * 2;
+  }
+
+  &:after {
+    border-color: transparent transparent transparent $color-white;
+    right: -($arrow-width * 2 - 1);
+  }
+}
+
+.arrow-bottom {
+  margin-bottom: 20px;
+
+  &:before,
+  &:after {
+    border: $arrow-width solid;
+    border-color: $color-border-light transparent transparent transparent;
+    content: '';
+    height: 0;
+    left: 17px;
+    position: absolute;
+    width: 0;
+  }
+
+  &:before {
+    bottom: -$arrow-width * 2;
+  }
+
+  &:after {
+    border-color: $color-white transparent transparent transparent;
+    bottom: -($arrow-width * 2 - 1);
+  }
+}
+
+.message {
+  clear: both;
+  padding-bottom: 20px;
+
+  .user-display {
+    display: inline-block;
+    float: left;
+    text-align: center;
+    width: 80px;
+
+    img {
+      margin: 0 auto 2px;
+    }
+
+    span {
+      display: block;
+    }
+  }
+
+  .text {
+    border: $border-light;
+    @include box-shadow(2px 0px 6px lighten($color-shadow, 20%));
+    padding: 0 8px;
+    margin-left: 20px;
+    position: relative;
+    width: 540px;
+  }
+
+  &.left .user-display {
+    float: left;
+  }
+
+  &.right {
+    .user-display  {
+      float: right;
+    }
+
+    .text {
+      margin: 0 0 0 100px;
+    }
+  }
+}

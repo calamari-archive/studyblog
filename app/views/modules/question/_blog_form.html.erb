@@ -1,0 +1,28 @@
+<%- if @module.question_type == 'free_text' -%>
+  <%= text_area :answer, :answers, :class => 'fullsize', :placeholder => t('modules.question.placeholders.answer'), :rows => "" %>
+<%- elsif @module.question_type == 'likert' -%>
+  <table class="likert-table full-table">
+    <thead>
+      <tr>
+        <td></td>
+        <td class="left-extreme"><%= @module.left_extreme %></td>
+        <%- (@module.number_steps - 2).times do |i| -%>
+          <td></td>
+        <%- end -%>
+        <td class="right-extreme"><%= @module.right_extreme %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @module.possible_answers.each_with_index do |answer, answer_index| -%>
+        <tr>
+          <td class="options"><%= answer %></td>
+          <%- @module.number_steps.times do |i| -%>
+            <td class="checkbox"><input type="radio" name="answer[answers][<%= answer_index %>]" value="<%= i %>"></td>
+          <%- end -%>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+<%- end -%>
+
+<p><%= form.submit t('modules.question.buttons.submit') %></p>

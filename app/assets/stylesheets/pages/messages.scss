@@ -1,0 +1,37 @@
+/** Private Messages
+ =================================================== */
+h3.conversation {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.pm {
+  margin-bottom: 20px;
+  padding-left: 48px;
+  position: relative;
+
+  .icon {
+    background: image_url('design/pm-in.png');
+    position: absolute;
+    top: 4px;
+    left: 0;
+  }
+
+  &.new .icon {
+    background: image_url('design/pm-in-new.png');
+  }
+
+  .user-display {
+    float: left;
+    margin-right: 10px;
+    width: 60px;
+  }
+
+  .user-display .name {
+    display: block;
+  }
+
+  .messages .new {
+    background: #f9f9f9;
+  }
+}

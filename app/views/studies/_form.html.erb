@@ -1,0 +1,30 @@
+<%= form_for @study do |f| %>
+  <ul class="form">
+    <li>
+      <%= f.label :title %>
+      <%= f.text_field :title, :autofocus => true %>
+      <%= f.error_message_on :title %>
+    </li>
+    <li>
+      <%= f.label :description %>
+      <%= f.text_area :description, :rows => 4 %>
+      <%= f.error_message_on :description %>
+    </li>
+    <% unless @study.is_activated? %>
+    <li>
+      <%= f.label :start_date %>
+      <%= f.text_field :start_date, :value => I18n.l((@study.start_date || Time.now + 1.days).to_date), :class => 'datepicker' %>
+      <%= f.error_message_on :start_date %>
+    </li>
+    <li>
+      <%= f.label :end_date %>
+      <%= f.text_field :end_date, :value => I18n.l((@study.end_date || Time.now + 8.days).to_date), :class => 'datepicker' %>
+      <%= f.error_message_on :end_date %>
+    </li>
+    <% end %>
+    <li class="actions">
+      <%= f.submit t('studies.buttons.submit') %>
+      <%= link_to t('actions.cancel'), @study.id ? study_path(@study) : studies_path, :class => 'cancel' %>
+    </li>
+  </ul>
+<% end %>

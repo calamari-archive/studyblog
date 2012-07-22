@@ -1,0 +1,31 @@
+<%= page_title('startpage.participant_index.header', :study => @study.title) %>
+
+<%=t '.end_day' %> <%=l @study.end_day.to_date %>
+
+<%- if @group.startpage -%>
+  <section>
+    <%= populate_startpage_text(@group.startpage, @user).html_safe %>
+  </section>
+<%- end -%>
+
+<% if @user.has_blog? && !@blog.open_modules.empty? %>
+  <section>
+    <h2><%=t '.open_modules' %></h2>
+    <ul>
+      <% @blog.open_modules.each do |topic| %>
+        <li><%= topic.title %> (<%= link_to t('blogs.show.modules.do'), topic.is_module? ? blog_module_path(@blog, topic) : blog_path(@blog, :anchor => 'topic-' + topic.id.to_s) %>)</li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
+
+<%- if @group.topics.count > 0 -%>
+  <section>
+    <h2><%=t '.topics' %></h2>
+    <ul>
+      <%- @group.topics.each do |topic| -%>
+        <li><%= link_to topic.title, blog_path(@blog) + '#topic-' + topic.id.to_s %></li>
+      <%- end -%>
+    </ul>
+  </section>
+<%- end -%>

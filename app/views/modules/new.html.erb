@@ -1,0 +1,14 @@
+<%= form_for [@group, @topic], :url => group_new_module_path(:group_id => @group, :module_type => @module_type) do |f| %>
+  <h1><%=t '.header' %></h1>
+
+  <span class="label"><%=t 'topics.labels.moduletype' %></span>
+  <div class="text">
+    <%=t 'topics.types.' + @module_type %>
+  </div>
+
+  <%= render 'modules/' + @module_type + '/form', :form => f %>
+
+  <div>
+    <%= f.submit t('actions.topic.submit') %>
+  </div>
+<% end %>

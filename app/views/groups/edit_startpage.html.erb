@@ -1,0 +1,21 @@
+<%= page_title('groups.edit_startpage.header') %>
+
+<%=t '.description' %>
+<%= form_for @group, :url => group_edit_startpage_path do |f| %>
+
+  <%= render 'layouts/editor_toolbar', :show_images => false %>
+  <%= f.text_area :startpage, :class => 'fullsize' %>
+
+  <ul>
+    <%- Group.startpage_variables.each do |pair| -%>
+      <li><%= pair[:key] %>: <%= pair[:desc] %></li>
+    <%- end -%>
+  </ul>
+
+  <%= f.submit t('.submit_button') %>
+<% end %>
+
+<%= javascript_include_tag "wysihtml5" %>
+<script>
+  new controls.forms.SimpleForm("group_startpage");
+</script>

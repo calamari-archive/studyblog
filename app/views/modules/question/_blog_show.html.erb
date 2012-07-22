@@ -1,0 +1,34 @@
+<div class="post">
+  <%- if module_answer.question_module.question_type == 'free_text' -%>
+    <%= emoticons entry_html module_answer.answers %>
+  <%- elsif module_answer.question_module.question_type == 'likert' -%>
+    <table class="likert-table full-table">
+      <thead>
+        <tr>
+          <td></td>
+          <td class="left-extreme"><%= module_answer.question_module.left_extreme %></td>
+          <%- (module_answer.question_module.number_steps - 2).times do |i| -%>
+            <td></td>
+          <%- end -%>
+          <td class="right-extreme"><%= module_answer.question_module.right_extreme %></td>
+        </tr>
+      </thead>
+      <tbody>
+        <%- module_answer.question_module.possible_answers.each_with_index do |answer, answer_index| -%>
+          <tr>
+            <td class="options"><%= answer %></td>
+            <%- module_answer.question_module.number_steps.times do |i| -%>
+              <td class="checkbox">
+                <input type="radio" name="<%= answer_index %>" <%= module_answer.answer_array[answer_index].to_i == i ? 'checked' : '' %> readonly>
+              </td>
+            <%- end -%>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  <%- end -%>
+</div>
+<div class="meta">
+  <%= display_user module_answer.author, :size => :medium %>
+  <%=l module_answer.created_at.to_date %>
+</div>

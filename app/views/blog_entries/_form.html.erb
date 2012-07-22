@@ -1,0 +1,36 @@
+<%= form_for [@blog, @blog_entry] do |f| %>
+  <ul class="form">
+    <li>
+      <span class="label"><%=t 'blog_entries.labels.topic' %></span>
+      <span class="text"><strong><%= sanitize !@topic.nil? ? @topic.title : t('.no_topic') %></strong></span>
+      <input type="hidden" name="blog_entry[topic_id]" value="<%= @topic.id %>">
+    </li>
+    <li>
+      <%= f.label :title, t('blog_entries.labels.title') %>
+      <%= f.text_field :title, :autofocus => true %>
+      <%= f.error_message_on :title %>
+    </li>
+    <li>
+      <%= f.label :text, t('blog_entries.labels.text') %>
+      <%= render 'layouts/editor_toolbar', :show_images => true %>
+      <%= f.text_area :text, :class => 'fullsize' %>
+      <%= f.error_message_on :text, :css_class => 'fullsize-error' %>
+    </li>
+    <li>
+      <!--div id="dropzone">TODO
+        <span>Drop here</span>
+      </div-->
+    </li>
+    <li class="actions">
+      <%= f.submit t('.submit') %>
+    </li>
+  </ul>
+<% end %>
+
+<%= javascript_include_tag "fileupload" %>
+<%= javascript_include_tag "wysihtml5" %>
+<script>
+  new controls.forms.FormWithImages("blog_entry_text", {
+    url: '<%= blog_image_path(@blog) %>'
+  });
+</script>

@@ -1,0 +1,22 @@
+<%= page_title('private_messages.index.header') %>
+
+<%- @private_messages.each do |private_message| -%>
+  <ul class="messages">
+    <li class="clfx pm<%= ' new' unless private_message.read %>">
+      <a href="<%= private_message_conversation_path(private_message.author.id) %>">
+        <img src="<%= asset_path('transparent.gif') %>" class="icon" alt="" width="38" height="22">
+      </a>
+      <!--%= display_user private_message.author %-->
+      <strong><%= private_message.subject %></strong><br>
+      von <%= display_name private_message.author %>
+      <ul class="action-list-inline">
+        <li><%= link_to t('actions.show'), private_message_conversation_path(private_message.author.id), :class => 'action actions-show' %></li>
+        <li><%= link_to t('actions.private_message.reply'), private_message_reply_path(private_message), :class => 'action actions-reply' %></li>
+        <li><%= link_to t('actions.delete'), private_message, :confirm => t('dialogs.delete.private_message'), :method => :delete, :class => 'action actions-delete' %></li>
+      </ul>
+    </li>
+  </ul>
+<%- end -%>
+<%- if @private_messages.count == 0 -%>
+  <p class="info"><%=t '.no_messages' %></p>
+<%- end -%>

@@ -1,0 +1,51 @@
+@import "base";
+
+/** Icons **/
+@import "icons/actions/*.png";
+@include all-actions-sprites;
+
+/* some duplicate icons */
+.actions-message-add { @extend .actions-mailing-add; }
+
+a.action {
+  color: $color-action;
+  display: inline-block;
+  font-weight: bold;
+  margin: 2px 0;
+  padding: 2px 0 0 26px;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-action-hover;
+  }
+
+  &.no-icon {
+    padding-left: 0;
+  }
+}
+
+.action-list li {
+  margin-bottom: 2px;
+
+  a.action {
+    margin: 0;
+  }
+}
+
+.action-list-inline {
+  margin: 4px 0;
+
+  li {
+    display: inline;
+    margin-right: 8px;
+  }
+}
+
+.action-icon {
+  display: inline-block ;
+  height: 14px;
+  margin-top: -3px;
+  text-indent: -9999px;
+  vertical-align: middle;
+  width: 16px;
+}

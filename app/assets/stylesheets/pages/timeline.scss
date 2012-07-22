@@ -1,0 +1,149 @@
+@import "compass/css3";
+@import "base";
+@import "elements/arrows";
+
+/** Timeline
+ =================================================== */
+#content .timeline {
+  background: $color-white;
+  border: $border-light;
+  @include box-shadow(0px 0px 5px $color-shadow);
+	display: block;
+	margin-top: 35px;
+	padding: 0;
+	position: relative;
+}
+
+.timeline {
+  .user-display span {
+    display: block;
+  }
+
+  li {
+  	list-style: none;
+  }
+
+  .user {
+  	position: relative;
+  	height: 100px;
+  	z-index: 6;
+
+    .userinfo {
+    	margin-top: 20px;
+    	text-align: center;
+    	width: 100px;
+    }
+    img {
+    	margin-top: 20px;
+    }
+  }
+
+  .topics {
+    display: none;
+  }
+
+  .comments,
+  .articles {
+  	position: absolute;
+  	left: 0;
+  	top: 0;
+
+    .entry {
+    	position: absolute;
+    	width: 15px;
+    	height: 60px;
+    	margin-top: 20px;
+    	overflow: hidden;
+    	border: 1px solid #fff;
+    	top: 0;
+    	z-index: 7;
+
+      * {
+      	display: none;
+      }
+    }
+  }
+
+  .articles .entry {
+  	background: #03276b;
+  	color: #fff;
+  	height: 60px;
+  }
+
+  .comments .entry {
+  	background: orange;
+    display: none;
+  	height: 15px;
+  	margin-top: 35px;
+  }
+
+  .ruler {
+  	border-left: 1px solid #ccc;
+  	position: absolute;
+  	top: 0;
+  	height: 100%;
+  	z-index: 5;
+
+    span {
+      position: absolute;
+      text-align: center;
+      width: 250px;
+    }
+  }
+
+  .actual-time {
+    border-left: 1px solid $color-accent;
+  }
+
+  .topic-marker {
+    @extend .ruler;
+  	border-left: $border-dark;
+  	width: 10px;
+
+    span {
+      border: $border-dark;
+      @include border-radius(4px);
+      @include box-shadow(1px 1px 4px lighten($color-dark, 36%));
+      display: block;
+      padding: 2px 8px;
+      text-align: center;
+      width: inherit;
+      min-width: 150px;
+
+      opacity: 0;
+
+      @include single-transition(opacity, 0.5s);
+    }
+    &.hover span {
+      display: block;
+      opacity: 1;
+    }
+    .arrow {
+      @extend .arrow-bottom;
+      &:before {
+        border-top-color: $color-border-dark;
+      }
+    }
+  }
+
+  .invisible {
+    border-color: #fff;
+  }
+
+  .end-ruler {
+    border-color: #999;
+  }
+
+  .actual {
+  	border-left: 1px solid orange;
+  	z-index: 6;
+  }
+}
+
+#tooltip.timeline {
+  width: 200px;
+
+  .date {
+    color: $color-hint;
+  }
+}

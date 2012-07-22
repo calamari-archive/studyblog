@@ -1,0 +1,17 @@
+@import "base";
+
+.flash-message {
+  border: $border-light;
+  @include box-shadow(inset 0 -2px 2px $color-white);
+  @include border-radius(0 0 6px 6px);
+  border-top: 0;
+  font-weight: bold;
+  @include gradient(-65deg,  $color-white,  lighten($color-light, 16%), 60%);
+  margin: -14px auto 0;
+  text-align: left;
+  padding: 8px 12px;
+  width: 360px;
+}
+.success-message {
+  color: green;
+}

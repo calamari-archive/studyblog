@@ -1,0 +1,23 @@
+@import "base";
+
+#tooltip {
+	background-color: #fff;
+  border: $border-light;
+	@include border-radius(5px);
+	@include box-shadow();
+	padding: 5px;
+	position: absolute;
+	z-index: 3000;
+
+  h3 {
+    font: {
+      family: $sans-serif-fonts;
+      size: 16px;
+    }
+  }
+
+	h3,
+  div {
+    margin: 0;
+  }
+}

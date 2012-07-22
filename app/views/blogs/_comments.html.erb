@@ -1,0 +1,29 @@
+<%- if blog.permitted_to_comment? current_user -%>
+  <div class="comments">
+    <h3><%=t 'blogs.show.comments.header' %></h3>
+    <%- if !entry.comments.empty? -%>
+      <ul>
+        <%- entry.comments.each do |comment| -%>
+          <li>
+            <span class="profile">
+              <%= display_user_image comment.author, :size => :small %>
+            </span>
+            <strong><%= display_name comment.author %>: </strong>
+            <span class="date"><%=l comment.created_at.to_date %></span>
+            <br>
+            <%= emoticons entry_html comment.text %>
+          </li>
+        <%- end -%>
+      </ul>
+    <%- end -%>
+    <input type="text" name="" value="<%=t 'blogs.show.comments.teaser_hint' %>" class="placeholder" data-toggle="new-comment-<%= entry.id.to_s %>">
+    <%= form_for [entry, Comment.new], :html => { :id => 'new-comment-' + entry.id.to_s, :style => 'display: none' } do |f| %>
+      <h4><%= f.label :text, t('blogs.show.comments.write_header') %></h4>
+      <%= f.text_area :text, :rows => 3 %>
+      <div class="actions">
+        <%= f.submit t('blogs.buttons.add_comment') %>
+        <%= link_to t('actions.cancel'), '#', :class => 'cancel' %>
+      </div>
+    <%- end -%>
+  </div>
+<%- end -%>

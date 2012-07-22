@@ -122,7 +122,7 @@ de:
       edit:   "Studie bearbeiten"
     topic:
       submit: "Thema hinzufügen"
-    private_message:
+    conversations:
       write: "Private Nachricht schreiben"
       reply: "antworten"
     user:

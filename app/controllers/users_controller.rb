@@ -14,8 +14,12 @@ class UsersController < ApplicationController
     # for getting group participant list
     @group = @user.group if @user.is_participant?
 
-    @messages = []
-    @messages = PrivateMessage.conversation(current_user.id, @user.id) unless @user.is_me?(current_user)
+    unless @user.is_me?(current_user)
+      @conversation = Conversation.between(current_user, @user)
+      @messages = @conversation.messages
+    else
+      @messages = []
+    end
 
     #spectators have no profile for participants
     redirect_to root_url if @user.is_spectator? && current_user.is_participant?

@@ -1,0 +1,6 @@
+<div class="message clfx <%= message.author == current_user ? 'left' : 'right' %>">
+  <%= display_user message.author, :size => :medium, :text => l(message.created_at) %>
+  <div class="text arrow-<%= message.author == current_user ? 'left' : 'right' %>">
+    <%= simple_format emoticons message.content.html_safe %>
+  </div>
+</div>

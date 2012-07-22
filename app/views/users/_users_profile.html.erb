@@ -67,17 +67,17 @@
 <%- end -%>
 <%- unless @user.is_me?(current_user) || current_user.is_spectator? -%>
   <section class="actions">
-    <%= link_to t('actions.private_message.write'), new_conversation_path(:user_id => @user), :class => 'action actions-message-add' %>
+    <%= link_to t('actions.conversations.write'), new_conversation_path(:user_id => @user), :class => 'action actions-message-add' %>
   </section>
 <%- end -%>
 
 <%- if @messages.count > 0 -%>
   <h3 class="clr conversation"><%=t 'users.profile.other.message_header', :name => @user.name %></h3>
   <%- @messages.each do |message| -%>
-    <%= render 'private_messages/show', :message => message %>
+    <%= render 'messages/show', :message => message %>
   <%- end -%>
+  <%= link_to t('actions.conversations.reply'), reply_conversation_path(@conversation), :class => 'action actions-reply clr' %>
 <%- end -%>
-
 
 <%= javascript_include_tag "fileupload" %>
 <script>

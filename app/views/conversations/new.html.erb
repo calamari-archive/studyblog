@@ -1,3 +1,10 @@
 <%= page_title('conversations.new.header') %>
 
 <%= render 'form', :hide_recipient => false %>
+
+<%- if @messages.count > 0 -%>
+  <h3 class="clr conversation"><%=t 'users.profile.other.message_header', :name => @recipient.name %></h3>
+  <%- @messages.each do |message| -%>
+    <%= render 'messages/show', :message => message unless message.new_record? %>
+  <%- end -%>
+<%- end -%>

@@ -64,10 +64,14 @@ StudyBlog::Application.routes.draw do
     end
     resources :private_messages
   end
-  match '/setup'   => "users#setup", :as => "setup_user", :method => [:get, :post]
-  match '/profile' => "users#profile", :as => "profile", :method => [:get, :post]
+  match '/setup'   => "users#setup",   :as => "setup_user", :method => [:get, :post]
+  match '/profile' => "users#profile", :as => "profile",    :method => [:get, :post]
 
-  resources :conversations
+  resources :conversations do
+    member do
+      get '/reply' => "conversations#reply", :as => "reply"
+    end
+  end
 
   resources :private_messages do
     get '/reply'                  => "private_messages#reply",        :as => "reply"

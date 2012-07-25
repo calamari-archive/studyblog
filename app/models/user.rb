@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   validates_numericality_of :age, :greater_then => 0, :only_integer => true, :allow_nil => true
   validate :validate_setup
 
+  scope :did_login_once, where(:active => true)
+
   def moderated_studies
     Study.find :all, :conditions => { :moderator_id => id }
   end
@@ -128,6 +130,29 @@ class User < ActiveRecord::Base
 
   def is_moderated_by(user)
     self.group.moderator == user
+  end
+
+  def get_available_recipients
+    if self.is_participant?
+      # only to group participants
+      if (self.group.can_user_see_eachother)
+        @available_contacts = self.group.participants.delete_if {|u| u.id == self.id }
+      else
+        @available_contacts = []
+      end
+      @available_contacts.push self.group.moderator
+    elsif self.is_moderator?
+      # to all participants of all his groups (TODO: and his spectators & admin)
+      @available_contacts = User.joins(:group).where('study_id = (?)', Study.all_of_moderator(self).map(&:id)).did_login_once
+      @available_contacts << User.where("role = 'admin'")
+      @available_contacts.flatten
+    elsif self.is_spectator?
+      # only to his moderator
+      [self.group.moderator]
+    elsif self.is_admin?
+      # every one except participants (they can be called from participant list if needed)
+      User.where("role != 'participant'").where("id != ?", self.id).all
+    end
   end
 
   protected

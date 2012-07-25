@@ -5,15 +5,24 @@ FactoryGirl.define do
     email { "#{username}@some-mailer.de".downcase }
     sequence(:password) {|n| "password#{n}" }
     password_confirmation { password }
-    group_id { FactoryGirl.create(:group).id }
     active true
 
     factory :participant do
+      group_id { FactoryGirl.create(:group).id }
       role 'participant'
     end
 
     factory :moderator do
       role 'moderator'
+    end
+
+    factory :admin do
+      role 'admin'
+    end
+
+    factory :spectator do
+      group { FactoryGirl.create(:group) }
+      role 'spectator'
     end
   end
 
@@ -30,10 +39,11 @@ FactoryGirl.define do
 
   factory :group do
     sequence(:title) {|n| "test_group#{n}" }
-    study_id { FactoryGirl.create(:study).id }
+    study { FactoryGirl.create(:study) }
   end
 
   factory :study do
+    moderator { FactoryGirl.create(:moderator) }
     sequence(:title) {|n| "test_study#{n}" }
     start_date { Time.now + 1.day}
     end_date { Time.now + 8.day}
@@ -41,7 +51,7 @@ FactoryGirl.define do
 
   factory :topic do
     sequence(:title) {|n| "test_topic#{n}" }
-    group_id { FactoryGirl.create(:group).id }
+    group { FactoryGirl.create(:group) }
   end
 
   factory :question_module do

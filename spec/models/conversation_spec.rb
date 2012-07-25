@@ -55,54 +55,37 @@ describe Conversation do
 
   context ".between" do
     before do
-      @usera = FactoryGirl.create(:user)
-      @userb = FactoryGirl.create(:user)
-      @userc = FactoryGirl.create(:user)
+      @usera = FactoryGirl.create(:moderator)
+      @userb = FactoryGirl.create(:moderator)
+      @userc = FactoryGirl.create(:moderator)
       FactoryGirl.create :conversation, :usera => @usera, :userb => @userb
+      FactoryGirl.create :conversation, :usera => @usera, :userb => @userc
     end
 
-    it "returns a conversation object between given two user ids" do
-      conversation = Conversation.between(@usera.id, @userb.id)
-      conversation.should be_instance_of(Conversation)
+    it "returns a ActiveRecordRelations that gets one conversation object between given two user ids" do
+      conversations = Conversation.between(@usera.id, @userb.id)
+      conversations.should be_instance_of(ActiveRecord::Relation)
     end
 
-    it "and order does not matter" do
-      conversation = Conversation.between(@userb.id, @usera.id)
-      conversation.should be_instance_of(Conversation)
+    it "returns list of two conversation object between given two user ids" do
+      conversations = Conversation.between(@usera.id, @userb.id).all
+      conversations.should have(1).item
+    end
+
+    it "and order of parameters does not matter" do
+      conversations = Conversation.between(@userb.id, @usera.id)
+      conversations.should have(1).item
     end
 
     it "accepts user intances" do
-      conversation = Conversation.between(@usera, @userb)
-      conversation.should be_instance_of(Conversation)
-    end
-
-    context "if it does not exist" do
-      before do
-        @conversation = Conversation.between(@usera, @userc)
-      end
-
-      it "creates Conversation " do
-        @conversation.should be_new_record
-      end
-
-      it "created conversation has first given user as usera" do
-        @conversation.usera.should eql @usera
-      end
-
-      it "created conversation has second given user as userb" do
-        @conversation.userb.should eql @userc
-      end
-
-      it "creates Conversation although changed order" do
-        conversation = Conversation.between(@userc, @userb)
-        conversation.should be_new_record
-      end
+      conversations = Conversation.between(@usera, @userb)
+      conversations.should have(1).item
     end
   end
 
   context ".of" do
     before do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryGirl.create(:moderator)
       FactoryGirl.create :conversation, :usera => @user
       FactoryGirl.create :conversation, :userb => @user
     end
@@ -120,9 +103,9 @@ describe Conversation do
 
   context ".read_by" do
     before do
-      @usera = FactoryGirl.create(:user)
-      @userb = FactoryGirl.create(:user)
-      @userc = FactoryGirl.create(:user)
+      @usera = FactoryGirl.create(:moderator)
+      @userb = FactoryGirl.create(:moderator)
+      @userc = FactoryGirl.create(:moderator)
       @conversation = FactoryGirl.create :conversation, :usera => @usera, :userb => @userb, :read_by_a => true
     end
 

@@ -1,0 +1,21 @@
+<%= page_title('conversations.index.header') %>
+
+<%- @conversations.each do |conversation| -%>
+  <ul class="messages">
+    <li class="clfx pm<%= ' new' unless conversation.read_by(current_user) %>">
+      <a href="<%= conversation_path(conversation.id) %>">
+        <img src="<%= asset_path('transparent.gif') %>" class="icon" alt="" width="38" height="22">
+      </a>
+      <!--%= display_user private_message.author %-->
+      <strong><%= conversation.subject %></strong><br>
+      <%=t '.by' %> <%= display_name conversation.usera == current_user ? conversation.userb : conversation.usera %>
+      <ul class="action-list-inline">
+        <li><%= link_to t('actions.show'), conversation_path(conversation.id), :class => 'action actions-show' %></li>
+        <li><%= link_to t('actions.conversations.reply'), reply_conversation_path(conversation), :class => 'action actions-reply' %></li>
+      </ul>
+    </li>
+  </ul>
+<%- end -%>
+<%- if @conversations.count == 0 -%>
+  <p class="info"><%=t '.no_messages' %></p>
+<%- end -%>

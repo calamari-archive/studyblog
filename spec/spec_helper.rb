@@ -8,6 +8,9 @@ require 'rspec/autorun'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+require 'authlogic/test_case'
+require 'declarative_authorization/maintenance'
+
 RSpec.configure do |config|
   # ## Mock Framework
   #
@@ -35,4 +38,22 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  # allow to login in controller tests
+
+  config.before do
+    # include Authlogic::TestCase
+    # same as: activate_authlogic
+    include Authlogic::TestCase
+  end
+end
+
+def login(user)
+  Authlogic::Session::Base.controller = (@request && Authlogic::TestCase::RailsRequestAdapter.new(@request)) || Authlogic::TestCase::MockController.new
+  UserSession.create user
+end
+
+def logout
+  session = UserSession.find
+  session.destroy if session
 end

@@ -1,27 +1,69 @@
 class ConversationsController < ApplicationController
+  filter_access_to :all
+
+  def index
+    @conversations = Conversation.of(current_user).includes(:usera).includes(:userb)
+  end
+
+  def show
+    @conversation = Conversation.find(params[:id])
+    @messages = @conversation.messages
+    @user = recipient_of_conversation(@conversation)
+  end
+
   def new
-    @conversation = Conversation.between(current_user, params[:user_id]) if params[:user_id]
-    prepare_new_and_reply
+    if params[:user_id]
+      @userb = User.find(params[:user_id]);
+      @conversation = Conversation.new(:usera => current_user, :userb_id => @userb.id)
+    else
+      @conversation = Conversation.new(:usera => current_user)
+      @userb = nil
+    end
+    #@recipient = User.find(params[:user_id]) if params[:user_id]
+    @available_contacts = current_user.get_available_recipients if @userb.nil?
+    @message = Message.new
+    show_new_and_reply
   end
 
   def reply
     @conversation = Conversation.find(params[:id])
-    prepare_new_and_reply
-    render :action => "new"
+    if request.method == "POST"
+      @message = Message.new(:content => params[:conversation][:content], :author => current_user)
+      @message.conversation = @conversation
+      if @message.save
+        return redirect_to conversation_path(@conversation)
+      end
+    else
+      @message = Message.new
+    end
+    show_new_and_reply
   end
 
-  def update
+  def post_reply
     @conversation = Conversation.find(params[:id])
-    handle_update_and_create(params[:conversation][:content])
   end
 
   def create
-    @conversation = Conversation.between(current_user, params[:conversation][:recipient_id])
-    if @conversation.save
-      handle_update_and_create(params[:conversation][:content])
-    else
-      render :action => "new", :alert => t('conversations.messages.save_error')
+    @conversation = Conversation.new(
+      :usera => current_user,
+      :userb_id => params[:conversation][:userb_id],
+      :subject => params[:conversation][:subject]
+    )
+    @message = Message.new(:content => params[:conversation][:content], :author => current_user)
+    @conversation.transaction do
+      @conversation.save!
+      @message.conversation = @conversation
+      @message.save!
+      flash[:notice] = t('conversations.messages.successful', :name => @conversation.userb.name)
+      return redirect_to user_path(@conversation.userb)
     end
+  rescue Exception => e
+    @recipient = recipient_of_conversation(@conversation)
+    #@conversation.messages << @message
+    @messages = @conversation.messages
+    @available_contacts = current_user.get_available_recipients
+    flash[:alert] = t('conversations.messages.save_error')
+    render "new"
   end
 
 private
@@ -29,22 +71,9 @@ private
     conversation.usera == current_user ? conversation.userb : conversation.usera
   end
 
-  def handle_update_and_create(content)
-    @conversation.messages.create(:content => content, :author => current_user)
-    @message = @conversation.messages.last
-    @recipient = recipient_of_conversation(@conversation)
-    if @message.save
-      redirect_to user_path(@recipient), :notice => t('conversations.messages.successful', :name => @recipient.name)
-    else
-      @messages = @conversation.messages
-      render :action => "new", :alert => t('conversations.messages.save_error')
-    end
-  end
-
-  def prepare_new_and_reply
-    @conversation.messages << Message.new
-    @message = @conversation.messages.last
+  def show_new_and_reply
     @recipient = recipient_of_conversation(@conversation)
     @messages = @conversation.messages
+    render "new"
   end
 end

@@ -26,6 +26,7 @@ end
 class Study < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :participants, :class_name => 'User', :through => :groups
+  has_many :spectators, :class_name => 'User', :through => :groups
   belongs_to :moderator, :class_name => 'User'
   has_one :mailing
 
@@ -64,10 +65,6 @@ class Study < ActiveRecord::Base
       self.activated = true
     end
     self.activated
-  end
-
-  def spectators
-    self.groups.map {|group| group.spectators }.flatten
   end
 
   def is_activatable?

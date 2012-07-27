@@ -11,7 +11,6 @@ class UserSessionsController < ApplicationController
   # POST /user_sessions.xml
   def create
     @user_session = UserSession.new(params[:user_session])
-    puts params[:user_session].inspect
 
     if @user_session.save
       redirect_to root_url

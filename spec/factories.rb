@@ -85,6 +85,7 @@ FactoryGirl.define do
     end
   end
 
+  # DEPRECATED!
   factory :private_message do
     subject "I am a test-title"
     text  "I am a test-body"
@@ -93,13 +94,17 @@ FactoryGirl.define do
   end
 
   factory :message do
-    author { FactoryGirl.create(:user) }
+    author { FactoryGirl.create(:moderator) }
     content "I am a test message"
   end
 
   factory :conversation do
     subject "test conversation"
-    usera { FactoryGirl.create(:user) }
-    userb { FactoryGirl.create(:user) }
+    usera { FactoryGirl.create(:moderator) }
+    userb { FactoryGirl.create(:moderator) }
+
+    after(:create) do |conversation, evaluator|
+      FactoryGirl.create(:message, :conversation => conversation)
+    end
   end
 end

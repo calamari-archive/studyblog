@@ -1,0 +1,7 @@
+<h1><%=t '.header', :subject => @conversation.subject %></h1>
+<%- if @messages.count > 0 -%>
+  <%- @messages.each do |message| -%>
+    <%= render 'messages/show', :message => message %>
+  <%- end -%>
+  <%= link_to t('actions.conversations.reply'), reply_conversation_path(@conversation), :class => 'action actions-reply clr' %>
+<%- end -%>

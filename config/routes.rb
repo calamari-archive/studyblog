@@ -62,22 +62,17 @@ StudyBlog::Application.routes.draw do
       get :reactivate
       get :deactivate
     end
-    resources :private_messages
   end
   match '/setup'   => "users#setup",   :as => "setup_user", :method => [:get, :post]
   match '/profile' => "users#profile", :as => "profile",    :method => [:get, :post]
 
-  resources :conversations do
+  #TODO: test routes
+  resources :conversations, :except => 'update' do
     member do
-      get '/reply' => "conversations#reply", :as => "reply"
+      get  '/reply' => "conversations#reply", :as => "reply"
+      post '/reply' => "conversations#reply", :as => "reply"
     end
   end
-
-  resources :private_messages do
-    get '/reply'                  => "private_messages#reply",        :as => "reply"
-  end
-
-  get '/private_messages/conversation/:user_id'  => "private_messages#conversation", :as => "private_message_conversation"
 
   get '/help'      => "help#index", :as => "help"
   post '/help'     => "help#create_pm", :as => "help"

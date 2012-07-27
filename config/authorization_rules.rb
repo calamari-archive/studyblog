@@ -13,10 +13,10 @@ authorization do
   role :registered_user do
     includes :registered_ghostuser
 
-    has_permission_on :private_messages, :to => [:create]
-    has_permission_on :private_messages, :to => [:read, :reply, :conversation] do
-      if_attribute :recipient => is { user }
-      if_attribute :author => is { user }
+    has_permission_on :conversations, :to => [:create]
+    has_permission_on :conversations, :to => [:read, :update, :reply] do
+      if_attribute :usera => is { user }
+      if_attribute :userb => is { user }
     end
   end
 

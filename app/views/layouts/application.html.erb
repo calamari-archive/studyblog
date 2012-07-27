@@ -60,8 +60,8 @@
           <%- if current_user && current_user.has_groupblog? -%>
             <li><%= link_to t('application.mainmenu.group_blog'), group_blog_path(current_user.group) %></li>
           <%- end -%>
-          <%- if permitted_to? :index, :private_messages -%>
-            <li><%= link_to t('application.mainmenu.private_messages'), private_messages_path %> <span class="info">(<%= number_unread_messages || 0 %>)</span></li>
+          <%- if permitted_to? :index, :conversations -%>
+            <li><%= link_to t('application.mainmenu.conversations'), conversations_path %> <span class="info">(<%= number_unread_messages || 0 %>)</span></li>
           <%- end -%>
         <%- end -%>
       </ul>

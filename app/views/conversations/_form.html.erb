@@ -1,22 +1,31 @@
-<%= form_for @conversation do |f| %>
+<%= form_for @conversation, :url => !@conversation.new_record? ? reply_conversation_path(@conversation) : nil, :method => 'post' do |f| %>
   <ul class="form">
     <%- unless hide_recipient %>
       <li>
         <%= f.label :recipient_id, t('private_messages.labels.recipient') %>
         <%- if @recipient -%>
-          <%= f.hidden_field :recipient_id, { :value => @recipient.id } %>
+          <%= f.hidden_field :userb_id, { :value => @recipient.id } %>
           <div class="text">
             <%= @recipient.name %>
           </div>
         <%- else -%>
-          <%= f.select :recipient_id, @available_contacts %>
+          <%= f.select :userb_id, @available_contacts.map{|u| [u.name, u.id]} %>
         <%- end -%>
       </li>
     <%- end -%>
     <li>
-      <%= f.label :content, t('conversations.labels.text') %>
+      <%= f.label :subject, t('conversations.labels.subject') %>
+      <%- unless @conversation.new_record? -%>
+        <strong><%= @conversation.subject %></strong>
+      <%- else -%>
+        <%= f.text_field :subject, :autofocus => true %>
+      <%- end -%>
+      <%= f.error_message_on :subject %>
+    </li>
+    <li>
+      <%= f.label :content, t('conversations.labels.content') %>
       <%# f.text_area :content, { :value => @message.content } %>
-      <textarea id="conversation_content" name="conversation[content]"><%= @message.content %></textarea>
+      <textarea id="conversation_content" name="conversation[content]"<% unless @conversation.new_record? %> autofocus<% end %>><%= @message.content %></textarea>
       <%= f.error_message_on :content %>
     </li>
   </ul>

@@ -150,7 +150,7 @@ de:
       profile:          "Dein Profil"
       single_blog:      "Dein Blog"
       group_blog:       "Der Blog"
-      private_messages: "Deine Nachrichten"
+      conversations:    "Deine Nachrichten"
     header:
       study:       "Studie:"
       no_study:    "Keine Studie ausgewählt"
@@ -369,6 +369,7 @@ de:
       question: "Fragemodul"
   conversations:
     labels:
+      subject: "Betreff:"
       content: "Nachricht:"
     new:
       header: "Private Nachricht schreiben"
@@ -377,7 +378,13 @@ de:
     messages:
       successful: "Nachricht an %{name} wurde versendet."
       delete_not_your_own: "Du kannst keine fremde Nachricht löschen."
-      save_error:  "Konversation konnte nicht gespeichert werden."
+      save_error:  "Bitte fülle alle Felder aus."
+    index:
+      header:      "Deine privaten Nachrichten"
+      by:          "von"
+      no_messages: "Du hast noch keine Nachrichten"
+    show:
+      header: "Unterhaltung zum Thema ”%{subject}”"
   private_messages:
     message_reply_prefix: "RE: "
     messages:
@@ -397,7 +404,7 @@ de:
     conversation:
       header: "Nachrichten zwischen dir und %{name}"
     new:
-      header:                "Private Nachricht schreiben"
+      header:                "Nachricht schreiben"
       original_pm_header:    "Ursprüngliche Nachricht:"
       recent_message_header: "Deine bisherige Konversation mit %{name}"
     edit:

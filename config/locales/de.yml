@@ -385,6 +385,8 @@ de:
       no_messages: "Du hast noch keine Nachrichten"
     show:
       header: "Unterhaltung zum Thema ”%{subject}”"
+    listitem:
+      with: "Mit"
   private_messages:
     message_reply_prefix: "RE: "
     messages:

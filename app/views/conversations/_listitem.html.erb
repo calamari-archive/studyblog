@@ -1,0 +1,7 @@
+<li data-clickarea="<%= conversation_path(conversation) %>">
+  <strong><%= conversation.subject %></strong><br>
+  <%- if show_author -%>
+    <%=t '.by' %> <%= display_name conversation.usera == current_user ? conversation.userb : conversation.usera %>
+  <%- end -%>
+  <span class="icon">TODO:Icon</span>
+</li>

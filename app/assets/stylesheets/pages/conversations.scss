@@ -12,33 +12,25 @@ h3.conversation {
   }
 }
 
-.pm {
-  margin-bottom: 20px;
-  padding-left: 48px;
-  position: relative;
+.conversations {
+  border-top: 1px solid $color-border-light;
 
-  .icon {
-    background: image_url('design/pm-in.png');
-    position: absolute;
-    top: 4px;
-    left: 0;
-  }
+  li {
+    border-bottom: 1px solid $color-border-light;
+    min-height: 40px;
+    padding: 4px 0 4px 120px;
+    position: relative;
 
-  &.new .icon {
-    background: image_url('design/pm-in-new.png');
-  }
+    &:hover {
+      background: $color-accent;
+    }
 
-  .user-display {
-    float: left;
-    margin-right: 10px;
-    width: 60px;
-  }
-
-  .user-display .name {
-    display: block;
-  }
-
-  .messages .new {
-    background: #f9f9f9;
+    .icon {
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      text-align: center;
+      width: 100px;
+    }
   }
 }

@@ -102,6 +102,10 @@ strong, .bold {
   clear: left;
 }
 
+[data-clickarea] {
+  cursor: pointer;
+}
+
 /** Emoticons
  =================================================== */
 .emo {

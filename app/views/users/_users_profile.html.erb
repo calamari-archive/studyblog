@@ -75,8 +75,8 @@
   <h3 class="clr conversation"><%=t 'users.profile.other.message_header', :name => @user.name %></h3>
   <ul class="conversations">
     <%- @conversations.each do |conversation| -%>
-      <li>
-        <h4><%= link_to conversation.subject, conversation_path(conversation) %></h4>
+      <li data-clickarea="<%= conversation_path(conversation) %>">
+        <h4><%= conversation.subject %></h4>
         <ul class="action-list-inline">
           <li><%= link_to t('actions.show'), conversation_path(conversation), :class => 'action actions-show' %></li>
         </ul>

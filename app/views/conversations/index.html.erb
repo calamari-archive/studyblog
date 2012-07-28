@@ -1,8 +1,9 @@
 <%= page_title('conversations.index.header') %>
 
 <%- @conversations.each do |conversation| -%>
+<!-- TODO: redo as converastions class -->
   <ul class="messages">
-    <li class="clfx pm<%= ' new' unless conversation.read_by(current_user) %>">
+    <li class="clfx pm<%= ' new' unless conversation.read_by(current_user) %>" data-clickarea="<%= conversation_path(conversation) %>">
       <a href="<%= conversation_path(conversation.id) %>">
         <img src="<%= asset_path('transparent.gif') %>" class="icon" alt="" width="38" height="22">
       </a>

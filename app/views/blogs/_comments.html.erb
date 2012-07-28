@@ -11,7 +11,7 @@
             <strong><%= display_name comment.author %>: </strong>
             <span class="date"><%=l comment.created_at.to_date %></span>
             <br>
-            <%= emoticons entry_html comment.text %>
+            <%= emoticons comment_html comment.text %>
           </li>
         <%- end -%>
       </ul>

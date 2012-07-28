@@ -31,8 +31,8 @@ $(document).ready(function() {
   $('[data-toggle]').live('click', function(event) {
     var clickTarget = $(event.target),
         target      = $('#' + clickTarget.data('toggle')),
-        hideTarget  = clickTarget.data('toggle-hide'),
-        hideTarget  = hideTarget ? $('#' + hideTarget) : clickTarget;
+        hideTarget  = clickTarget.data('toggle-hide');
+    hideTarget  = hideTarget ? $('#' + hideTarget) : clickTarget;
     hideTarget.hide();
     target.show();
     target.find('textarea,input:visible:first').focus();
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
   $('.fileupload input.file').live('change', function(event) {
     $(this).parents('form').submit();
-  })
+  });
 
   $('.datepicker').datepicker({
     firstDay: 1,
@@ -67,6 +67,23 @@ $(document).ready(function() {
       $(this).find("[value='" + id + "']").attr("checked", "checked");
     }
   });
+
+  /**
+   * clickable area that opens an url
+   */
+  $('body').on('click', '[data-clickarea]', function(event) {
+    var target = $(event.target),
+        div;
+        console.log(target.closest('a'));
+    if (!target.closest('a').length) {
+      div = target.closest('[data-clickarea]');
+      location.href = div.attr('data-clickarea');
+    }
+    else {
+      console.log("OK");
+    }
+  });
+
 
   // For autofocus
   $('[autofocus]').focus();

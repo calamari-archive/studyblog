@@ -38,6 +38,8 @@ group :development, :test do
   gem 'rspec-rails'
 
   gem 'mysql2'
+
+  gem 'jasmine'
 end
 
 group :production do

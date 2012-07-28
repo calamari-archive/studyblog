@@ -71,12 +71,18 @@
   </section>
 <%- end -%>
 
-<%- if @messages.count > 0 -%>
+<%- if @conversations.count > 0 -%>
   <h3 class="clr conversation"><%=t 'users.profile.other.message_header', :name => @user.name %></h3>
-  <%- @messages.each do |message| -%>
-    <%= render 'messages/show', :message => message %>
-  <%- end -%>
-  <%= link_to t('actions.conversations.reply'), reply_conversation_path(@conversation), :class => 'action actions-reply clr' %>
+  <ul class="conversations">
+    <%- @conversations.each do |conversation| -%>
+      <li>
+        <h4><%= link_to conversation.subject, conversation_path(conversation) %></h4>
+        <ul class="action-list-inline">
+          <li><%= link_to t('actions.show'), conversation_path(conversation), :class => 'action actions-show' %></li>
+        </ul>
+      </li>
+    <%- end -%>
+  </ul>
 <%- end -%>
 
 <%= javascript_include_tag "fileupload" %>

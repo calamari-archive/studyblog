@@ -15,10 +15,9 @@ class UsersController < ApplicationController
     @group = @user.group if @user.is_participant?
 
     unless @user.is_me?(current_user)
-      @conversation = Conversation.between(current_user, @user)
-      @messages = @conversation.messages
+      @conversations = Conversation.between(current_user, @user)
     else
-      @messages = []
+      @conversations = []
     end
 
     #spectators have no profile for participants
@@ -217,6 +216,7 @@ class UsersController < ApplicationController
     render :show
   end
 
+  # move to helper methods
   def is_me?(user)
     user.is_me? current_user
   end

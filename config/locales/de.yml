@@ -551,7 +551,7 @@ de:
       not_setup: "Die Daten stehen noch nicht zur Verfügung."
       other:
         header: "Das Profile von %{name}"
-        message_header: "Nachrichten zwischen dir und %{name}"
+        message_header: "Unterhaltungen zwischen dir und %{name}"
       yours:
         header:                "Dein Profil"
         upload_picture_button: "Neues Bild aussuchen"

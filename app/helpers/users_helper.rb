@@ -1,7 +1,7 @@
 module UsersHelper
   IMAGE_SIZES = {
-    :small => '30x30',
-    :medium => '60x60',
+    :small => '22x30',
+    :medium => '45x60',
     :original => '120x160'
   }
 
@@ -27,7 +27,7 @@ module UsersHelper
 
   def display_user_image(user, options = {})
     image_url, image_size = image_data(user, options[:size])
-    image_tag image_url, :alt => t('users.image_alt_text', :name => user.name)
+    image_tag image_url, :alt => t('users.image_alt_text', :name => user.name), :class => options[:class]
   end
 
 private

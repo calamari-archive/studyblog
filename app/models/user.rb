@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :blog_comments, :class_name => 'Comment', :foreign_key => :author_id
 
   has_attached_file :image,
-                    :styles => { :original => '120x160>', :small => '30x30>', :medium => '60x60>' },
+                    :styles => { :original => '120x160>', :small => '22x30>', :medium => '45x60>' },
                     :url    => '/' + StudyBlog::Application.config.app_config['users']['image']['dir'] + '/:id-:style.:extension',
                     :path   => ":rails_root/public/" + StudyBlog::Application.config.app_config['users']['image']['dir'] + "/:id-:style.:extension"
 

@@ -17,7 +17,7 @@
       </ul>
     <%- end -%>
     <input type="text" name="" value="<%=t 'blogs.show.comments.teaser_hint' %>" class="placeholder" data-toggle="new-comment-<%= entry.id.to_s %>">
-    <%= form_for [entry, Comment.new], :html => { :id => 'new-comment-' + entry.id.to_s, :style => 'display: none' } do |f| %>
+    <%= form_for [entry, Comment.new], :html => { :id => "new-comment-#{entry.id}", :style => 'display: none' } do |f| %>
       <h4><%= f.label :text, t('blogs.show.comments.write_header') %></h4>
       <%= f.text_area :text, :rows => 3 %>
       <div class="actions">

@@ -98,6 +98,12 @@ FactoryGirl.define do
     content "I am a test message"
   end
 
+  factory :empty_conversation, :class => :conversation do
+    subject "test conversation"
+    usera { FactoryGirl.create(:moderator) }
+    userb { FactoryGirl.create(:moderator) }
+  end
+
   factory :conversation do
     subject "test conversation"
     usera { FactoryGirl.create(:moderator) }

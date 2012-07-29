@@ -17,20 +17,45 @@ h3.conversation {
 
   li {
     border-bottom: 1px solid $color-border-light;
-    min-height: 40px;
+    min-height: 46px;
     padding: 4px 0 4px 120px;
     position: relative;
 
+    &.unread,
     &:hover {
       background: $color-accent;
     }
+  }
 
-    .icon {
+  .icon {
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    height: 100%;
+    width: 100px;
+
+    * {
       position: absolute;
-      left: 10px;
-      top: 4px;
-      text-align: center;
-      width: 100px;
+    }
+    .user-left {
+      left: 2px;
+      top: 12px;
+      z-index: 1;
+    }
+    .info-dialog-left {
+      left: 20px;
+      top: 2px;
+      z-index: 3;
+    }
+    .info-dialog-right {
+      left: 34px;
+      top: 8px;
+      z-index: 2;
+    }
+    .user-right {
+      left: 59px;
+      top: 12px;
+      z-index: 1;
     }
   }
 }

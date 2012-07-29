@@ -18,6 +18,14 @@ class Conversation < ActiveRecord::Base
     end
   end
 
+  def unread_by!(user)
+    if usera_id == user.id
+      self.read_by_a = false
+    elsif userb_id == user.id
+      self.read_by_b = false
+    end
+  end
+
   def read_by?(user)
     if usera_id == user.id
       self.read_by_a

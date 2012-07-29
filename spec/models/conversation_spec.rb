@@ -149,6 +149,33 @@ describe Conversation do
     end
   end
 
+  context ".unread_by!" do
+    before do
+      @usera = FactoryGirl.create(:moderator)
+      @userb = FactoryGirl.create(:moderator)
+      @userc = FactoryGirl.create(:moderator)
+      @conversation = FactoryGirl.create :conversation, :usera => @usera, :userb => @userb, :read_by_a => true, :read_by_b => true
+    end
+
+    it "usera set read_by_a to false" do
+      @conversation.unread_by!(@usera)
+      @conversation.read_by_a.should be false
+      @conversation.read_by_b.should be true
+    end
+
+    it "userb set read_by_b to false" do
+      @conversation.unread_by!(@userb)
+      @conversation.read_by_a.should be true
+      @conversation.read_by_b.should be false
+    end
+
+    it "set with not participating user does nothing" do
+      @conversation.unread_by!(@userc)
+      @conversation.read_by_a.should be true
+      @conversation.read_by_b.should be true
+    end
+  end
+
   context ".the_other_user" do
     let(:conversation) { FactoryGirl.create(:conversation) }
 

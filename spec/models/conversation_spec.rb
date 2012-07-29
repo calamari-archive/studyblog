@@ -53,7 +53,7 @@ describe Conversation do
     end
   end
 
-  context ".between" do
+  context ".between scope" do
     before do
       @usera = FactoryGirl.create(:moderator)
       @userb = FactoryGirl.create(:moderator)
@@ -83,7 +83,7 @@ describe Conversation do
     end
   end
 
-  context ".of" do
+  context ".of scope" do
     before do
       @user = FactoryGirl.create(:moderator)
       FactoryGirl.create :conversation, :usera => @user
@@ -98,6 +98,69 @@ describe Conversation do
     it "returns a list of conversations user participated in" do
       conversations = Conversation.of(@user)
       conversations.should have(2).items
+    end
+  end
+
+  context ".unread scope" do
+    let!(:user1) { FactoryGirl.create(:moderator) }
+    let!(:user2) { FactoryGirl.create(:moderator) }
+    let!(:user3) { FactoryGirl.create(:moderator) }
+
+    it "returns a ActiveRecordRelations that gets all conversations given user has not read all messages from" do
+      conversations = Conversation.unread(user1)
+      conversations.should be_instance_of(ActiveRecord::Relation)
+    end
+
+    context "with no conversations in the system" do
+      it "results in empty list for user1" do
+        Conversation.unread(user1).should be_empty
+      end
+
+      it "results in empty list for user2" do
+        Conversation.unread(user2).should be_empty
+      end
+    end
+
+    context "with only read conversations of user1" do
+      let!(:conversation)  { FactoryGirl.create(:conversation, :usera => user1, :userb => user2, :read_by_a => true) }
+      let!(:conversation2) { FactoryGirl.create(:conversation, :usera => user3, :userb => user1, :read_by_b => true) }
+
+      it "results in empty list for user1" do
+        Conversation.unread(user1).should be_empty
+      end
+
+      it "find one item for user2" do
+        Conversation.unread(user2).should have(1).item
+      end
+
+      it "find one item for user3" do
+        Conversation.unread(user3).should have(1).item
+      end
+
+      it "finds the right conversation for user2" do
+        Conversation.unread(user2).map(&:id).should include(conversation.id)
+      end
+
+      it "finds the right conversation for user3" do
+        Conversation.unread(user3).map(&:id).should include(conversation2.id)
+      end
+    end
+
+    context "with unread conversations of all users" do
+      let!(:conversation)  { FactoryGirl.create(:conversation, :usera => user1, :userb => user2) }
+      let!(:conversation2) { FactoryGirl.create(:conversation, :usera => user1, :userb => user3) }
+
+      it "results in two items for user1" do
+        Conversation.unread(user1).should have(2).items
+      end
+
+      it "find one item for user2" do
+        Conversation.unread(user2).should have(1).item
+      end
+
+      it "find one item for user3" do
+        Conversation.unread(user3).should have(1).item
+      end
     end
   end
 

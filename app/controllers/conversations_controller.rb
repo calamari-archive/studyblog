@@ -9,6 +9,8 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:id])
     @messages = @conversation.messages
     @user = recipient_of_conversation(@conversation)
+    @conversation.read_by!(current_user)
+    @conversation.save
   end
 
   def new

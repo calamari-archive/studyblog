@@ -43,7 +43,7 @@ describe ConversationsController do
     end
 
     context "#show" do
-      let(:conversation) { FactoryGirl.create(:conversation, :usera => @usera, :userb => @userb) }
+      let(:conversation) { FactoryGirl.create(:conversation, :usera => @usera, :userb => @userb, :read_by_a => false) }
       before do
         get :show, :id => conversation.id
       end
@@ -60,6 +60,10 @@ describe ConversationsController do
 
       it "sends user (recipient) to view" do
         assigns[:user].should eql @userb
+      end
+
+      it "marks conversation we just look at as read" do
+        assigns[:conversation].read_by?(@usera).should be true
       end
     end
 

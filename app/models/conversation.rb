@@ -10,11 +10,19 @@ class Conversation < ActiveRecord::Base
   scope :between, lambda {|a, b| where('(usera_id = :usera_id AND userb_id = :userb_id) OR (userb_id = :usera_id AND usera_id = :userb_id)', :usera_id => a.to_param, :userb_id => b.to_param) }
   scope :of, lambda {|user| where('usera_id = :user_id OR userb_id = :user_id', :user_id => user.to_param) }
 
+  def read_by!(user)
+    if usera_id == user.id
+      self.read_by_a = true
+    elsif userb_id == user.id
+      self.read_by_b = true
+    end
+  end
+
   def read_by?(user)
     if usera_id == user.id
-      read_by_a
+      self.read_by_a
     elsif userb_id == user.id
-      read_by_b
+      self.read_by_b
     else
       false
     end

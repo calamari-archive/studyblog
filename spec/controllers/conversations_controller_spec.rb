@@ -231,7 +231,7 @@ describe ConversationsController do
 
     context "#reply" do
       before do
-        @conversation = FactoryGirl.create(:conversation, :usera => @usera, :userb => @userb)
+        @conversation = FactoryGirl.create(:conversation, :usera => @usera, :userb => @userb, :read_by_a => true, :read_by_b => true)
       end
 
       context "when GETing" do
@@ -270,12 +270,25 @@ describe ConversationsController do
             }.to change(Message, :count).by(+1)
           end
 
-          it "adds the Message to the Conversation" do
-            post :reply, :id => @conversation.id, :conversation => {
-              :content => 'Reply Content!'
-            }
-            conversation = @conversation.reload
-            conversation.messages.should have(2).items
+          context "" do
+            before do
+              post :reply, :id => @conversation.id, :conversation => {
+                :content => 'Reply Content!'
+              }
+              @conversation.reload
+            end
+
+            it "adds the Message to the Conversation" do
+              @conversation.messages.should have(2).items
+            end
+
+            it "marks the conversation as unread for recipient of message" do
+              @conversation.read_by_b.should be false
+            end
+
+            it "does not change the read status for sender of message" do
+              @conversation.read_by_a.should be true
+            end
           end
         end
 

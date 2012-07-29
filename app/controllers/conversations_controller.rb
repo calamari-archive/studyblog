@@ -32,7 +32,9 @@ class ConversationsController < ApplicationController
     if request.method == "POST"
       @message = Message.new(:content => params[:conversation][:content], :author => current_user)
       @message.conversation = @conversation
-      if @message.save
+      @conversation.unread_by!(@conversation.the_other_user(current_user))
+      @conversation.save
+      if @conversation.save && @message.save
         return redirect_to conversation_path(@conversation)
       end
     else

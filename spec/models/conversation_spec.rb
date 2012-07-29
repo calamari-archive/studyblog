@@ -101,7 +101,7 @@ describe Conversation do
     end
   end
 
-  context ".read_by" do
+  context ".read_by?" do
     before do
       @usera = FactoryGirl.create(:moderator)
       @userb = FactoryGirl.create(:moderator)
@@ -110,15 +110,15 @@ describe Conversation do
     end
 
     it "returns true if read by this user" do
-      @conversation.read_by(@usera).should be true
+      @conversation.read_by?(@usera).should be true
     end
 
     it "returns false if unread by this user" do
-      @conversation.read_by(@userb).should be false
+      @conversation.read_by?(@userb).should be false
     end
 
     it "returns false if user is not part of conversation" do
-      @conversation.read_by(@userc).should be false
+      @conversation.read_by?(@userc).should be false
     end
   end
 

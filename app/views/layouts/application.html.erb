@@ -62,7 +62,7 @@
             <li><%= link_to t('application.mainmenu.group_blog'), group_blog_path(current_user.group) %></li>
           <%- end -%>
           <%- if permitted_to? :index, :conversations -%>
-            <li><%= link_to t('application.mainmenu.conversations'), conversations_path %> <span class="info">(<%= number_unread_messages || 0 %>)</span></li>
+            <li><%= link_to t('application.mainmenu.conversations'), conversations_path %> <span class="info">(<%= number_unread_conversations %>)</span></li>
           <%- end -%>
         <%- end -%>
       </ul>

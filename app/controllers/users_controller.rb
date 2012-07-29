@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = params[:id] ? User.find(params[:id]) : current_user
     # for getting group participant list
     @group = @user.group if @user.is_participant?
 
@@ -23,6 +23,46 @@ class UsersController < ApplicationController
     #spectators have no profile for participants
     redirect_to root_url if @user.is_spectator? && current_user.is_participant?
   end
+
+  def profile
+    @user = params[:id] ? User.find(params[:id]) : current_user
+    if @user.update_attributes(params[:user])
+      respond_to do |format|
+        format.html do
+          if params[:user][:password] && !params[:user][:password].empty?
+            flash[:notice] = I18n.t('participants.messages.password_changed')
+          end
+          redirect_to profile_path
+          return
+        end
+        format.json do
+          result = {}
+          unless params[:user][:password] && !params[:user][:password].empty?
+            result[:image] = @user.image.url
+            result[:success] = I18n.t('participants.messages.image_changed')
+          end
+          render :json => result
+          return
+        end
+      end
+    else
+      if params[:user][:password]
+        # for getting group participant list
+        @group = @user.group if @user.is_participant?
+
+        unless @user.is_me?(current_user)
+          @conversations = Conversation.between(current_user, @user)
+        else
+          @conversations = []
+        end
+        @password_send = true
+
+        flash[:alert] = I18n.t('participants.messages.password_change_failed')
+        render :show
+      end
+    end
+  end
+
 
   def new
     @user = User.new
@@ -176,44 +216,6 @@ class UsersController < ApplicationController
         flash[:alert] = I18n.t('users.messages.setup_failed')
       end
     end
-  end
-
-  def profile
-    @user = params[:id] ? User.find(params[:id]) : current_user
-    # for getting group participant list
-    @group = @user.group if @user.is_participant?
-
-    @messages = []
-    @messages = PrivateMessage.conversation(current_user.id, @user.id) unless @user.is_me?(current_user)
-
-    if request.method == "POST"
-      if @user.update_attributes(params[:user])
-        respond_to do |format|
-          format.html do
-            if params[:user][:password] && !params[:user][:password].empty?
-              flash[:notice] = I18n.t('participants.messages.password_changed')
-            end
-            redirect_to profile_path
-            return
-          end
-          format.json do
-            result = {}
-            unless params[:user][:password] && !params[:user][:password].empty?
-              result[:image] = @user.image.url
-              result[:success] = I18n.t('participants.messages.image_changed')
-            end
-            render :json => result
-            return
-          end
-        end
-      else
-        if params[:user][:password]
-          flash[:alert] = I18n.t('participants.messages.password_change_failed')
-        end
-      end
-    end
-
-    render :show
   end
 
   # move to helper methods

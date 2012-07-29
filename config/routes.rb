@@ -64,7 +64,9 @@ StudyBlog::Application.routes.draw do
     end
   end
   match '/setup'   => "users#setup",   :as => "setup_user", :method => [:get, :post]
-  match '/profile' => "users#profile", :as => "profile",    :method => [:get, :post]
+  get  '/profile'  => "users#show",    :as => "profile"
+  post '/profile'  => "users#profile", :as => "profile"
+  put  '/profile'  => "users#profile", :as => "profile"
 
   #TODO: test routes
   resources :conversations, :except => 'update' do

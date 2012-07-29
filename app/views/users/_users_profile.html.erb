@@ -45,7 +45,7 @@
 <%- if @user.is_me? current_user -%>
   <section>
     <%= link_to t('users.profile.yours.change_password'), '#', 'data-toggle' => 'password-form', :class => 'action actions-edit' %>
-    <%= form_for @user, :url => profile_path, :html => { :id => 'password-form',  :style => 'display:none', :class => (@user.errors.any? ? 'toggleopen' : '') } do |f| %>
+    <%= form_for @user, :url => profile_path, :method => 'post', :html => { :id => 'password-form',  :style => (defined?(@password_send) ? '' : 'display:none'), :class => (@user.errors.any? ? 'toggleopen' : '') } do |f| %>
       <ul class="form">
         <li>
           <%= f.label 'password' %>

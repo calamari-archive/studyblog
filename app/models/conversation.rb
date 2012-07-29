@@ -27,4 +27,8 @@ class Conversation < ActiveRecord::Base
       usera
     end
   end
+
+  def has_written_something(user)
+    messages.where(:author_id => user).count > 0
+  end
 end

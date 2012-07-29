@@ -133,4 +133,36 @@ describe Conversation do
       conversation.the_other_user(conversation.usera).should eql conversation.userb
     end
   end
+
+  context ".has_written_something" do
+    let!(:usera) { FactoryGirl.create(:moderator) }
+    let!(:userb) { FactoryGirl.create(:moderator) }
+    let!(:conversation) { FactoryGirl.create(:conversation, :usera => usera, :userb => userb) }
+
+    context "only usera wrote to userb" do
+      let!(:message1) { FactoryGirl.create(:message, :conversation => conversation, :author => usera) }
+      let!(:message2) { FactoryGirl.create(:message, :conversation => conversation, :author => usera) }
+
+      it "returns true for user usera" do
+        conversation.has_written_something(usera).should be true
+      end
+
+      it "returns false for user userb" do
+        conversation.has_written_something(userb).should be false
+      end
+    end
+
+    context "both users participated" do
+      let!(:message1) { FactoryGirl.create(:message, :conversation => conversation, :author => usera) }
+      let!(:message2) { FactoryGirl.create(:message, :conversation => conversation, :author => userb) }
+
+      it "returns true for user usera" do
+        conversation.has_written_something(usera).should be true
+      end
+
+      it "returns true for user userb" do
+        conversation.has_written_something(userb).should be true
+      end
+    end
+  end
 end

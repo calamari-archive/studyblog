@@ -19,4 +19,12 @@ class Conversation < ActiveRecord::Base
       false
     end
   end
+
+  def the_other_user(user)
+    if usera.id == user.id
+      userb
+    else
+      usera
+    end
+  end
 end

@@ -120,5 +120,17 @@ describe Conversation do
     it "returns false if user is not part of conversation" do
       @conversation.read_by(@userc).should be false
     end
-   end
+  end
+
+  context ".the_other_user" do
+    let(:conversation) { FactoryGirl.create(:conversation) }
+
+    it "returns usera if userb is given" do
+      conversation.the_other_user(conversation.userb).should eql conversation.usera
+    end
+
+    it "returns userb if usera is given" do
+      conversation.the_other_user(conversation.usera).should eql conversation.userb
+    end
+  end
 end

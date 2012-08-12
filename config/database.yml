@@ -19,5 +19,5 @@ production:
   adapter: mysql2
   database: studyblog_production
   username: 'root'
-  password: ''
+  password: 'rootbier'
   host: '127.0.0.1'

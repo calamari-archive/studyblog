@@ -12,6 +12,8 @@ gem 'declarative_authorization'
 gem 'sanitize'
 gem 'paperclip', '~> 3.1.2'
 
+gem "therubyracer", :require => 'v8'
+
 # gem 'nokogiri'
 
 # TODO: maybe replace with simple_form (https://github.com/plataformatec/simple_form/)
@@ -57,6 +59,7 @@ end
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'debugger'

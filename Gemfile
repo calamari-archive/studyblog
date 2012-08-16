@@ -12,7 +12,7 @@ gem 'declarative_authorization'
 gem 'sanitize'
 gem 'paperclip', '~> 3.1.2'
 
-gem "therubyracer", :require => 'v8'
+#gem "therubyracer", :require => 'v8'
 
 # gem 'nokogiri'
 

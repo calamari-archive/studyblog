@@ -18,6 +18,6 @@ test:
 production:
   adapter: mysql2
   database: studyblog_production
-  username: 'root'
-  password: 'rootbier'
+  username: 'studyblog'
+  password: 'studyblog'
   host: '127.0.0.1'

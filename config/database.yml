@@ -17,7 +17,10 @@ test:
 
 production:
   adapter: mysql2
+  encoding: utf8
   database: studyblog_production
+  pool: 5
   username: 'studyblog'
   password: 'studyblog'
   host: '127.0.0.1'
+  socket: /var/run/mysqld/mysqld.sock

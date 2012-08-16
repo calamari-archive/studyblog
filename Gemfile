@@ -19,6 +19,8 @@ gem 'paperclip', '~> 3.1.2'
 # TODO: maybe replace with simple_form (https://github.com/plataformatec/simple_form/)
 gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
 
+gem 'mysql2'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -38,8 +40,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-
-  gem 'mysql2'
 
   gem 'jasmine'
 end

@@ -15,6 +15,7 @@ class UserSessionsController < ApplicationController
     if @user_session.save
       redirect_to root_url
     else
+      Rails.logger.info @user_session.errors.inspect
       flash[:alert] = I18n.t('login.error_message')
       render :action => "new"
     end

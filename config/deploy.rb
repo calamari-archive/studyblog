@@ -11,7 +11,6 @@ set :use_sudo, false
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-set :git_enable_submodules, 1
 
 set :deploy_to, "/var/www/#{application}"
 #set :deploy_via, :export

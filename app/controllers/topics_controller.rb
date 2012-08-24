@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
     if @topic.save
       flash[:notice] = t('topics.messages.created')
     else
-      flash[:alert] = t('topics.messages.creation_failed')
+      flash[:alert] = t('topics.messages.creation_failed', :reason => @topic.errors.first[1])
     end
     redirect_to @group.study
   end

@@ -358,7 +358,7 @@ de:
       or:     "oder als"
     messages:
       created: "Thema wurde hinzugefügt."
-      creation_failed: "Thema konnte nicht hinzugefügt werden."
+      creation_failed: "Thema konnte nicht hinzugefügt werden. Grund: \"%{reason}\""
     attributes:
       title: "Titel"
     labels:

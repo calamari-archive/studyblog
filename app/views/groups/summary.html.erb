@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% entries_without_topic = @group.has_groupblog? ? @group.groupblog.entries_without_topic : @group.participants.map {|p| p.blog.entries_without_topic }.flatten %>
+      <% entries_without_topic = @group.has_groupblog? ? @group.groupblog.entries_without_topic : @group.participants.map {|p| p.blog.nil? ? [] : p.blog.entries_without_topic }.flatten %>
       <%- unless entries_without_topic.empty? -%>
         <tr>
           <td class="topic no-topic" colspan="<%= @group.participants.count %>" id="topic-0">
@@ -30,12 +30,12 @@
         <tr>
           <td class="topic" colspan="<%= @group.participants.count %>" id="topic-<%= topic.id %>">
             <%= t('modules.types.' + topic.module_type.underscore) + ':' if topic.is_module? %> <%= topic.title %>
-            <span class="date"><%=l topic.created_at %></span>
+            <span class="date"><%=l topic.created_at.to_date %></span>
           </td>
         </tr>
         <tr>
           <%- @group.participants.each do |user| -%>
-            <%= render 'summary_topic_row', :user => user, :topic => topic, :topic_entries => @group.has_groupblog? ? group_entries : user.blog.entries_of_topic(topic) %>
+            <%= render 'summary_topic_row', :user => user, :topic => topic, :topic_entries => @group.has_groupblog? ? group_entries : user.blog.nil? ? [] : user.blog.entries_of_topic(topic) %>
           <%- end -%>
         </tr>
       <%- end -%>

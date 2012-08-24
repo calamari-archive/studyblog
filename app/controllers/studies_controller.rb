@@ -1,5 +1,7 @@
 class StudiesController < ApplicationController
-  filter_access_to :all
+  filter_access_to :all, :attribute_check => true
+  before_filter :get_study, :only => [:assign, :activate]
+  filter_access_to [:assign, :activate], :attribute_check => true
 
   def index
     if (current_user.is_admin?)
@@ -59,7 +61,6 @@ class StudiesController < ApplicationController
 
   def assign
     # TODO: not complete, form fehlt
-    @study      = Study.find(params[:study_id])
     @moderators = User.where(:role => 'moderator').collect {|u| [u.name, u.id] }
 
     if request.method == "POST"
@@ -79,13 +80,17 @@ class StudiesController < ApplicationController
   end
 
   def activate
-    @study = Study.find(params[:study_id])
-
     if @study.activate && @study.save
       flash[:notice] = t('studies.messages.activated')
     else
       flash[:alert] = t('studies.messages.not_activated')
     end
     redirect_to study_url(@study.id)
+  end
+
+  private
+
+  def get_study
+    @study      = Study.find(params[:study_id])
   end
 end

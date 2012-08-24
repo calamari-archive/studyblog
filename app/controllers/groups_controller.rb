@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  filter_access_to :all, :attribute_check => true
+
   def new
     @study = Study.find(params[:study_id])
     return if check_study_status @study

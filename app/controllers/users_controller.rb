@@ -1,7 +1,7 @@
 require 'mail'
 
 class UsersController < ApplicationController
-  filter_access_to :all
+  filter_access_to :all, :attribute_check => true
 
   helper_method :is_me?
 

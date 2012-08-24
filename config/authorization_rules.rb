@@ -24,7 +24,7 @@ authorization do
     includes :registered_user
 
     has_permission_on :users, :to => [:index, :show, :edit, :new, :manage_participants, :manage_spectators, :create, :destroy, :update, :deactivate, :reactivate, :profile]
-    has_permission_on :studies, :to => [:index, :read, :manage, :assign, :activate]
+    has_permission_on :studies, :to => [:manage, :assign, :activate]
     has_permission_on :groups, :to => [:show, :edit, :new, :create, :destroy, :update]
     has_permission_on :blogs, :to => [:show]
 
@@ -36,7 +36,7 @@ authorization do
   role :moderator do
     includes :registered_user
 
-    has_permission_on :studies, :to => [:index, :show, :edit, :new, :create, :update, :activate] do
+    has_permission_on :studies, :to => [:read, :create, :update, :activate] do
       if_attribute :moderator => is { user }
     end
     has_permission_on :studies, :to => :delete do

@@ -1,5 +1,5 @@
 class BlogEntriesController < ApplicationController
-  filter_access_to :all
+  filter_access_to :all, :attribute_check => true
 
   def show
     @blog_entry = BlogEntry.find(params[:id])

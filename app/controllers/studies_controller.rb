@@ -1,7 +1,6 @@
 class StudiesController < ApplicationController
-  filter_access_to :all, :attribute_check => true
   before_filter :get_study, :only => [:assign, :activate]
-  filter_access_to [:assign, :activate], :attribute_check => true
+  filter_access_to :all, :attribute_check => true
 
   def index
     if (current_user.is_admin?)

@@ -3,10 +3,14 @@ class Topic < ActiveRecord::Base
   belongs_to :group
   # not essentially correct, more correct would be an has_one and belongs to in the different places
   belongs_to :module, :polymorphic => true
+  has_one :study, :through => :group
 
   validates_presence_of :title
   # if module is set it must be valid
   validates_associated :module
+
+  validates_presence_of :group
+  validate :check_if_study_is_closed
 
   attr_accessible :title
 
@@ -20,5 +24,11 @@ class Topic < ActiveRecord::Base
 
   def module_type_short
     self.module_type.gsub('Module', '').underscore if self.module_type
+  end
+
+  protected
+
+  def check_if_study_is_closed
+    errors[:study] << I18n.t('topics.errors.study_ended') if self.study && self.study.has_ended?
   end
 end

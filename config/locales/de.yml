@@ -364,6 +364,8 @@ de:
     labels:
       title: "Titel:"
       moduletype: "Typ:"
+    errors:
+      study_ended: "Studie ist bereits beendet"
     types:
       plain:    "Einfaches Thema"
       question: "Fragemodul"

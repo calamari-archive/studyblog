@@ -470,6 +470,7 @@ de:
       header:             "Zusammenfassung der Gruppe \"%{group}\""
       study_not_started:  "Studie ist noch nicht gestartet."
       no_topic:           "Keinem Thema zugeordnet"
+    summary_topic_row:
       modules:
         not_done_yet: "Aufgabe noch nicht ausgefüllt"
         done:         "Aufgabe erledigt"

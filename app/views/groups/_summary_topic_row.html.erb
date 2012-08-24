@@ -1,7 +1,7 @@
 <%- entries = topic_entries.select {|entry| entry.author == user }  -%>
 <td>
   <%- if topic && topic.is_module? && entries.empty? -%>
-    <span class="not-done"><%=t 'groups.summary.modules.not_done_yet' %></span>
+    <span class="not-done"><%=t '.modules.not_done_yet' %></span>
   <%- else -%>
     <ul>
       <%- if topic && topic.is_module? -%>

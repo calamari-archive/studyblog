@@ -45,6 +45,7 @@ RSpec.configure do |config|
     # include Authlogic::TestCase
     # same as: activate_authlogic
     include Authlogic::TestCase
+    include Authorization::TestHelper
   end
 end
 

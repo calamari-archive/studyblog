@@ -2,6 +2,8 @@
 <td>
   <%- if topic && topic.is_module? && entries.empty? -%>
     <span class="not-done"><%=t '.modules.not_done_yet' %></span>
+  <%- elsif entries.empty? -%>
+    <span class="not-done"><%=t '.not_done_yet' %></span>
   <%- else -%>
     <ul>
       <%- if topic && topic.is_module? -%>

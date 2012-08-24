@@ -471,6 +471,7 @@ de:
       study_not_started:  "Studie ist noch nicht gestartet."
       no_topic:           "Keinem Thema zugeordnet"
     summary_topic_row:
+      not_done_yet: "nichts"
       modules:
         not_done_yet: "Aufgabe noch nicht ausgefüllt"
         done:         "Aufgabe erledigt"

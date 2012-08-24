@@ -58,3 +58,12 @@ def logout
   session = UserSession.find
   session.destroy if session
 end
+
+## for checking auhtorization
+def should_access_deny(response)
+  flash[:alert].should eql I18n.t('application.messages.permission_denied')
+end
+
+def should_access_allow(response)
+  flash[:alert].should_not eql I18n.t('application.messages.permission_denied')
+end

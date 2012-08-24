@@ -15,7 +15,6 @@
         <th><%=t 'studies.attributes.status' %></th>
         <th></th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -41,7 +40,6 @@
             <%- end -%>
           </td>
           <td><%= link_to t('actions.show'), study, :class => 'action-icon actions-show-icon' %></td>
-          <td><%= link_to t('actions.edit'), edit_study_path(study), :class => 'action-icon actions-edit-icon' unless study.is_deleted? %></td>
           <td><%= link_to(t('actions.delete'), study, :confirm => t('dialogs.delete.study'), :method => :delete, :class => 'action-icon actions-delete-icon') if permitted_to?(:delete, study) && !study.is_deleted? %></td>
         </tr>
       <% end %>

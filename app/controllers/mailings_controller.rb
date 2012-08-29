@@ -103,7 +103,7 @@ class MailingsController < ApplicationController
 
     def send_testmail(params)
       if params[:testmail]
-        user = @study.participants.first
+        user = @study.moderator
         user.password = "p4s$w0rd"
         if @study.mailing
           UserMailer.new_participant_from_mailing(user, @study.mailing, @study.moderator.email).deliver

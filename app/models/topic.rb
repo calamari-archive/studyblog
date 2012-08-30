@@ -12,7 +12,7 @@ class Topic < ActiveRecord::Base
   validates_presence_of :group
   validate :check_if_study_is_closed
 
-  attr_accessible :title
+  attr_accessible :title, :description
 
   def blog_entries_of_blog(blog)
     blog_entries.select {|entry| entry.blog_id == blog.id }

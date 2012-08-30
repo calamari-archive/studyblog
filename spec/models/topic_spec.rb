@@ -12,6 +12,10 @@ describe Topic do
         topic.errors[:title].should_not be_empty
       end
 
+      it "fails not with description" do
+        topic.errors[:description].should be_empty
+      end
+
       it "fails with group" do
         topic.errors[:group].should_not be_empty
       end

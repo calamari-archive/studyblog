@@ -5,6 +5,11 @@
     <%= f.text_field :title %>
   </p>
 
+  <p>
+    <%= f.label :description, t('topics.labels.description') %>
+    <%= f.text_area :description, :class => 'description' %>
+  </p>
+
   <span class="label"><%=t 'topics.labels.moduletype' %></span>
   <div class="text">
     <%=t 'topics.types.plain' %><br>

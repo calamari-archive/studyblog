@@ -361,9 +361,11 @@ de:
       creation_failed: "Thema konnte nicht hinzugefügt werden. Grund: \"%{reason}\""
     attributes:
       title: "Titel"
+      description: "Beschreibung"
     labels:
       title: "Titel:"
       moduletype: "Typ:"
+      description: "Beschreibung:"
     errors:
       study_ended: "Studie ist bereits beendet"
     types:

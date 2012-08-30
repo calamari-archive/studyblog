@@ -58,6 +58,10 @@ textarea.fullsize {
   min-height: 150px;
 }
 
+textarea.description {
+  height: 80px;
+}
+
 input.placeholder {
   color: $color-hint;
 }

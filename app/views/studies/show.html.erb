@@ -139,7 +139,7 @@
       <% if group.topics %>
         <ul>
           <% group.topics.each do |topic| %>
-            <li><%= topic.title %></li>
+            <li<% unless topic.description.blank? %> data-tooltip="<%= topic.description %>"<% end %>><%= topic.title %></li>
           <% end %>
         </ul>
       <% end %>

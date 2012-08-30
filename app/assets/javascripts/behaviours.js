@@ -85,6 +85,17 @@ $(document).ready(function() {
   });
 
 
+  /**
+   * Tooltips
+   */
+  $('[data-tooltip]').filter(function(i, element) {
+    return $(element).attr('data-tooltip') !== '';
+  }).tooltip({
+    bodyHandler: function() {
+      return $(this).attr('data-tooltip');
+    }
+  });
+
   // For autofocus
   $('[autofocus]').focus();
 });

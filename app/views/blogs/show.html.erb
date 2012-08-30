@@ -13,10 +13,15 @@
       <%- @blog.topics.each do |topic| -%>
         <%- entries = @blog.entries_of_topic(topic) -%>
         <li class="clr">
-          <h2 class="callout topic" id="topic-<%= topic.id %>">
-            <%= t('modules.types.' + topic.module_type.underscore) + ':' if topic.is_module? %> <%= topic.title %>
-            <span class="date"><%=l topic.created_at.to_date %></span>
-          </h2>
+          <div class="callout">
+            <h2 class="topic" id="topic-<%= topic.id %>">
+              <%= t('modules.types.' + topic.module_type.underscore) + ':' if topic.is_module? %> <%= topic.title %>
+              <span class="date"><%=l topic.created_at.to_date %></span>
+            </h2>
+            <%- unless topic.description.blank? -%>
+              <p><%= topic.description %></p>
+            <%- end -%>
+          </div>
         </li>
         <%- if topic.is_module? && entries.empty? -%>
           <li>

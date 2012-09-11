@@ -1,6 +1,7 @@
 @import "base";
 
 /** Icons **/
+$actions-spacing: 10px;
 @import "icons/actions/*.png";
 @include all-actions-sprites;
 

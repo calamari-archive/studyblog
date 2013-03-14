@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -18,6 +18,7 @@ gem 'paperclip', '~> 3.1.2'
 
 # TODO: maybe replace with simple_form (https://github.com/plataformatec/simple_form/)
 gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
+gem 'simple_form'
 
 gem 'mysql2'
 

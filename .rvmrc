@@ -1,1 +1,1 @@
-rvm use --create 1.9.2-p290@studyblog
+rvm use --create 2.0.0-p0@studyblog

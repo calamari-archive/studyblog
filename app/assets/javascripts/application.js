@@ -1,6 +1,7 @@
 // Load all application files
 
-//= require ./lib/jquery-1.7.2.min.js
+//= require ./lib/jquery-1.9.1.min.js
+//= require ./lib/jquery-migrate-1.1.1.min.js
 //= require ./lib/jquery-ui-1.8.16.custom.min.js
 //= require ./controls/modal_background.js
 //= require ./lib/dialog.jquery.js

@@ -6,19 +6,44 @@
  *
  * &copy; 2011 Jamie Lottering <http://github.com/JamieLottering>
  *                        <http://twitter.com/JamieLottering>
- * 
+ *
  */
 (function ($, window, document) {
 
   var ie6 = false;
 
+
+  // ----------------------------------------------------------
+  // If you're not in IE (or IE version is less than 5) then:
+  //     ie === undefined
+  // If you're in IE (>5) then you can determine which version:
+  //     ie === 7; // IE7
+  // Thus, to detect IE:
+  //     if (ie) {}
+  // And to detect the version:
+  //     ie === 6 // IE6
+  //     ie> 7 // IE8, IE9 ...
+  //     ie <9 // Anything less than IE9
+  // ----------------------------------------------------------
+  var msie = (function(){
+      var undef, v = 3, div = document.createElement('div');
+
+      while (
+        div.innerHTML = '<!--[if gt IE '+(++v)+']><i></i><![endif]-->',
+        div.getElementsByTagName('i')[0]
+      );
+
+      return v> 4 ? v : undef;
+  }());
+
+
   // Help prevent flashes of unstyled content
-  if ($.browser.msie && $.browser.version.substr(0, 1) < 7) {
+  if (msie && msie < 7) {
     ie6 = true;
   } else {
     document.documentElement.className = document.documentElement.className + ' dk_fouc';
   }
-  
+
   var
     // Public methods exposed to $.fn.dropkick()
     methods = {},
@@ -262,7 +287,6 @@
 
     $select = data.$select;
     $select.val(value);
-    $select.change();
 
     $dk.find('.dk_label').text(label);
 
@@ -359,17 +383,17 @@
     });
 
     // Handle click events on individual dropdown options
-    $('.dk_options a').live(($.browser.msie ? 'mousedown' : 'click'), function (e) {
+    $('.dk_options a').live((msie ? 'mousedown' : 'click'), function (e) {
       var
         $option = $(this),
         $dk     = $option.parents('.dk_container').first(),
         data    = $dk.data('dropkick')
       ;
-    
+
       _closeDropdown($dk);
       _updateFields($option, $dk);
       _setCurrent($option.parent(), $dk);
-    
+
       e.preventDefault();
       return false;
     });

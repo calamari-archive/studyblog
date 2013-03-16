@@ -23,6 +23,7 @@ class Ability
     can :read, Blog
     can :read, BlogEntry
     can :destroy, BlogEntry
+    can :manage, Mailing
     can :manage, Group
     can :manage, Study
   end
@@ -38,6 +39,7 @@ class Ability
 
     can :read, Blog, study: { moderator_id: current_user.id }
     can [:read, :destroy], BlogEntry, study: { moderator_id: current_user.id }
+    can :manage, Mailing, study: { moderator_id: current_user.id }
     can :manage, Group, study: { moderator_id: current_user.id }
     can :manage, Study, moderator_id: current_user.id
     cannot :assign, Study

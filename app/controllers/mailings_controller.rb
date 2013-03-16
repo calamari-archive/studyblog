@@ -4,11 +4,10 @@ class MailingsController < ApplicationController
   before_filter :load_mailing_for_new, :only => :new
   before_filter :create_study, :only => :create
 
-  filter_access_to :all, :attribute_check => true
+  load_and_authorize_resource
 
   def show
     @mailing = Mailing.find(params[:id])
-    p @mailing
     render :action => :edit
   end
 

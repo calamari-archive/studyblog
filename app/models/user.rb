@@ -2,7 +2,7 @@ class BlogAlreadyExistsError < StandardError
 end
 
 class User < ActiveRecord::Base
-  ROLES = ['admin', 'moderator', 'spectator', 'participant']
+  ROLES = %w[admin moderator spectator participant]
   acts_as_authentic
 
   belongs_to :group
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :blog_comments, :class_name => 'Comment', :foreign_key => :author_id
 
   has_attached_file :image,
-                    :styles => { :original => '120x160>', :small => '22x30>', :medium => '45x60>' },
+                    :styles => { :original => '120x120>', :small => '30x30>', :medium => '60x60>' },
                     :url    => '/' + StudyBlog::Application.config.app_config['users']['image']['dir'] + '/:id-:style.:extension',
                     :path   => ":rails_root/public/" + StudyBlog::Application.config.app_config['users']['image']['dir'] + "/:id-:style.:extension"
 
@@ -50,10 +50,6 @@ class User < ActiveRecord::Base
     self.nickname || self.username
   end
 
-  def study #Why do I have to specify that?
-    self.group && self.group.study
-  end
-
   def create_blog
     raise BlogAlreadyExistsError.new if self.blog
 
@@ -83,20 +79,24 @@ class User < ActiveRecord::Base
     is_spectator? || is_participant?
   end
 
+  def is?(role)
+    self == role || self.role == role.to_s
+  end
+
   def is_participant?
-    self.role == 'participant'
+    is? :participant
   end
 
   def is_spectator?
-    self.role == 'spectator'
+    is? :spectator
   end
 
   def is_admin?
-    self.role == 'admin'
+    is? :admin
   end
 
   def is_moderator?
-    self.role == 'moderator'
+    is? :moderator
   end
 
   #TODO: test those two

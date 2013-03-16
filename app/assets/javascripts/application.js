@@ -10,3 +10,7 @@
 //= require ./utils/jquery.fade.js
 //= require ./controls/forms.js
 //= require ./deps/jquery.tooltip.min.js
+
+window.goTo = function(url) {
+  location.href = url;
+};

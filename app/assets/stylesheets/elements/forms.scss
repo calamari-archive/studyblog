@@ -35,6 +35,12 @@ textarea {
   padding: 6px 10px;
   width: 300px;
 }
+input.text,
+input[type=text],
+input[type=password],
+textarea {
+  border: 1px solid #999;
+}
 
 span.text,
 div.text {

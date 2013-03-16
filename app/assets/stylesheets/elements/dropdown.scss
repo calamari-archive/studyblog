@@ -28,6 +28,7 @@
   .dk_toggle {
     background: image_url('design/dropdown_arrows.png') no-repeat 95% center;
     border: $border-light;
+    min-width: 160px;
     padding: 4px 40px 4px 8px;
     text-shadow: #fff 1px 1px 0;
 

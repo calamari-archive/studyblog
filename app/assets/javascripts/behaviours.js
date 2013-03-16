@@ -65,8 +65,8 @@ $(document).ready(function() {
   $('select.dropdown').dropkick({
     theme: 'study',
     change: function(id) {
-      console.log(this, arguments, $(this).find("[value='" + id + "']"), id);
       $(this).find("[value='" + id + "']").attr("checked", "checked");
+      window.goTo('/studies/' + id);
     }
   });
 
@@ -76,7 +76,6 @@ $(document).ready(function() {
   $('body').on('click', '[data-clickarea]', function(event) {
     var target = $(event.target),
         div;
-        console.log(target.closest('a'));
     if (!target.closest('a').length) {
       div = target.closest('[data-clickarea]');
       location.href = div.attr('data-clickarea');

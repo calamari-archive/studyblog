@@ -26,6 +26,8 @@ class Ability
     can :manage, Mailing
     can :manage, Group
     can :manage, Study
+    # don't create topics in a study that is not yours
+    can :manage, Topic, study: { moderator_id: current_user.id }
   end
 
   def abilities_for_role_moderator(current_user)
@@ -43,6 +45,7 @@ class Ability
     can :manage, Group, study: { moderator_id: current_user.id }
     can :manage, Study, moderator_id: current_user.id
     cannot :assign, Study
+    can :manage, Topic, study: { moderator_id: current_user.id }
   end
 
   def abilities_for_role_spectator(current_user)

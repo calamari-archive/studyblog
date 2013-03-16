@@ -26,7 +26,7 @@ class Topic < ActiveRecord::Base
     self.module_type.gsub('Module', '').underscore if self.module_type
   end
 
-  protected
+  private
 
   def check_if_study_is_closed
     errors[:study] << I18n.t('topics.errors.study_ended') if self.study && self.study.has_ended?

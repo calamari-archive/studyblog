@@ -8,6 +8,7 @@ gem 'rails', '3.2.12'
 
 gem 'authlogic'
 gem 'declarative_authorization'
+gem 'cancan'
 
 gem 'sanitize'
 gem 'paperclip', '~> 3.1.2'
@@ -37,6 +38,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara', '~>1.1.2', :require => false
+  gem 'simplecov', :require => false
 end
 
 group :development, :test do

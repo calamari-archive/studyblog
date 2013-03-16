@@ -10,34 +10,11 @@ describe StudiesController do
     let(:own_study) { FactoryGirl.create(:study, :moderator => moderator) }
 
     context "if user is logged out" do
-      it "he can't reach studies#show" do
-        get :show, :id => study.id
-        should_access_deny(response)
-      end
-
-      it "he can't reach studies#index" do
-        get :index, :id => study.id
-        should_access_deny(response)
-      end
-
-      it "he can't reach studies#new" do
-        get :new, :id => study.id
-        should_access_deny(response)
-      end
-
-      it "he can't reach studies#create" do
-        get :create, :id => study.id
-        should_access_deny(response)
-      end
-
-      it "he can't reach studies#update" do
-        get :update, :id => study.id
-        should_access_deny(response)
-      end
-
-      it "he can't reach studies#destroy" do
-        get :destroy, :id => study.id
-        should_access_deny(response)
+      all_actions.each do |action|
+        it "can't reach studies##{action}" do
+          get action.to_sym, :id => own_study.id
+          should_access_deny(response)
+        end
       end
 
       it "he can't reach studies#assign" do

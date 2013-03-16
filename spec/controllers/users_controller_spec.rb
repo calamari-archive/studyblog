@@ -1,8 +1,33 @@
 require 'spec_helper'
 
 describe UsersController do
-  context "if we are logged out" do
+  context "Permissions" do
+    all_actions = %w{show index new create update destroy manage_participants manage_spectators deactivate reactivate profile}
+
+    let(:participant) { FactoryGirl.create(:participant) }
+    let(:moderator) { FactoryGirl.create(:moderator) }
+    let(:admin) { FactoryGirl.create(:admin) }
+
+    context "if user is logged out" do
+      all_actions.each do |action|
+        it "can't reach participant users##{action}" do
+          get action.to_sym, :id => participant.id
+          should_access_deny(response)
+        end
+
+        it "can't reach moderator users##{action}" do
+          get action.to_sym, :id => moderator.id
+          should_access_deny(response)
+        end
+
+        it "can't reach admin users##{action}" do
+          get action.to_sym, :id => admin.id
+          should_access_deny(response)
+        end
+      end
+    end
   end
+
 
   context "if we are logged in" do
     let(:current_user) { FactoryGirl.create(:moderator) }

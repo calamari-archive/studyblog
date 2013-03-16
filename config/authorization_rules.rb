@@ -23,13 +23,18 @@ authorization do
   role :admin do
     includes :registered_user
 
-    has_permission_on :users, :to => [:index, :show, :edit, :new, :manage_participants, :manage_spectators, :create, :destroy, :update, :deactivate, :reactivate, :profile]
+    has_permission_on :users, :to => [:manage, :manage_participants, :manage_spectators, :deactivate, :reactivate, :profile]
     has_permission_on :studies, :to => [:manage, :assign, :activate]
     has_permission_on :groups, :to => [:show, :edit, :new, :create, :destroy, :update]
     has_permission_on :blogs, :to => [:show]
 
-    has_permission_on :mailings, :to => [:show, :edit, :new, :create] do
+    has_permission_on :mailings, :to => [:show, :edit] do
       if_attribute :moderator => is { user }
+    end
+
+    has_permission_on :mailings, :to => [:new, :create] do
+      if_permitted_to :manage, :study
+      #if_attribute :study => { :moderator => is { user } }
     end
   end
 
@@ -55,8 +60,13 @@ authorization do
       if_attribute :study => { :moderator => is { user } }
     end
 
-    has_permission_on :mailings, :to => [:show, :edit, :new, :create] do
+    has_permission_on :mailings, :to => [:show, :edit] do
       if_attribute :moderator => is { user }
+    end
+
+    has_permission_on :mailings, :to => [:new, :create] do
+      if_permitted_to :manage, :study
+      #if_attribute :study => { :moderator => is { user } }
     end
   end
 

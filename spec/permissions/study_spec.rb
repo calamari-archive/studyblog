@@ -1,17 +1,17 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-describe "BlogEntry Permissions" do
+describe "Study Permissions" do
   let(:ability) { Ability.new(user) }
   subject { ability }
 
   context "no user" do
     let(:user){ nil }
 
-    it { should_not be_able_to(:create, BlogEntry) }
-    it { should_not be_able_to(:read, BlogEntry) }
-    it { should_not be_able_to(:update, BlogEntry) }
-    it { should_not be_able_to(:destroy, BlogEntry) }
+    it { should_not be_able_to(:create, Study) }
+    it { should_not be_able_to(:read, Study) }
+    it { should_not be_able_to(:update, Study) }
+    it { should_not be_able_to(:destroy, Study) }
   end
 
   context "admin user" do

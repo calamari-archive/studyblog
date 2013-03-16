@@ -8,19 +8,23 @@ FactoryGirl.define do
     active true
 
     factory :participant do
+      sequence(:username) {|n| "test_participant#{n}" }
       group_id { FactoryGirl.create(:group).id }
       role 'participant'
     end
 
     factory :moderator do
+      sequence(:username) {|n| "test_mod#{n}" }
       role 'moderator'
     end
 
     factory :admin do
+      sequence(:username) {|n| "test_admin#{n}" }
       role 'admin'
     end
 
     factory :spectator do
+      sequence(:username) {|n| "test_spectator#{n}" }
       group { FactoryGirl.create(:group) }
       role 'spectator'
     end

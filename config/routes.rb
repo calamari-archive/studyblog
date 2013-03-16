@@ -60,8 +60,8 @@ StudyBlog::Application.routes.draw do
 
   resources :users do
     member do
-      get :reactivate
-      get :deactivate
+      put :reactivate
+      put :deactivate
     end
   end
   match '/setup'   => "users#setup",   :as => "setup_user", :method => [:get, :post]

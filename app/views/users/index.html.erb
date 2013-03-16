@@ -23,9 +23,9 @@
         <td><%= link_to t('actions.edit'), edit_user_path(user) %></td>
         <td>
           <% if user.active %>
-            <%= link_to t('actions.deactivate'), deactivate_user_path(user), :confirm => t('dialogs.deactivate.user'), :method => :post if !user.is_admin? %>
+            <%= link_to t('actions.deactivate'), deactivate_user_path(user), :confirm => t('dialogs.deactivate.user'), :method => :put if !user.is_admin? %>
           <% else %>
-            <%= link_to t('actions.reactivate'), reactivate_user_path(user), :confirm => t('dialogs.reactivate.user'), :method => :post if !user.is_admin? %>
+            <%= link_to t('actions.reactivate'), reactivate_user_path(user), :confirm => t('dialogs.reactivate.user'), :method => :put if !user.is_admin? %>
           <% end %>
         </td>
       </tr>

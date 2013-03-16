@@ -180,6 +180,7 @@ class UsersController < ApplicationController
 
   def deactivate
     @user = User.find(params[:id])
+    authorize! :deactivate, @user
     @user.active = false
 
     if @user.save
@@ -191,12 +192,13 @@ class UsersController < ApplicationController
 
   def reactivate
     @user = User.find(params[:id])
+    authorize! :reactivate, @user
     @user.active = true
 
     if @user.save
       redirect_to users_path, :notice => I18n.t('users.messages.reactivated')
     else
-      redirect_to users_path,  :error  => I18n.t('users.messages.reactivation_failed')
+      redirect_to users_path, :error  => I18n.t('users.messages.reactivation_failed')
     end
   end
 

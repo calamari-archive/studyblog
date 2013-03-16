@@ -1,6 +1,6 @@
 class StartpageController < ApplicationController
-  filter_access_to :all
   skip_filter :check_if_participant_and_study_has_ended, :only => :ended
+  skip_authorization_check
 
   def index
     if !current_user

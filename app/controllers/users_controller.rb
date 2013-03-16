@@ -1,7 +1,7 @@
 require 'mail'
 
 class UsersController < ApplicationController
-  filter_access_to :all, :attribute_check => true
+  load_and_authorize_resource
 
   helper_method :is_me?
 
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = params[:id] ? User.find(params[:id]) : current_user
+    @user = params[:id].present? ? User.find(params[:id]) : current_user
     # for getting group participant list
     @group = @user.group if @user.is_participant?
 
@@ -25,7 +25,9 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = params[:id] ? User.find(params[:id]) : current_user
+    @user = params[:id].present? ? User.find(params[:id]) : current_user
+    authorize! :read, @user
+
     if @user.update_attributes(params[:user])
       respond_to do |format|
         format.html do

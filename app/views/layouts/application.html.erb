@@ -35,7 +35,7 @@
         <%- end -%>
         <li><%=t 'application.header.loggedin_as' %> <%= link_to current_user.firstname || current_user.name, profile_path %></li>
         <li><%= link_to t('application.header.logout'), logout_path %></li>
-      <%- else -%>
+      <%- elsif !defined? @is_login_page -%>
         <li><%= link_to t('application.header.login'), login_path %></li>
       <%- end -%>
     </ul>

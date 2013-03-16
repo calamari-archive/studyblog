@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  # check if every sub controller has authorization defined
+  check_authorization
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404 unless Rails.env.development?
 

@@ -1,12 +1,11 @@
 class ConversationsController < ApplicationController
-  filter_access_to :all, :attribute_check => true
+  load_and_authorize_resource
 
   def index
-    @conversations = Conversation.of(current_user).includes(:usera).includes(:userb)
+    @conversations = @conversations.of(current_user).includes(:usera).includes(:userb)
   end
 
   def show
-    @conversation = Conversation.find(params[:id])
     @messages = @conversation.messages
     @user = recipient_of_conversation(@conversation)
     @conversation.read_by!(current_user)
@@ -27,8 +26,10 @@ class ConversationsController < ApplicationController
     show_new_and_reply
   end
 
+  #TODO: I have the feeling that this could move in a MessageController class
   def reply
     @conversation = Conversation.find(params[:id])
+    authorize! :reply, @conversation
     if request.method == "POST"
       @message = Message.new(:content => params[:conversation][:content], :author => current_user)
       @message.conversation = @conversation

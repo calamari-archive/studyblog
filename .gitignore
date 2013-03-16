@@ -17,3 +17,5 @@
 /log/*.log
 /tmp
 public/images/profile/*
+
+/coverage

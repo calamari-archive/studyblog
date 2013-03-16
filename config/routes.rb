@@ -35,7 +35,8 @@ StudyBlog::Application.routes.draw do
 
   resources :mailings do
     member do
-      match :save, :method => [:get, :post]
+      get :save
+      post :save
     end
   end
 

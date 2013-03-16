@@ -68,6 +68,7 @@ module StudyBlog
 
     config.app_config = YAML.load_file("#{::Rails.root.to_s}/config/config.yml")
 
+    # TODO: MAybe move that into an initializer or config?
     config.Sanitize = {
       :startpage => {
         :elements => %w(h1 h2 h3 h4 h5 h6 p img span a em strong ul ol li blockquote),

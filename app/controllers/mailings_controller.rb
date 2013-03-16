@@ -1,33 +1,27 @@
 class MailingsController < ApplicationController
+  before_filter :load_study, :except => :save
+  before_filter :check_study_status, :except => :save
+  before_filter :load_mailing_for_new, :only => :new
+  before_filter :create_study, :only => :create
+
   filter_access_to :all, :attribute_check => true
 
   def show
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
     @mailing = Mailing.find(params[:id])
+    p @mailing
     render :action => :edit
   end
 
   def new
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
     @available_mailings = [[t('mailings.load_form.no_mailing_selected'), '']] |
       Mailing.all_of_owner(current_user).map {|mailing| [mailing.name, mailing.id] }
 
     if (@study.mailing_defined?)
-      @mailing = @study.mailing
       render :action => :edit
-    else
-      @mailing = Mailing.new
     end
   end
 
   def edit
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
     @mailing = Mailing.find(params[:id])
 
     @available_mailings = [[t('mailings.load_form.no_mailing_selected'), '']] |
@@ -35,15 +29,10 @@ class MailingsController < ApplicationController
   end
 
   def create
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
-    @mailing = Mailing.new(params[:mailing])
     @mailing.study = @study
 
     params[:mailing].each {|key, value| @mailing[key] = value }
     if send_testmail(params)
-
       flash[:notice] = t('mailings.messages.testmail_send')
       render :action => :new
     elsif @mailing.save
@@ -53,6 +42,7 @@ class MailingsController < ApplicationController
     end
   end
 
+  # TODO: Why was here GET allowed?
   def save
     @mailing = Mailing.find(params[:id])
 
@@ -72,19 +62,12 @@ class MailingsController < ApplicationController
   end
 
   def load
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
-    @loaded_mailing = Mailing.find(params[:mailing])
-    @study.mailing = Mailing.new :text => @loaded_mailing.text
+    @study.mailing = Mailing.new :text => @mailing.text
     @study.save
     redirect_to edit_study_mailing_path(@study, @study.mailing), :notice => I18n.t('mailings.messages.loaded')
   end
 
   def update
-    @study = Study.find(params[:study_id])
-    return if check_study_status(@study)
-
     @mailing = Mailing.find(params[:id])
 
     params[:mailing].each {|key, value| @mailing[key] = value }
@@ -101,6 +84,27 @@ class MailingsController < ApplicationController
 
   protected
 
+    def load_study
+      @study = Study.find(params[:study_id])
+      p @study
+    end
+
+    def create_study
+      @mailing = Mailing.new(params[:mailing])
+    end
+
+    def load_mailing_for_new
+      if (@study.mailing_defined?)
+        @mailing = @study.mailing
+      else
+        @mailing = Mailing.new
+      end
+    end
+
+    def load_mailing_for_load
+      @mailing = Mailing.find(params[:mailing])
+    end
+
     def send_testmail(params)
       if params[:testmail]
         user = @study.moderator
@@ -114,12 +118,11 @@ class MailingsController < ApplicationController
       end
     end
 
-    def check_study_status(study)
+    def check_study_status
       #TODO: test this switch
-      if study.is_activated?
+      if @study.is_activated?
         flash[:alert] = I18n.t('mailings.messages.study_already_activated')
         redirect_to study_url(study)
-        return true
       end
     end
 end

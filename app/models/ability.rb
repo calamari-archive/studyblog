@@ -22,6 +22,7 @@ class Ability
 
   def abilities_for_role_admin(current_user)
     can :manage, User
+    can :read, Blog
   end
 
   def abilities_for_role_moderator(current_user)
@@ -32,6 +33,10 @@ class Ability
     end
     # THIS does NOT handle destroying of not own spectators or participants
     can [:new_spectator, :create_spectator, :destroy_spectator, :new_participant, :create_participant, :destroy_participant], User
+
+    can :read, Blog do |blog|
+      blog.study.moderator.is?(current_user)
+    end
   end
 
   def abilities_for_role_spectator(current_user)
@@ -39,6 +44,10 @@ class Ability
       user.is?(current_user) ||
         user.is?(:participant) &&
         current_user.study.participants.map(&:id).include?(user.id)
+    end
+
+    can :read, Blog do |blog|
+      blog.study.id == current_user.study.id
     end
   end
 
@@ -50,5 +59,8 @@ class Ability
         current_user.group.can_user_see_eachother == true &&
         current_user.group.participants.include?(current_user)
     end
+
+    can :read, Blog, group_id: current_user.group_id
+    cannot :read, Blog, group: { can_user_see_eachother: false }
   end
 end

@@ -11,13 +11,13 @@ describe "Blog Permissions" do
     it { should_not be_able_to(:create, Blog) }
     it { should_not be_able_to(:read, Blog) }
     it { should_not be_able_to(:update, Blog) }
-    it { should_not be_able_to(:delete, Blog) }
+    it { should_not be_able_to(:destroy, Blog) }
   end
 
   context "admin user" do
     let(:user) { FactoryGirl.create :admin }
 
-    %w[create update delete].each do |action|
+    %w[create update destroy].each do |action|
       it { should_not be_able_to(action.to_sym, Blog) }
     end
 
@@ -31,7 +31,7 @@ describe "Blog Permissions" do
     let(:blog) { FactoryGirl.create :blog, group_id: own_group.id }
     let(:another_blog) { FactoryGirl.create :blog }
 
-    %w[create update delete].each do |action|
+    %w[create update destroy].each do |action|
       it { should_not be_able_to(action.to_sym, Blog) }
     end
 
@@ -45,7 +45,7 @@ describe "Blog Permissions" do
     let(:blog) { FactoryGirl.create :blog, group_id: own_group.id }
     let(:another_blog) { FactoryGirl.create :blog }
 
-    %w[create update delete].each do |action|
+    %w[create update destroy].each do |action|
       it { should_not be_able_to(action.to_sym, Blog) }
     end
 
@@ -58,7 +58,7 @@ describe "Blog Permissions" do
     let(:blog) { FactoryGirl.create :blog, group_id: user.group.id }
     let(:another_blog) { FactoryGirl.create :blog }
 
-    %w[create update delete].each do |action|
+    %w[create update destroy].each do |action|
       it { should_not be_able_to(action.to_sym, Blog) }
     end
 

@@ -13,13 +13,13 @@ describe "User Permissions" do
     it { should_not be_able_to(:create, User) }
     it { should_not be_able_to(:read, User) }
     it { should_not be_able_to(:update, User) }
-    it { should_not be_able_to(:delete, User) }
+    it { should_not be_able_to(:destroy, User) }
   end
 
   context "admin user" do
     let(:user) { FactoryGirl.create :admin }
 
-    %w[create read update delete new_participant create_participant
+    %w[create read update destroy new_participant create_participant
        destroy_participant new_spectator create_spectator destroy_spectator
        deactivate reactivate].each do |action|
       it { should be_able_to(action.to_sym, User) }
@@ -39,7 +39,7 @@ describe "User Permissions" do
     let(:user) { FactoryGirl.create :moderator }
     let(:another_mod) { FactoryGirl.create :moderator }
 
-    %w[create delete deactivate reactivate].each do |action|
+    %w[create destroy deactivate reactivate].each do |action|
       it { should_not be_able_to(action.to_sym, User) }
     end
 
@@ -69,7 +69,7 @@ describe "User Permissions" do
     let(:participant_in_another_study) { FactoryGirl.create :participant }
     let(:another_spectator) { FactoryGirl.create :spectator, group_id: group.id }
 
-    %w[create delete new_participant create_participant
+    %w[create destroy new_participant create_participant
        destroy_participant new_spectator create_spectator destroy_spectator
        deactivate reactivate].each do |action|
       it { should_not be_able_to(action.to_sym, User) }
@@ -96,7 +96,7 @@ describe "User Permissions" do
     let(:another_user_different_group) { FactoryGirl.create :participant }
     let(:spectator) { FactoryGirl.create :spectator, group_id: group.id }
 
-    %w[create delete new_participant create_participant
+    %w[create destroy new_participant create_participant
        destroy_participant new_spectator create_spectator destroy_spectator
        deactivate reactivate].each do |action|
       it { should_not be_able_to(action.to_sym, User) }

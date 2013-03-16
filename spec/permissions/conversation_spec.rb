@@ -34,9 +34,9 @@ describe "Conversation Permissions" do
       it { should be_able_to(:reply, my_conversation) }
       it { should_not be_able_to(:reply, other_conversation) }
 
-      it { should_not be_able_to(:delete, my_conversation) }
-      it { should_not be_able_to(:delete, my_conversation) }
-      it { should_not be_able_to(:delete, other_conversation) }
+      it { should_not be_able_to(:destroy, my_conversation) }
+      it { should_not be_able_to(:destroy, my_conversation) }
+      it { should_not be_able_to(:destroy, other_conversation) }
     end
   end
 end

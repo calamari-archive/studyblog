@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  filter_access_to :all, :attribute_check => true
+  load_and_authorize_resource
 
   def index
     @blogs = Blog.all

@@ -1,5 +1,5 @@
 class BlogEntriesController < ApplicationController
-  filter_access_to :all, :attribute_check => true
+  load_and_authorize_resource
 
   def show
     @blog_entry = BlogEntry.find(params[:id])

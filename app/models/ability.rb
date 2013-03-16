@@ -13,9 +13,7 @@ class Ability
 
   def abilities_for_every_user(current_user)
     can :create, Conversation
-    can [:read, :update, :reply], Conversation do |conversation|
-      conversation.usera == current_user || conversation.userb == current_user
-    end
+    can [:read, :update, :reply], Conversation.of(current_user)
 
     can :update, User, :id => current_user.id
   end
@@ -23,6 +21,8 @@ class Ability
   def abilities_for_role_admin(current_user)
     can :manage, User
     can :read, Blog
+    can :read, BlogEntry
+    can :destroy, BlogEntry
   end
 
   def abilities_for_role_moderator(current_user)
@@ -34,9 +34,8 @@ class Ability
     # THIS does NOT handle destroying of not own spectators or participants
     can [:new_spectator, :create_spectator, :destroy_spectator, :new_participant, :create_participant, :destroy_participant], User
 
-    can :read, Blog do |blog|
-      blog.study.moderator.is?(current_user)
-    end
+    can :read, Blog, study: { moderator_id: current_user.id }
+    can [:read, :destroy], BlogEntry, study: { moderator_id: current_user.id }
   end
 
   def abilities_for_role_spectator(current_user)
@@ -46,9 +45,8 @@ class Ability
         current_user.study.participants.map(&:id).include?(user.id)
     end
 
-    can :read, Blog do |blog|
-      blog.study.id == current_user.study.id
-    end
+    can :read, Blog, study: { id: current_user.study.id }
+    can :read, BlogEntry, study: { id: current_user.study.id }
   end
 
   def abilities_for_role_participant(current_user)
@@ -62,5 +60,9 @@ class Ability
 
     can :read, Blog, group_id: current_user.group_id
     cannot :read, Blog, group: { can_user_see_eachother: false }
+
+    can :read, BlogEntry, group: { id: current_user.group_id }
+    cannot :read, BlogEntry, group: { can_user_see_eachother: false }
+    can :manage, BlogEntry, blog: { user_id: current_user.id }
   end
 end

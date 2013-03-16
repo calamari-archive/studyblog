@@ -1,5 +1,5 @@
 class HelpController < ApplicationController
-  filter_access_to :all
+  skip_authorization_check
 
   def index
     @private_message = PrivateMessage.new

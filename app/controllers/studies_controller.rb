@@ -1,9 +1,9 @@
 class StudiesController < ApplicationController
   before_filter :get_study, :only => [:assign, :activate]
-  filter_access_to :index
-  filter_access_to [:show, :new, :edit, :create, :update, :destroy, :assign, :activate], :attribute_check => true
+  load_and_authorize_resource
 
   def index
+    # TODO: maybe load resource from cancan is enough here?
     if (current_user.is_admin?)
       @studies = Study.all
     else

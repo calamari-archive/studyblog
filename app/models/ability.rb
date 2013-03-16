@@ -23,6 +23,7 @@ class Ability
     can :read, Blog
     can :read, BlogEntry
     can :destroy, BlogEntry
+    can :manage, Study
   end
 
   def abilities_for_role_moderator(current_user)
@@ -36,6 +37,8 @@ class Ability
 
     can :read, Blog, study: { moderator_id: current_user.id }
     can [:read, :destroy], BlogEntry, study: { moderator_id: current_user.id }
+    can :manage, Study, moderator_id: current_user.id
+    cannot :assign, Study
   end
 
   def abilities_for_role_spectator(current_user)

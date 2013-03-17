@@ -21,8 +21,8 @@ class Ability
   def abilities_for_role_admin(current_user)
     can :manage, User
     can :read, Blog
-    can :read, BlogEntry
-    can :destroy, BlogEntry
+    can [:read, :destroy], BlogEntry
+    can [:read, :destroy], Comment
     can :manage, Mailing
     can :manage, Group
     can :manage, Study
@@ -41,6 +41,7 @@ class Ability
 
     can :read, Blog, study: { moderator_id: current_user.id }
     can [:read, :destroy], BlogEntry, study: { moderator_id: current_user.id }
+    can :manage, Comment, study: { moderator_id: current_user.id }, group: { are_commentable: true }
     can :manage, Mailing, study: { moderator_id: current_user.id }
     can :manage, Group, study: { moderator_id: current_user.id }
     can :manage, Study, moderator_id: current_user.id
@@ -57,6 +58,7 @@ class Ability
 
     can :read, Blog, study: { id: current_user.study.id }
     can :read, BlogEntry, study: { id: current_user.study.id }
+    can :read, Comment, blog: { group: { study: { id: current_user.study.id } } }
   end
 
   def abilities_for_role_participant(current_user)
@@ -71,8 +73,10 @@ class Ability
     can :read, Blog, group_id: current_user.group_id
     cannot :read, Blog, group: { can_user_see_eachother: false }
 
-    can :read, BlogEntry, group: { id: current_user.group_id }
-    cannot :read, BlogEntry, group: { can_user_see_eachother: false }
-    can :manage, BlogEntry, blog: { user_id: current_user.id }
+    can :read, [BlogEntry, Comment], group: { id: current_user.group_id }
+    cannot :read, [BlogEntry, Comment], group: { can_user_see_eachother: false }
+    can :manage, [BlogEntry], blog: { user_id: current_user.id }
+    can :manage, Comment, author_id: current_user.id
+
   end
 end

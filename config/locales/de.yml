@@ -131,6 +131,7 @@ de:
     delete:
       study:           "Studie wirklich löschen?"
       group:           "Gruppe wirklich löschen?"
+      topic:           "Topic wirklich löschen?"
       private_message: "Nachricht wirklich löschen?"
       spectator:       "Zuschauer wirklich löschen?"
       participant:     "Teilnehmer wirklich löschen?"
@@ -216,6 +217,7 @@ de:
         header:        "Thema:"
         add:           "Thema erstellen"
         change:        "Neues Thema erstellen"
+        delete:        "löschen"
       participants:
         blog:            "Blog"
         never_logged_in: "Noch nicht angemeldet"
@@ -357,8 +359,10 @@ de:
       header: "Neues Thema erstellen:"
       or:     "oder als"
     messages:
-      created: "Thema wurde hinzugefügt."
-      creation_failed: "Thema konnte nicht hinzugefügt werden. Grund: \"%{reason}\""
+      created:             "Thema wurde hinzugefügt."
+      creation_failed:     "Thema konnte nicht hinzugefügt werden. Grund: \"%{reason}\""
+      deleted:             "Theme wurde gelöscht."
+      not_deleted_started: "Theme konnte nicht gelöscht werden, da die Studie bereits läuft."
     attributes:
       title: "Titel"
       description: "Beschreibung"

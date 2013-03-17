@@ -139,7 +139,10 @@
       <% if group.topics %>
         <ul>
           <% group.topics.each do |topic| %>
-            <li<% unless topic.description.blank? %> data-tooltip="<%= topic.description %>"<% end %>><%= topic.title %></li>
+            <li<% unless topic.description.blank? %> data-tooltip="<%= topic.description %>"<% end %>>
+              <%= topic.title %>
+              <%= link_to t('.topics.delete'), group_topic_path(group, topic), :confirm => t('dialogs.delete.topic'), :method => :delete, :class => 'action-icon actions-delete-icon' if can?(:destroy, topic) && !topic.study.has_started? %>
+            </li>
           <% end %>
         </ul>
       <% end %>

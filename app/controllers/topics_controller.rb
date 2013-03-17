@@ -11,7 +11,6 @@ class TopicsController < ApplicationController
       return
     end
     @group = Group.find(params[:group_id])
-    @topic = Topic.new(params[:topic])
     @topic.group = @group
 
     if @topic.save
@@ -20,6 +19,16 @@ class TopicsController < ApplicationController
       flash[:alert] = t('topics.messages.creation_failed', :reason => @topic.errors.first[1])
     end
     redirect_to @group.study
+  end
+
+  def destroy
+    if topic.study.has_started?
+      redirect_to study_url(@topic.study), :notice => I18n.t("topics.messages.not_deleted_started")
+    else
+      @topic.destroy
+
+      redirect_to study_url(@topic.study), :notice => I18n.t("topics.messages.deleted")
+    end
   end
 
   helper_method :available_blog_modules
